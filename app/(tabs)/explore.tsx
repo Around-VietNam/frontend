@@ -6,6 +6,8 @@ import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Button } from '@/components/ui/button';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function TabTwoScreen() {
   return (
@@ -15,6 +17,16 @@ export default function TabTwoScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
+      <Button
+        action='primary'
+        onPress={() => {
+          console.log('Open drawer');
+        }}
+      >
+        <Ionicons name="menu" size={24} />
+        <AntDesign name="arrowright" size={24} />
+        Open Drawer
+      </Button>
       <ThemedText>This app includes example code to help you get started.</ThemedText>
       <Collapsible title="File-based routing">
         <ThemedText>

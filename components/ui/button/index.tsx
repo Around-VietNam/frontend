@@ -35,6 +35,7 @@ type IPrimitiveIcon = React.ComponentPropsWithoutRef<typeof Svg> & {
   color?: string;
   size?: number | string;
   stroke?: string;
+  radius?: "sm" | "md" | "lg" | "full";
   as?: React.ElementType;
   className?: string;
   classNameColor?: string;
@@ -121,7 +122,7 @@ cssInterop(PrimitiveIcon, {
 });
 
 const buttonStyle = tva({
-  base: 'group/button rounded bg-primary-500 flex-row items-center justify-center data-[focus-visible=true]:web:outline-none data-[focus-visible=true]:web:ring-2 data-[disabled=true]:opacity-40 gap-2',
+  base: 'group/button rounded-full bg-primary-500 flex-row items-center justify-center data-[focus-visible=true]:web:outline-none data-[focus-visible=true]:web:ring-2 data-[disabled=true]:opacity-40 gap-2 h-fit',
   variants: {
     action: {
       primary:
@@ -146,8 +147,15 @@ const buttonStyle = tva({
       xs: 'px-3.5 h-8',
       sm: 'px-4 h-9',
       md: 'px-5 h-10',
-      lg: 'px-6 h-11',
+      lg: 'px-6 h-fit py-3',
       xl: 'px-7 h-12',
+    },
+
+    radius: {
+      sm: 'rounded-sm',
+      md: 'rounded-md',
+      lg: 'rounded-lg',
+      full: 'rounded-full',
     },
   },
   compoundVariants: [
