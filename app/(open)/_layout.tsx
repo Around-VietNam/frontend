@@ -14,6 +14,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { App } from '@/constants/App';
 import Carousel from 'react-native-reanimated-carousel';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { Box } from '@/components/ui/box';
 
 const coverImages = [
     require('@/assets/images/ninh-binh.jpg'),
@@ -25,7 +26,7 @@ export default function OpenLayout() {
 
     return (
         <GluestackUIProvider mode='dark'>
-            <VStack style={styles.container}>
+            <VStack className='box-content w-full flex-1 p-4 justify-start' space='lg'>
                 <ThemedView style={styles.carousel}>
                     <Carousel
                         width={width}
@@ -43,12 +44,13 @@ export default function OpenLayout() {
                         )}
                     />
                 </ThemedView>
-                <VStack style={styles.welcomeContainer}>
+                <VStack className='flex-1 w-full items-center justify-center'>
                     <Text size='sm' className='text-typography-900 font-md'>Version {App.version}</Text>
                     <Text size='4xl' className='text-typography-900 font-semibold capitalize text-center'>{App.name}</Text>
                     <Text
                         size='md'
-                        className='text-typography-900 font-extralight' style={{
+                        className='text-typography-900 font-extralight'
+                        style={{
                             textAlign: 'center',
                             paddingHorizontal: 16,
                         }}
@@ -56,32 +58,20 @@ export default function OpenLayout() {
                         {App.welcomeText}
                     </Text>
                 </VStack>
-                <Slot />
-                
+                <Box className='w-full flex-1'>
+                    <Slot />
+                </Box>
             </VStack>
         </GluestackUIProvider>
     );
 }
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        padding: 0,
-        paddingVertical: 16,
-        backgroundColor: '#3f51b5',
-        height: '100%',
-        width: '100%',
-    },
     image: {
         width: '100%',
         height: '100%',
-    },
-
-    // Welcome Styles
-    welcomeContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 64,
-        paddingHorizontal: 16,
+        
+        // decrease brightness
+        opacity: 0.9,
     },
 
     // Carousel Styles
@@ -90,12 +80,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         zIndex: -1,
-    },
-
-    stepContainer: {
-        backgroundColor: 'transparent',
-        gap: 8,
-        marginBottom: 8,
     },
 });
 
