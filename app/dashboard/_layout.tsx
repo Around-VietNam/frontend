@@ -74,7 +74,12 @@ function MyTabBar({ state, descriptors, navigation }: any) {
 
 export default function TabLayout() {
   return (
-    <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
+    <Tab.Navigator
+      tabBar={props => <MyTabBar {...props} />}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
       <Tab.Screen name="Landmark" component={LandmarkScreen} options={{ title: 'Landmark' }} />
       <Tab.Screen name="Cursine" component={CursineScreen} options={{ title: 'Cursine' }} />
@@ -90,11 +95,11 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 32,
-    bottom: 32, 
-    
+    bottom: 32,
+
     padding: 4,
-    borderRadius: 999, 
-    backgroundColor: '#181718', 
+    borderRadius: 999,
+    backgroundColor: '#181718',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 999,
     marginHorizontal: 4,
-    height: 66, 
+    height: 66,
   },
   customButtonActive: {
     backgroundColor: '#292929',
