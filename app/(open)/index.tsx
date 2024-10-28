@@ -1,5 +1,5 @@
 import { VStack } from '@/components/ui/vstack';
-import { Image, StyleSheet, useWindowDimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { ButtonText } from '@/components/ui/button';
@@ -8,18 +8,18 @@ import { Text } from '@/components/ui/text';
 import { Divider } from '@/components/ui/divider';
 import { HStack } from '@/components/ui/hstack';
 import { router } from 'expo-router';
+import { App } from '@/constants/App';
 
 export default function OpenScreen() {
-    const { width, height } = useWindowDimensions();
-
     return (
-        <VStack className='h-fit w-full'>
+        <VStack className='flex-1 px-4'>
             <VStack
-                className='justify-center items-center w-full h-full py-4'
+                className='justify-center items-center w-full flex-1 py-4'
+                space='md'
             >
                 <VStack
                     space='md'
-                    className='justify-center items-center w-full'
+                    className='justify-center items-center w-full h-fit'
                 >
                     <Button
                         size='lg'
@@ -44,7 +44,7 @@ export default function OpenScreen() {
                     </Button>
                 </VStack>
                 <VStack
-                    className='justify-center items-center w-full px-4'
+                    className='justify-center items-center w-full h-fit'
                 >
                     <HStack className='justify-center items-center w-full' space='md'>
                         <Divider className='w-32 bg-white' />
