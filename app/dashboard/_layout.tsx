@@ -1,56 +1,115 @@
-import { Tabs } from 'expo-router';
 import React from 'react';
-
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import HomeScreen from '.';
+import LandmarkScreen from './landmark';
+import CursineScreen from './cursine';
+import FavoriteScreen from './favorite';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const Tab = createBottomTabNavigator();
 
+function MyTabBar({ state, descriptors, navigation }: any) {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="landmark"
-        options={{
-          title: 'Landmark',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'map' : 'map-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="cursine"
-        options={{
-          title: 'Cursine',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'fast-food' : 'fast-food-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="favorite"
-        options={{
-          title: 'Favorite',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'heart' : 'heart-outline'} color={color} />
-          ),
-        }}
-      />
-        
-    </Tabs>
+    <View style={styles.tabBar}>
+      {state.routes.map((route: any, index: number) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+              ? options.title
+              : route.name;
+
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name, route.params);
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
+        let iconName;
+        if (route.name === 'Home') {
+          iconName = isFocused ? 'home' : 'home-outline';
+        } else if (route.name === 'Landmark') {
+          iconName = isFocused ? 'map' : 'map-outline';
+        } else if (route.name === 'Cursine') {
+          iconName = isFocused ? 'fast-food' : 'fast-food-outline';
+        } else if (route.name === 'Favorite') {
+          iconName = isFocused ? 'heart' : 'heart-outline';
+        }
+
+        return (
+          <TouchableOpacity
+            key={route.key}
+            accessibilityRole="button"
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={[styles.customButton, isFocused && styles.customButtonActive]}
+          >
+            <TabBarIcon name={iconName as any} color={isFocused ? '#fff' : '#8C8C8C'} size={24} />
+          </TouchableOpacity>
+        );
+      })}
+    </View>
   );
 }
+
+export default function TabLayout() {
+  return (
+    <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
+      <Tab.Screen name="Landmark" component={LandmarkScreen} options={{ title: 'Landmark' }} />
+      <Tab.Screen name="Cursine" component={CursineScreen} options={{ title: 'Cursine' }} />
+      <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ title: 'Favorite' }} />
+    </Tab.Navigator>
+  );
+}
+
+const styles = StyleSheet.create({
+  tabBar: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 32,
+    bottom: 32, 
+    
+    padding: 4,
+    borderRadius: 999, 
+    backgroundColor: '#181718', 
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  customButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 999,
+    marginHorizontal: 4,
+    height: 66, 
+  },
+  customButtonActive: {
+    backgroundColor: '#292929',
+  },
+});
