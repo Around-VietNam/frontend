@@ -4,13 +4,15 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
+import { DashboardHeader } from '@/app/dashboard/components/DashboardHeader';
+import { SearchInput } from './components/SearchInput';
 
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
       header={<DashboardHeader />}
     >
+      <SearchInput />
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />

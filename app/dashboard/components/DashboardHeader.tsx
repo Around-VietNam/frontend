@@ -1,15 +1,15 @@
 import { ViewProps } from "react-native";
 import { HStack } from "@/components/ui/hstack";
-import { UserAccordition } from "./UserAccordition";
 import { Menu, MenuItem, MenuItemLabel } from "@/components/ui/menu";
-import { ButtonText, Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Ionicons } from "@expo/vector-icons";
+import { UserAccordition } from "./UserAccordition";
 
 interface DashboardHeaderProps extends ViewProps {
 }
 export function DashboardHeader(props: DashboardHeaderProps) {
     return (
-        <HStack {...props} className='items-center justify-between py-4'>
+        <HStack {...props} className='items-center justify-between py-4 h-fit'>
             <UserAccordition />
             <Menu
                 placement="bottom right"
