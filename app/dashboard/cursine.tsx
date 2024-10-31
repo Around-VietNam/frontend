@@ -6,9 +6,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 export default function CursineScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
+    <ParallaxScrollView>
 
     </ParallaxScrollView>
   );
