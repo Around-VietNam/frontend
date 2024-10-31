@@ -38,12 +38,13 @@ const styles = StyleSheet.create({
   header: {
     height: 'auto',
     overflow: 'hidden',
-    margin: 32,
+    marginHorizontal: 16,
+    marginTop: 32,
   },
   content: {
     flex: 1,
-    padding: 32,
-    gap: 16,
+    gap: 32,
+    marginHorizontal: 16,
     overflow: 'hidden',
   },
 });

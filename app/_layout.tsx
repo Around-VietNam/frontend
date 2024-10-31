@@ -1,3 +1,5 @@
+import { I18nextProvider } from 'react-i18next';
+import i18n from '@/assets/i18n/config';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
@@ -8,6 +10,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { LocationProvider } from '@/contexts/location';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,18 +32,22 @@ export default function RootLayout() {
   }
 
   return (
-    <GluestackUIProvider mode="light">
-      <ThemeProvider value={DefaultTheme}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-          <Stack.Screen name="(open)" />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ThemeProvider>
-    </GluestackUIProvider>
+    <I18nextProvider i18n={i18n}>
+      <GluestackUIProvider mode="light">
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <LocationProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+              <Stack.Screen name="(open)" />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </LocationProvider>
+        </ThemeProvider>
+      </GluestackUIProvider>
+    </I18nextProvider>
   );
 }
