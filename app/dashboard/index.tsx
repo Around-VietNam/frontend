@@ -8,6 +8,7 @@ import { DashboardHeader } from '@/app/dashboard/components/DashboardHeader';
 import { SearchInput } from './components/SearchInput';
 import { LandmarkViewCard } from '@/components/landmark';
 import { CursineViewCard } from '@/components/cursine/CursineViewCard';
+import { UserReviewCard } from '@/components/user/UserReviewCard';
 
 export default function HomeScreen() {
   return (
@@ -28,6 +29,18 @@ export default function HomeScreen() {
         cursine={{
           name: 'Cursine Name',
           image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        }}
+      />
+      <UserReviewCard
+        review={{
+          user: {
+            name: 'Jane Doe',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+          },
+          vote: 4,
+          review: 'Great place to visit!',
+          created_at: '2021-10-10',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc ultricies aliquam. Nullam nec purus nec nunc ultricies aliquam.',
         }}
       />
       <ThemedView style={styles.titleContainer}>
