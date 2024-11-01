@@ -9,6 +9,8 @@ import { SearchInput } from './components/SearchInput';
 import { LandmarkViewCard } from '@/components/landmark';
 import { CursineViewCard } from '@/components/cursine/CursineViewCard';
 import { UserReviewCard } from '@/components/user/UserReviewCard';
+import { HStack } from '@/components/ui/hstack';
+import { CategoryBadge } from '@/components/badge';
 
 export default function HomeScreen() {
   return (
@@ -43,6 +45,22 @@ export default function HomeScreen() {
           content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc ultricies aliquam. Nullam nec purus nec nunc ultricies aliquam.',
         }}
       />
+      <UserReviewCard
+        review={{
+          user: {
+            name: 'Jane Doe',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+          },
+          vote: 2,
+          review: 'Great place to visit!',
+          created_at: '2021-10-10',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc ultricies aliquam. Nullam nec purus nec nunc ultricies aliquam.',
+        }}
+      />
+      <HStack space='md'>
+        <CategoryBadge category='landmark' />
+        <CategoryBadge category='cursine' />
+      </HStack>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
