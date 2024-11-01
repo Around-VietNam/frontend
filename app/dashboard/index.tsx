@@ -6,6 +6,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { DashboardHeader } from '@/app/dashboard/components/DashboardHeader';
 import { SearchInput } from './components/SearchInput';
+import { LandmarkViewCard } from '@/components/landmark';
 import { CursineViewCard } from '@/components/cursine/CursineViewCard';
 
 export default function HomeScreen() {
@@ -13,16 +14,22 @@ export default function HomeScreen() {
     <ParallaxScrollView
       header={<DashboardHeader />}
     >
+      <SearchInput />
+      <LandmarkViewCard
+        landmark={{
+          name: 'Landmark Name',
+          image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          location: 'Cursine Location',
+          distance: 0.5,
+          rating: 4.5,
+        }}
+      />
       <CursineViewCard
         cursine={{
           name: 'Cursine Name',
           image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-          location: 'Cursine Location',
-          distance: 0.5,
-          stars: 4.5,
         }}
       />
-      <SearchInput />
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
