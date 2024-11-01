@@ -1,4 +1,4 @@
-import { Cursine } from "@/types";
+import { Landmark } from "@/types";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 
 import { Center } from "../ui/center";
@@ -13,28 +13,13 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface Props extends ViewProps {
-    cursine: Cursine;
-    size?: 'sm' | 'md' | 'lg' | 'full';
+    landmark: Landmark;
 }
-export function CursineViewCard({ cursine, size = 'md', ...props }: Props) {
+export function LandmarkViewCard({ landmark, ...props }: Props) {
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
-            <HStack className="w-full p-4 relative">
-                <BlurView
-                    intensity={100}
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        zIndex: 1,
-                        height: 32,
-                        width: 1000
-                    }}
-                />
-
+            <HStack className="w-full p-4">
                 <Button
                     size="lg"
                     className="rounded-full p-4 bg-white"
@@ -50,34 +35,36 @@ export function CursineViewCard({ cursine, size = 'md', ...props }: Props) {
             <VStack className="w-full p-4">
                 <HStack>
                     <Text
-                        className={twMerge(
-                            "text-typography-0 font-semibold",
-                            size === 'sm' && "text-2xs",
-                            size === 'md' && "text-base",
-                            size === 'lg' && "text-lg",
-                            size === 'full' && "text-2xl",
-                        )}
+                        className="text-typography-0 text-2xl font-semibold"
                     >
-                        {cursine.name}
+                        {landmark.name}
                     </Text>
                 </HStack>
+                <VStack space="sm" className="h-fit w-full">
+                    <Text className="text-white text-2xs flex flex-row items-center">
+                        <Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />
+                        {landmark.location}
+                    </Text>
+                    <Text className="text-white text-2xs flex flex-row items-center">
+                        <MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />
+                        {landmark.distance}
+                    </Text>
+                    <Text className="text-white text-2xs flex flex-row items-center">
+                        <AntDesign name="star" size={16} color="#FFC53C" />
+                        {landmark.rating}
+                    </Text>
+                </VStack>
             </VStack>
         )
     }
     return (
         <Center
-            className={twMerge(
-                "relative aspect-square rounded-2xl overflow-hidden",
-                size === 'sm' && "w-32",
-                size === 'md' && "w-48",
-                size === 'lg' && " w-64",
-                size === 'full' && "w-full h-full",
-            )}
+            className="relative w-full min-w-64 aspect-square rounded-2xl overflow-hidden"
             {...props}
         >
             <Image
-                alt={cursine.name}
-                source={{ uri: cursine.image }}
+                alt={landmark.name}
+                source={{ uri: landmark.image }}
                 className={twMerge(
                     "w-full h-full object-cover",
                     "absolute top-0 left-0",

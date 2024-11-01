@@ -18,7 +18,7 @@ export function SearchInput(props: Props) {
             className="w-full"
         >
             <Input
-                size="xl"
+                size="lg"
                 className="w-full rounded-full h-fit p-1"
             >
                 <HStack
