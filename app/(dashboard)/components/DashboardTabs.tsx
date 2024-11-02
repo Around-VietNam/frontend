@@ -2,14 +2,12 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import HomeScreen from '.';
-import LandmarkScreen from './landmark';
-import CursineScreen from './cursine';
-import FavoriteScreen from './favorite';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-function MyTabBar({ state, descriptors, navigation }: any) {
+export function MyTabBar({ state, descriptors, navigation }: any) {
   return (
     <View style={styles.tabBar}>
       {state.routes.map((route: any, index: number) => {
@@ -20,6 +18,10 @@ function MyTabBar({ state, descriptors, navigation }: any) {
             : options.title !== undefined
               ? options.title
               : route.name;
+
+        const includeRoutes = ['home/index', 'landmark/index', 'cursine/index', 'favorite/index'];
+        
+        if (!includeRoutes.includes(route.name)) return null;
 
         const isFocused = state.index === index;
 
@@ -43,13 +45,13 @@ function MyTabBar({ state, descriptors, navigation }: any) {
         };
 
         let iconName;
-        if (route.name === 'Home') {
+        if (route.name === 'home/index') {
           iconName = isFocused ? 'home' : 'home-outline';
-        } else if (route.name === 'Landmark') {
+        } else if (route.name === 'landmark/index') {
           iconName = isFocused ? 'map' : 'map-outline';
-        } else if (route.name === 'Cursine') {
+        } else if (route.name === 'cursine/index') {
           iconName = isFocused ? 'fast-food' : 'fast-food-outline';
-        } else if (route.name === 'Favorite') {
+        } else if (route.name === 'favorite/index') {
           iconName = isFocused ? 'heart' : 'heart-outline';
         }
 
@@ -72,21 +74,6 @@ function MyTabBar({ state, descriptors, navigation }: any) {
   );
 }
 
-export default function TabLayout() {
-  return (
-    <Tab.Navigator
-      tabBar={props => <MyTabBar {...props} />}
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
-      <Tab.Screen name="Landmark" component={LandmarkScreen} options={{ title: 'Landmark' }} />
-      <Tab.Screen name="Cursine" component={CursineScreen} options={{ title: 'Cursine' }} />
-      <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ title: 'Favorite' }} />
-    </Tab.Navigator>
-  );
-}
 
 const styles = StyleSheet.create({
   tabBar: {

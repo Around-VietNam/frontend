@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { App } from '@/constants/App';
 
 export default function NotFoundScreen() {
   return (
@@ -11,8 +10,8 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: 'Oops!' }} />
       <ThemedView style={styles.container}>
         <ThemedText type="title">This screen doesn't exist.</ThemedText>
-        <Link href={App.routes.dashboard} style={styles.link}>
-          <ThemedText type="link">Go to home screen!</ThemedText>
+        <Link href="/dashboard" style={styles.link}>
+          <ThemedText type="link">Go to dashboard screen!</ThemedText>
         </Link>
       </ThemedView>
     </>
