@@ -1,5 +1,6 @@
 import { Landmark } from "@/types";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
+import { router } from 'expo-router';
 
 import { Center } from "../ui/center";
 import { Image } from "../ui/image";
@@ -11,11 +12,13 @@ import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
+import { LinkText } from "../ui/link";
 
 interface Props extends ViewProps {
     landmark: Landmark;
 }
 export function LandmarkViewCard({ landmark, ...props }: Props) {
+
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
@@ -60,6 +63,8 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
     return (
         <Center
             className="relative w-full min-w-64 aspect-square rounded-2xl overflow-hidden"
+            // navigation to the landmark detail page, use router
+            onTouchEnd={() => router.push(`/landmark/${landmark.id}`)}
             {...props}
         >
             <Image
