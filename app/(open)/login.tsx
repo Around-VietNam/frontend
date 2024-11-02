@@ -70,7 +70,7 @@ export default function LoginScreen() {
             </FormControl>
             <VStack className='justify-center items-center w-full'>
                 <Text>
-                    Đã có tài khoản? <Link href={App.routes.login as any}>
+                    Đã có tài khoản? <Link href={App.routes.dashboard as any}>
                         <LinkText className='font-semibold'>
                             Đăng nhập
                         </LinkText>

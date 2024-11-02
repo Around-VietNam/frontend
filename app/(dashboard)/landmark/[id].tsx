@@ -1,12 +1,18 @@
 import { StyleSheet } from 'react-native';
 
+import { useLocalSearchParams } from "expo-router";
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { Text } from '@/components/ui/text';
 
 export default function LandmarkDetailsScreen() {
+  const { id } = useLocalSearchParams();
+
   return (
     <ParallaxScrollView
     >
-
+      <Text>
+        {id}
+      </Text>
     </ParallaxScrollView>
   );
 }

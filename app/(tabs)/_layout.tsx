@@ -1,14 +1,21 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import LandmarkDetailsScreen from './landmark/[id]';
-import { Stack, Tabs } from 'expo-router';
-import { MyTabBar } from './components/DashboardTabs';
+import {  Tabs } from 'expo-router';
+import { MyTabBar } from './Tabs';
 
 export default function DashboardRootLayout() {
   return (
-    <Stack>
-
-    </Stack>
+    <Tabs
+      tabBar={props=><MyTabBar {...props} />}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tabs.Screen name="home-screen"/>
+      <Tabs.Screen name="landmark-screen"/>
+      <Tabs.Screen name="cursine-screen"/>
+      <Tabs.Screen name="favorite-screen"/>
+    </Tabs>
   );
 }
 
