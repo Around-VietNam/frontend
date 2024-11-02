@@ -8,7 +8,7 @@ export const App = {
         home: '/',
         login: '/login',
         register: '/register',
-        dashboard: '/home',
+        dashboard: '/home-screen',
         forgotPassword: '/forgot-password',
         resetPassword: '/reset-password',
         profile: '/profile',

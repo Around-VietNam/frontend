@@ -19,7 +19,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
               ? options.title
               : route.name;
 
-        const includeRoutes = ['home/index', 'landmark/index', 'cursine/index', 'favorite/index'];
+
 
         // if (!includeRoutes.includes(route.name)) return null;
 
@@ -44,16 +44,24 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
           });
         };
 
-        let iconName;
-        if (route.name === 'home/index') {
-          iconName = isFocused ? 'home' : 'home-outline';
-        } else if (route.name === 'landmark/index') {
-          iconName = isFocused ? 'map' : 'map-outline';
-        } else if (route.name === 'cursine/index') {
-          iconName = isFocused ? 'fast-food' : 'fast-food-outline';
-        } else if (route.name === 'favorite/index') {
-          iconName = isFocused ? 'heart' : 'heart-outline';
+        // let iconName;
+        // if (route.name === 'home/index') {
+        //   iconName = isFocused ? 'home' : 'home-outline';
+        // } else if (route.name === 'landmark/index') {
+        //   iconName = isFocused ? 'map' : 'map-outline';
+        // } else if (route.name === 'cursine/index') {
+        //   iconName = isFocused ? 'fast-food' : 'fast-food-outline';
+        // } else if (route.name === 'favorite/index') {
+        //   iconName = isFocused ? 'heart' : 'heart-outline';
+        // }
+        const routeIcons = {
+          'home-screen': isFocused ? 'home' : 'home-outline',
+          'landmark-screen': isFocused ? 'map' : 'map-outline',
+          'cursine-screen': isFocused ? 'fast-food' : 'fast-food-outline',
+          'favorite-screen': isFocused ? 'heart' : 'heart-outline',
         }
+
+        const iconName = routeIcons[route.name as keyof typeof routeIcons];
 
         return (
           <TouchableOpacity

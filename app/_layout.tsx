@@ -44,7 +44,7 @@ export default function RootLayout() {
               }}
             >
               <Stack.Screen name="(open)" />
-              <Stack.Screen name="(dashboard)" />
+              <Stack.Screen name="(tabs)" />
               <Stack.Screen name="+not-found" />
             </Stack>
           </LocationProvider>
