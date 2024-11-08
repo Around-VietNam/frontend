@@ -2,17 +2,17 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Landmark } from '../types';
 
 interface LandmarkContextProps {
-    landmarks: Landmark[];
-    setLandmarks: React.Dispatch<React.SetStateAction<Landmark[]>>;
+    landmark: Landmark | null;
+    setLandmark?: React.Dispatch<React.SetStateAction<Landmark | null>>;
 }
 
-const LandmarkContext = createContext<LandmarkContextProps | undefined>(undefined);
+export const LandmarkContext = createContext<LandmarkContextProps | undefined>(undefined);
 
 export const LandmarkProvider = ({ children }: { children: ReactNode }) => {
-    const [landmarks, setLandmarks] = useState<Landmark[]>([]);
+    const [landmark, setLandmark] = useState<Landmark | null>(null);
 
     return (
-        <LandmarkContext.Provider value={{ landmarks, setLandmarks }}>
+        <LandmarkContext.Provider value={{ landmark, setLandmark }}>
             {children}
         </LandmarkContext.Provider>
     );
