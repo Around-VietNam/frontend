@@ -1,28 +1,49 @@
 import { StyleSheet } from 'react-native';
+import React from 'react';
 
 import { useLocalSearchParams } from "expo-router";
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { Text } from '@/components/ui/text';
 import { Header, Main } from '@/components/screen';
+import { LandmarkContext } from '@/contexts/LandmarkContext';
 
 export default function LandmarkDetailsScreen() {
   const { id } = useLocalSearchParams();
+  const [landmark, setLandmark] = React.useState(null);
+
+  const fetchLandmark = React.useCallback(async () => {
+    try {
+      const response = await fetch(`https://api.example.com/landmarks/${id}`);
+      const data = await response.json();
+      setLandmark(data);
+    } catch (error) {
+      console.error('Failed to fetch landmark:', error);
+    }
+  }, [id]);
+
+  React.useEffect(() => {
+    if (id) {
+      fetchLandmark();
+    }
+  }, [id, fetchLandmark]);
 
   return (
-    <ParallaxScrollView
-    >
-      <Header
-        title="Landmark Details"
-        labels={[
-          'Landmark',
-          'Details',
-        ]}
-      />
-    <Main>
-      
-    </Main>
+    <LandmarkContext.Provider value={{
+      landmark: landmark,
+    }}>
+      <ParallaxScrollView>
+        <Header
+          title="Landmark Details"
+          labels={[
+            'Landmark',
+            'Details',
+          ]}
+        />
+        <Main>
 
-    </ParallaxScrollView>
+        </Main>
+
+      </ParallaxScrollView>
+    </LandmarkContext.Provider>
   );
 }
 
