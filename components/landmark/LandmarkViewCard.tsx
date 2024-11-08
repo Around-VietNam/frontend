@@ -69,7 +69,7 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
         >
             <Image
                 alt={landmark.name}
-                // source={{ uri: landmark. }}
+                source={{ uri: landmark.image }}
                 className={twMerge(
                     "w-full h-full object-cover",
                     "absolute top-0 left-0",

@@ -5,9 +5,12 @@ import { useLocalSearchParams } from "expo-router";
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { Header, Main } from '@/components/screen';
 import { LandmarkContext } from '@/contexts/LandmarkContext';
+import { useToast } from '@/components/ui/toast';
+import { Text } from '@/components/ui/text';
 
 export default function LandmarkDetailsScreen() {
   const { id } = useLocalSearchParams();
+  const toast = useToast();
   const [landmark, setLandmark] = React.useState(null);
 
   const fetchLandmark = React.useCallback(async () => {
@@ -16,6 +19,9 @@ export default function LandmarkDetailsScreen() {
       const data = await response.json();
       setLandmark(data);
     } catch (error) {
+      toast.show({
+        render: () => <Text>Failed to fetch landmark</Text>,
+      });
       console.error('Failed to fetch landmark:', error);
     }
   }, [id]);
