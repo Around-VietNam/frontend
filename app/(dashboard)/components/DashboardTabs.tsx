@@ -19,7 +19,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
               ? options.title
               : route.name;
 
-        const includeRoutes = ['home/index', 'landmark/index', 'cursine/index', 'favorite/index'];
+        const includeRoutes = ['home/index', 'landmark/index', 'specialDish/index', 'favorite/index'];
 
         // if (!includeRoutes.includes(route.name)) return null;
 
@@ -49,7 +49,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
           iconName = isFocused ? 'home' : 'home-outline';
         } else if (route.name === 'landmark/index') {
           iconName = isFocused ? 'map' : 'map-outline';
-        } else if (route.name === 'cursine/index') {
+        } else if (route.name === 'specialDish/index') {
           iconName = isFocused ? 'fast-food' : 'fast-food-outline';
         } else if (route.name === 'favorite/index') {
           iconName = isFocused ? 'heart' : 'heart-outline';
