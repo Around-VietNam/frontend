@@ -5,7 +5,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { LandmarkViewCard } from '@/components/landmark';
-import { CursineViewCard } from '@/components/cursine/CursineViewCard';
+import { SpecialDishViewCard } from '@/components/dish/SpecialDishViewCard';
 import { UserReviewCard } from '@/components/user/UserReviewCard';
 import { HStack } from '@/components/ui/hstack';
 import { CategoryBadge } from '@/components/badge';
@@ -22,14 +22,14 @@ export default function HomeScreen() {
         landmark={{
           name: 'Landmark Name',
           image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-          location: 'Cursine Location',
+          location: 'SpecialDish Location',
           distance: 0.5,
           rating: 4.5,
         }}
       />
-      <CursineViewCard
-        cursine={{
-          name: 'Cursine Name',
+      <SpecialDishViewCard
+        specialDish={{
+          name: 'SpecialDish Name',
           image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         }}
       />
@@ -59,7 +59,7 @@ export default function HomeScreen() {
       />
       <HStack space='md'>
         <CategoryBadge category='landmark' />
-        <CategoryBadge category='cursine' />
+        <CategoryBadge category='specialDish' />
       </HStack>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
