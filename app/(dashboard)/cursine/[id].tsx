@@ -5,12 +5,12 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { LandmarkViewCard } from '@/components/landmark';
-import { SpecialDishViewCard } from '@/components/dish/SpecialDishViewCard';
 import { UserReviewCard } from '@/components/user/UserReviewCard';
 import { HStack } from '@/components/ui/hstack';
 import { CategoryBadge } from '@/components/badge';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { SearchInput } from '../components/SearchInput';
+import { SpecialDishViewCard } from '@/components/special-dish';
 
 export default function HomeScreen() {
   return (
