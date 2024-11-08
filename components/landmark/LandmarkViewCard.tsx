@@ -46,11 +46,11 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
                 <VStack space="sm" className="h-fit w-full">
                     <Text className="text-white text-2xs flex flex-row items-center">
                         <Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />
-                        {landmark.location}
+                        {landmark.address}
                     </Text>
                     <Text className="text-white text-2xs flex flex-row items-center">
                         <MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />
-                        {landmark.distance}
+                        {landmark.region}
                     </Text>
                     <Text className="text-white text-2xs flex flex-row items-center">
                         <AntDesign name="star" size={16} color="#FFC53C" />
@@ -69,7 +69,7 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
         >
             <Image
                 alt={landmark.name}
-                source={{ uri: landmark.image }}
+                // source={{ uri: landmark. }}
                 className={twMerge(
                     "w-full h-full object-cover",
                     "absolute top-0 left-0",
