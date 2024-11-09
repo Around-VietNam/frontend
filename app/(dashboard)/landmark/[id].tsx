@@ -14,6 +14,8 @@ import { VStack } from '@/components/ui/vstack';
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Center } from '@/components/ui/center';
 import Field from '@/components/ui/field';
+import BottomToolbar from '@/components/screen/BottomToolbar';
+import { Button, ButtonText } from '@/components/ui/button';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -80,14 +82,6 @@ export default function LandmarkDetailsScreen() {
           alt={landmark?.name || 'Landmark Image'}
           className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
         />
-        <VStack space="sm" className="p-4 shadow-hard-2">
-          <Text className="text-typography-500 text-base">
-            {landmark?.name || 'Landmark Name'}
-          </Text>
-          <Text className="text-typography-500 text-sm">
-            {landmark?.address || '123 Landmark St.'}
-          </Text>
-        </VStack>
         <Header
           title={landmark?.name || 'Landmark Name'}
           badge='Du lịch'
@@ -124,10 +118,18 @@ export default function LandmarkDetailsScreen() {
             title="Vị trí"
           >
           </Area>
-
+          <Text className='text-typography-500 text-base'>
+            {landmark?.description} + {id}
+          </Text>
 
         </Main>
-
+        <BottomToolbar>
+          <Button size='lg' className='w-full'>
+            <ButtonText>
+              Tìm đường đi
+            </ButtonText>
+          </Button>
+        </BottomToolbar>
       </ParallaxScrollView>
     </LandmarkContext.Provider>
   );
