@@ -8,7 +8,7 @@ export default function DashboardRootLayout() {
     <Tabs
       tabBar={props=><MyTabBar {...props} />}
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
       }}
     >
       <Tabs.Screen name="home-screen"/>

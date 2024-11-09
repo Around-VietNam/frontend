@@ -23,13 +23,18 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
         // like (heart icon) button and (share icon) button
         return (
             <HStack className="w-full p-4">
-                <Button
-                    size="lg"
-                    className="rounded-full p-4 bg-white"
-                    variant="solid"
-                >
-                    <Ionicons name="heart-outline" size={24} color="black" />
-                </Button>
+                <BlurView intensity={100} style={{
+                    backgroundColor: 'rgba(0,0,0,0.75)',
+                    borderRadius: 999,
+                }}>
+                    <Button
+                        size="lg"
+                        className="rounded-full p-4 bg-transparent"
+                        variant="solid"
+                    >
+                        <Ionicons name="heart-outline" size={24} color="black" />
+                    </Button>
+                </BlurView>
             </HStack>
         );
     }
@@ -62,7 +67,7 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
     }
     return (
         <Center
-            className="relative w-full min-w-64 aspect-square rounded-2xl overflow-hidden"
+            className="relative w-full min-w-64 aspect-square rounded-2xl overflow-hidden shadow-hard-2"
             // navigation to the landmark detail page, use router
             onTouchEnd={() => router.push(`/landmark/${landmark.id}`)}
             {...props}
