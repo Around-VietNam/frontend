@@ -15,7 +15,7 @@ export default function HomeScreen() {
         landmark={{
           id: 1,
           name: 'Landmark Name',
-          image: 'https://images.unsplash.com/photo-1521737711862-5f8e88f2f5d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&cs=tinysrgb&fm=jpg&fl=1&fit=crop&w=640&h=426',
+          image: 'https://images.unsplash.com/photo-1719937206098-236a481a2b6d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           description: 'A beautiful landmark.',
           address: '123 Landmark St.',
           rating: 4.5,
