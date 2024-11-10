@@ -1,12 +1,11 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import LandmarkDetailsScreen from './landmark/[id]';
+import { TouchableOpacity } from 'react-native';
 import { useNavigation } from 'expo-router';
 import { View } from '@/components/ui/view';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Stack } from 'expo-router';
 
-const Stack = createStackNavigator();
 function CustomHeader() {
   const navigation = useNavigation();
   return (
@@ -21,13 +20,14 @@ function CustomHeader() {
 
 export default function Layout() {
   return (
-    <Stack.Navigator
+
+    <Stack
       screenOptions={{
         header: () => <CustomHeader />,
         headerTransparent: true,
       }}
     >
-      <Stack.Screen name="Landmark Detail" component={LandmarkDetailsScreen} />
-    </Stack.Navigator>
+
+    </Stack>
   );
 }
