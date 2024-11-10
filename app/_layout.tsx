@@ -34,7 +34,7 @@ export default function RootLayout() {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <GluestackUIProvider mode="light">
+      <GluestackUIProvider mode={colorScheme === 'dark' ? 'dark' : 'light'}>
         <ThemeProvider value={DefaultTheme}>
           <LocationProvider>
             <Stack
