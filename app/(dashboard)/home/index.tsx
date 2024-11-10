@@ -9,6 +9,7 @@ import { SpecialDishViewCard } from '@/components/special-dish';
 import { UserReviewCard } from '@/components/user/UserReviewCard';
 import { HStack } from '@/components/ui/hstack';
 import { CategoryBadge } from '@/components/badge';
+import { Text } from '@/components/ui/text';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { SearchInput } from '../components/SearchInput';
 
@@ -18,23 +19,28 @@ export default function HomeScreen() {
       header={<DashboardHeader />}
     >
       <SearchInput />
-      <LandmarkViewCard
+      <Text>Special Dishes</Text>
+
+      {/* <LandmarkViewCard
         landmark={{
-          id: '1',
+          id: 1,
           name: 'Landmark Name',
-          image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-          location: 'SpecialDish Location',
-          distance: 0.5,
+          image: 'https://images.unsplash.com/photo-1521737711862-5f8e88f2f5d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&cs=tinysrgb&fm=jpg&fl=1&fit=crop&w=640&h=426',
+          description: 'A beautiful landmark.',
+          address: '123 Landmark St.',
           rating: 4.5,
+          createdAt: new Date(),
+          region: 'Region',
+          updatedAt: new Date(),
         }}
-      />
-      <SpecialDishViewCard
+      /> */}
+      {/* <SpecialDishViewCard
         specialDish={{
           name: 'SpecialDish Name',
           image: 'https://images.unsplash.com/photo-1729180801690-d7db9ea35867?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         }}
-      />
-      <UserReviewCard
+      /> */}
+      {/* <UserReviewCard
         review={{
           user: {
             name: 'Jane Doe',
@@ -45,8 +51,8 @@ export default function HomeScreen() {
           created_at: '2021-10-10',
           content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc ultricies aliquam. Nullam nec purus nec nunc ultricies aliquam.',
         }}
-      />
-      <UserReviewCard
+      /> */}
+      {/* <UserReviewCard
         review={{
           user: {
             name: 'Jane Doe',
@@ -57,7 +63,7 @@ export default function HomeScreen() {
           created_at: '2021-10-10',
           content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc ultricies aliquam. Nullam nec purus nec nunc ultricies aliquam.',
         }}
-      />
+      /> */}
       <HStack space='md'>
         <CategoryBadge category='landmark' />
         <CategoryBadge category='specialDish' />

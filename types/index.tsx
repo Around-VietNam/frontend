@@ -15,6 +15,7 @@ export interface Landmark {
     id: number;
     name: string;
     description: string;
+    image: string;
     address: string;
     region: string;
     rating: number;
@@ -42,6 +43,7 @@ export interface Restaurant {
     id: number;
     name: string;
     description: string;
+    image: string;
     address: string;
     phone: string;
     website: string;
@@ -70,6 +72,7 @@ export interface SpecialDish {
     id: number;
     name: string;
     description: string;
+    image: string;
     minPrice: number;
     maxPrice: number;
     specialty: string;

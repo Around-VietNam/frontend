@@ -5,17 +5,22 @@ import Animated, {
   useAnimatedRef,
   useAnimatedStyle,
   useScrollViewOffset,
+  AnimatedProps
 } from 'react-native-reanimated';
 
 import { ThemedView } from '@/components/ThemedView';
+import { VStack } from './ui/vstack';
 
 type Props = PropsWithChildren<{
   header?: ReactElement;
+  footer?: ReactElement;
 }>;
 
 export default function ParallaxScrollView({
   children,
-  header
+  header,
+  footer,
+  ...props
 }: Props) {
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
@@ -25,8 +30,11 @@ export default function ParallaxScrollView({
     <ThemedView style={styles.container}>
       <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
         <ThemedView style={styles.header}>{header}</ThemedView>
-        <ThemedView style={styles.content}>{children}</ThemedView>
+        <VStack style={styles.content} space='lg'>
+          {children}
+        </VStack>
       </Animated.ScrollView>
+      {footer}
     </ThemedView>
   );
 }
@@ -43,7 +51,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    gap: 32,
+    paddingBottom: 64,
     marginHorizontal: 16,
     overflow: 'hidden',
   },
