@@ -16,6 +16,7 @@ import { Center } from '@/components/ui/center';
 import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
 import { Button, ButtonText } from '@/components/ui/button';
+import { UserReviewCard } from '@/components/user';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -127,6 +128,16 @@ export default function LandmarkDetailsScreen() {
           <Area
             title="Vị trí"
           >
+          </Area>
+          <Area
+            title="Đánh giá"
+          >
+            {/* <UserReviewCard
+              comment={''}
+              rating={0}
+              created_at={''}
+              user={{} as any}
+            /> */}
           </Area>
 
         </Main>
