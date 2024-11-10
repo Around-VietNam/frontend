@@ -132,12 +132,12 @@ export default function LandmarkDetailsScreen() {
           <Area
             title="Đánh giá"
           >
-            <UserReviewCard
+            {/* <UserReviewCard
               comment={''}
               rating={0}
               created_at={''}
               user={{} as any}
-            />
+            /> */}
           </Area>
 
         </Main>
