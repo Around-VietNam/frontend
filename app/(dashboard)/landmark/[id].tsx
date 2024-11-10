@@ -74,7 +74,17 @@ export default function LandmarkDetailsScreen() {
     <LandmarkContext.Provider value={{
       landmark: landmark,
     }}>
-      <ParallaxScrollView>
+      <ParallaxScrollView
+        footer={
+          <BottomToolbar>
+            <Button size='lg' className='w-full'>
+              <ButtonText>
+                Tìm đường đi
+              </ButtonText>
+            </Button>
+          </BottomToolbar>
+        }
+      >
         <Image
           source={{
             uri: 'https://images.unsplash.com/photo-1547643857-081e66b3ea2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -118,38 +128,9 @@ export default function LandmarkDetailsScreen() {
             title="Vị trí"
           >
           </Area>
-          <Text className='text-typography-500 text-base'>
-            {landmark?.description} + {id}
-          </Text>
 
         </Main>
-        <BottomToolbar>
-          <Button size='lg' className='w-full'>
-            <ButtonText>
-              Tìm đường đi
-            </ButtonText>
-          </Button>
-        </BottomToolbar>
       </ParallaxScrollView>
     </LandmarkContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
