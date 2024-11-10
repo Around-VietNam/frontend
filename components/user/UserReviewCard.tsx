@@ -1,17 +1,29 @@
+import { AntDesign } from "@expo/vector-icons";
 import { ViewProps } from "react-native";
 
-import { UserReview } from "@/types";
+import { User } from "@/types";
+
 import { VStack } from "../ui/vstack";
 import { HStack } from "../ui/hstack";
 import { Text } from "../ui/text";
-import { Avatar, AvatarFallbackText, AvatarImage,  } from "../ui/avatar";
-import { AntDesign } from "@expo/vector-icons";
+import { Avatar, AvatarFallbackText, AvatarImage, } from "../ui/avatar";
 
 interface Props extends ViewProps {
-    review: UserReview;
+    comment: string;
+    rating: number;
+    created_at: string;
+    user: User;
 }
 export function UserReviewCard(props: Props) {
-    const { review } = props;
+    const review = {
+        content: props.comment,
+        vote: props.rating,
+        created_at: props.created_at,
+        user: {
+            name: props.user.name,
+            avatar: props.user.avatar,
+        }
+    }
 
     return (
         <VStack className="w-full" space="md">
@@ -36,7 +48,7 @@ export function UserReviewCard(props: Props) {
                                 <HStack>
                                     {
                                         Array(review.vote).fill(0).map((_, index) => (
-                                           <AntDesign name="star" size={16} color="#FFC53C" key={index} />
+                                            <AntDesign name="star" size={16} color="#FFC53C" key={index} />
                                         ))
                                     }
                                 </HStack>

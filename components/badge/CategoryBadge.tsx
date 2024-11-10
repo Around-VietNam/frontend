@@ -3,7 +3,7 @@ import { Text } from "../ui/text";
 import { Ionicons } from "@expo/vector-icons";
 import { HStack } from "../ui/hstack";
 
-type Category = 'landmark' | 'cursine';
+type Category = 'landmark' | 'specialDish';
 interface Props extends ViewProps {
     category: Category;
 }
@@ -12,7 +12,7 @@ export function CategoryBadge({ category, ...props }: Props) {
         switch (category) {
             case 'landmark':
                 return <Ionicons name="map-outline" size={16} color="white" />;
-            case 'cursine':
+            case 'specialDish':
                 return <Ionicons name="fast-food-outline" size={16} color="white" />;
             default:
                 return null;

@@ -1,4 +1,4 @@
-import { Cursine } from "@/types";
+import { SpecialDish } from "@/types";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 
 import { Center } from "../ui/center";
@@ -6,17 +6,17 @@ import { Image } from "../ui/image";
 import { twMerge } from "tailwind-merge";
 import { HStack } from "../ui/hstack";
 import { Button } from "../ui/button";
-import { AntDesign, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface Props extends ViewProps {
-    cursine: Cursine;
+    specialDish: SpecialDish;
     size?: 'sm' | 'md' | 'lg' | 'full';
 }
-export function CursineViewCard({ cursine, size = 'md', ...props }: Props) {
+export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Props) {
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
@@ -58,7 +58,7 @@ export function CursineViewCard({ cursine, size = 'md', ...props }: Props) {
                             size === 'full' && "text-2xl",
                         )}
                     >
-                        {cursine.name}
+                        {specialDish.name}
                     </Text>
                 </HStack>
             </VStack>
@@ -76,8 +76,8 @@ export function CursineViewCard({ cursine, size = 'md', ...props }: Props) {
             {...props}
         >
             <Image
-                alt={cursine.name}
-                source={{ uri: cursine.image }}
+                alt={specialDish.name}
+                // source={{ uri: specialDish.image }}
                 className={twMerge(
                     "w-full h-full object-cover",
                     "absolute top-0 left-0",

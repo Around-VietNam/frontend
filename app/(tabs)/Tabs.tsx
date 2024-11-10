@@ -49,7 +49,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
         //   iconName = isFocused ? 'home' : 'home-outline';
         // } else if (route.name === 'landmark/index') {
         //   iconName = isFocused ? 'map' : 'map-outline';
-        // } else if (route.name === 'cursine/index') {
+        // } else if (route.name === 'specialDish/index') {
         //   iconName = isFocused ? 'fast-food' : 'fast-food-outline';
         // } else if (route.name === 'favorite/index') {
         //   iconName = isFocused ? 'heart' : 'heart-outline';
@@ -57,7 +57,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
         const routeIcons = {
           'home-screen': isFocused ? 'home' : 'home-outline',
           'landmark-screen': isFocused ? 'map' : 'map-outline',
-          'cursine-screen': isFocused ? 'fast-food' : 'fast-food-outline',
+          'specialDish-screen': isFocused ? 'fast-food' : 'fast-food-outline',
           'favorite-screen': isFocused ? 'heart' : 'heart-outline',
         }
 
