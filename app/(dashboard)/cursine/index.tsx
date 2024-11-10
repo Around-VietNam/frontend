@@ -4,7 +4,7 @@ import { StyleSheet, Image, Platform } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 
-export default function CursineScreen() {
+export default function SpecialDishScreen() {
   return (
     <ParallaxScrollView>
 
