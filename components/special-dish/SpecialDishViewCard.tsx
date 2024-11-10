@@ -1,5 +1,6 @@
-import { SpecialDish } from "@/types";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 
 import { Center } from "../ui/center";
 import { Image } from "../ui/image";
@@ -9,32 +10,19 @@ import { Button } from "../ui/button";
 import { Ionicons } from "@expo/vector-icons";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
-import { BlurView } from "expo-blur";
-import { LinearGradient } from "expo-linear-gradient";
+import { SpecialDish } from "@/types";
+
 
 interface Props extends ViewProps {
     specialDish: SpecialDish;
     size?: 'sm' | 'md' | 'lg' | 'full';
 }
 export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Props) {
+    const router = useRouter();
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
             <HStack className="w-full p-4 relative">
-                <BlurView
-                    intensity={100}
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        zIndex: 1,
-                        height: 32,
-                        width: 1000
-                    }}
-                />
-
                 <Button
                     size="lg"
                     className="rounded-full p-4 bg-white"
@@ -73,11 +61,12 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
                 size === 'lg' && " w-64",
                 size === 'full' && "w-full h-full",
             )}
+            onTouchEnd={() => router.push(`/cursine/${specialDish.id}`)}
             {...props}
         >
             <Image
                 alt={specialDish.name}
-                // source={{ uri: specialDish.image }}
+                source={{ uri: specialDish.image }}
                 className={twMerge(
                     "w-full h-full object-cover",
                     "absolute top-0 left-0",
