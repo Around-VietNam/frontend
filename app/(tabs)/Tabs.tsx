@@ -57,7 +57,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
         const routeIcons = {
           'home-screen': isFocused ? 'home' : 'home-outline',
           'landmark-screen': isFocused ? 'map' : 'map-outline',
-          'specialDish-screen': isFocused ? 'fast-food' : 'fast-food-outline',
+          'cursine-screen': isFocused ? 'fast-food' : 'fast-food-outline',
           'favorite-screen': isFocused ? 'heart' : 'heart-outline',
         }
 
