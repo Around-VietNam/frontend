@@ -6,7 +6,7 @@ import { Center } from "../ui/center";
 import { Image } from "../ui/image";
 import { twMerge } from "tailwind-merge";
 import { HStack } from "../ui/hstack";
-import { Button } from "../ui/button";
+import { BlurButton, Button } from "../ui/button";
 import { Ionicons } from "@expo/vector-icons";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
@@ -23,13 +23,9 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
         // like (heart icon) button and (share icon) button
         return (
             <HStack className="w-full p-4 relative">
-                <Button
-                    size="lg"
-                    className="rounded-full p-4 bg-white"
-                    variant="solid"
-                >
-                    <Ionicons name="heart-outline" size={24} color="black" />
-                </Button>
+                <BlurButton>
+                    <Ionicons name="share-social-outline" size={24} color="white" />
+                </BlurButton>
             </HStack>
         );
     }
