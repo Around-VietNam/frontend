@@ -503,8 +503,8 @@ const BlurButton = React.forwardRef<
   return (
     <View className="w-fit h-fit overflow-hidden rounded-full">
       <BlurView
-        experimentalBlurMethod="dimezisBlurView"
-        intensity={25}
+        experimentalBlurMethod="none"
+        intensity={100}
         style={{ borderRadius: 99 }}
       >
         <Button
