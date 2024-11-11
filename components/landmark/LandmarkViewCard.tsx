@@ -6,13 +6,13 @@ import { Center } from "../ui/center";
 import { Image } from "../ui/image";
 import { twMerge } from "tailwind-merge";
 import { HStack } from "../ui/hstack";
-import { Button } from "../ui/button";
+import { BlurButton, Button } from "../ui/button";
 import { AntDesign, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
+import { View } from "../ui/view";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
-import { LinkText } from "../ui/link";
 
 interface Props extends ViewProps {
     landmark: Landmark;
@@ -23,13 +23,26 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
         // like (heart icon) button and (share icon) button
         return (
             <HStack className="w-full p-4">
-                <Button
+                <BlurButton
+                    className="rounded-full p-4 bg-background-0/25"
                     size="lg"
-                    className="rounded-full p-4 bg-white"
-                    variant="solid"
+                    variant="glass"
                 >
-                    <Ionicons name="heart-outline" size={24} color="black" />
-                </Button>
+                    <Ionicons name="heart-outline" size={24} color="white" />
+                </BlurButton>
+                {/* <View className="w-fit h-fit overflow-hidden rounded-full">
+                    <BlurView experimentalBlurMethod="dimezisBlurView" intensity={25} style={{
+                        borderRadius: 99,
+                    }} >
+                        <Button
+                            size="lg"
+                            className="rounded-full p-4 bg-background-0/25"
+                            variant="glass"
+                        >
+                            <Ionicons name="heart-outline" size={24} color="white" />
+                        </Button>
+                    </BlurView>
+                </View> */}
             </HStack>
         );
     }

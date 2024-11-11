@@ -19,6 +19,8 @@ import {
   Platform,
 } from 'react-native';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
+import { BlurView } from 'expo-blur';
+import { Ionicons } from '@expo/vector-icons';
 
 const SCOPE = 'BUTTON';
 const ButtonWrapper = React.forwardRef<
@@ -494,10 +496,36 @@ const ButtonGroup = React.forwardRef<
   );
 });
 
+const BlurButton = React.forwardRef<
+  React.ElementRef<typeof UIButton>,
+  IButtonProps
+>((props, ref) => {
+  return (
+    <View className="w-fit h-fit overflow-hidden rounded-full">
+      <BlurView
+        experimentalBlurMethod="dimezisBlurView"
+        intensity={25}
+        style={{ borderRadius: 99 }}
+      >
+        <Button
+          ref={ref}
+          size="lg"
+          className="rounded-full p-4 bg-background-0/25"
+          variant="glass"
+          {...props}
+        >
+          <Ionicons name="heart-outline" size={24} color="white" />
+        </Button>
+      </BlurView>
+    </View>
+  );
+});
+
+BlurButton.displayName = 'BlurButton';
 Button.displayName = 'Button';
 ButtonText.displayName = 'ButtonText';
 ButtonSpinner.displayName = 'ButtonSpinner';
 ButtonIcon.displayName = 'ButtonIcon';
 ButtonGroup.displayName = 'ButtonGroup';
 
-export { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup };
+export { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup, BlurButton };
