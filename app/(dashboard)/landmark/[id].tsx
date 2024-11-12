@@ -9,7 +9,7 @@ import { Toast, ToastDescription, ToastTitle, useToast } from '@/components/ui/t
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { Image } from '@/components/ui/image';
-import { Landmark } from '@/types';
+import { Landmark, SpecialDish } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Center } from '@/components/ui/center';
@@ -17,6 +17,8 @@ import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
 import { Button, ButtonText } from '@/components/ui/button';
 import { UserReviewCard } from '@/components/user';
+import { mockLandmarks, mockSpecialDishes } from '@/mock';
+import { SpecialDishViewCard } from '@/components/special-dish';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -25,6 +27,7 @@ export default function LandmarkDetailsScreen() {
   const toast = useToast();
   const [toastId, setToastId] = React.useState(0)
   const [landmark, setLandmark] = React.useState<Landmark | null>(null);
+  const [specialDishes, setSpecialDishes] = React.useState<SpecialDish []>([]);
 
   const fetchLandmark = React.useCallback(async () => {
     try {
@@ -50,18 +53,8 @@ export default function LandmarkDetailsScreen() {
           )
         }
       });
-      setLandmark({
-        id: 1,
-        name: 'Landmark Name',
-        image: 'https://images.unsplash.com/photo-1547643857-081e66b3ea2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        description: 'Vietnam, officially the Socialist Republic of Vietnam, is a country at the eastern edge of mainland Southeast Asia, with an area of about 331,000 square',
-        address: '123 Landmark St.',
-        rating: 4.5,
-        createdAt: new Date(),
-        region: 'Region',
-        updatedAt: new Date(),
-      });
-
+      setLandmark(mockLandmarks[0]);
+      setSpecialDishes(mockSpecialDishes);
     }
   }, [id]);
 
@@ -124,6 +117,14 @@ export default function LandmarkDetailsScreen() {
           <Area
             title="Ẩm thực"
           >
+            {
+              specialDishes.map((dish, index) => (
+                <SpecialDishViewCard
+                  key={index}
+                  specialDish={dish}
+                />
+              ))
+            }
           </Area>
           <Area
             title="Vị trí"
