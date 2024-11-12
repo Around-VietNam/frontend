@@ -31,17 +31,15 @@ export const mockLandmarks: Landmark[] = [
     // ...other mock landmarks...
 ];
 
-export const mockLandmarkFeedbacks: LandmarkFeedback[] = [
-    {
-        id: 1,
-        userId: 1,
-        landmarkId: 1,
-        comments: 'Rất đẹp và hùng vĩ!',
-        stars: 5,
-        createdAt: new Date(),
-    },
-    // ...other mock landmark feedbacks...
-];
+export const mockLandmarkFeedback: LandmarkFeedback = {
+    id: 1,
+    userId: 1,
+    landmarkId: 1,
+    comments: 'Rất đẹp và hùng vĩ!',
+    stars: Math.floor(Math.random() * 5) + 1,
+    createdAt: new Date(),
+};
+export const mockLandmarkFeedbacks: LandmarkFeedback[] = Array(10).fill(mockLandmarkFeedback);
 
 export const mockFavouritePlaces: FavouritePlace[] = [
     {

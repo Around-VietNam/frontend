@@ -11,12 +11,12 @@ import { Avatar, AvatarFallbackText, AvatarImage, } from "../ui/avatar";
 interface Props extends ViewProps {
     comment: string;
     rating: number;
-    created_at: string;
+    created_at: Date;
     user: User;
 }
 export function UserReviewCard(props: Props) {
     const review = {
-        content: props.comment,
+        comment: props.comment,
         vote: props.rating,
         created_at: props.created_at,
         user: {
@@ -27,9 +27,9 @@ export function UserReviewCard(props: Props) {
 
     return (
         <VStack className="w-full" space="md">
-            <HStack className="w-full justify-between">
+            <HStack className="w-full justify-between items-center">
                 <HStack space="md">
-                    <Avatar>
+                    <Avatar size="sm">
                         <AvatarFallbackText>
                             {review.user.name}
                         </AvatarFallbackText>
@@ -57,12 +57,12 @@ export function UserReviewCard(props: Props) {
                     </VStack>
                 </HStack>
                 <Text className="text-2xs text-typography-500">
-                    {review.created_at}
+                    {review.created_at.toLocaleDateString('vi-VN')}
                 </Text>
             </HStack>
             <VStack>
                 <Text>
-                    {review.content}
+                    {review.comment}
                 </Text>
             </VStack>
         </VStack>
