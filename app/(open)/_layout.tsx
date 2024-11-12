@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     // Carousel Styles
     carousel: {
         position: 'absolute',
-        width: '100%',
-        height: '100%',
+        width: '200%',
+        height: '200%',
         zIndex: -1,
     },
 });
