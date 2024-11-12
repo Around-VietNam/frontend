@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
 
 import { useLocalSearchParams } from "expo-router";
@@ -15,7 +15,10 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
 import { Button, ButtonText } from '@/components/ui/button';
-import { UserReviewCard } from '@/components/user';
+import { UserReviewCard, UserReviewInput } from '@/components/user';
+import { Heading } from '@/components/ui/heading';
+import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal} from '@/components/ui/modal';
+import { mockLandmarkFeedbacks, mockUsers } from '@/mock';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -24,6 +27,7 @@ export default function SpecialDishDetailsScreen() {
   const toast = useToast();
   const [toastId, setToastId] = React.useState(0)
   const [specialDish, setSpecialDish] = React.useState<SpecialDish | null>(null);
+  const [showAllReviews, setShowAllReviews] = React.useState(false);
 
   const fetchSpecialDish = React.useCallback(async () => {
     try {
@@ -64,6 +68,66 @@ export default function SpecialDishDetailsScreen() {
     }
   }, [id]);
 
+  const UserReviewArea = () => {
+    return (
+      <Area
+        title="Đánh giá"
+        more={
+          <Button variant='link' onPress={() => setShowAllReviews(true)}>
+            <ButtonText className='text-typography-500'>
+              Tất cả bình luận
+            </ButtonText>
+          </Button>
+        }
+      >
+        {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
+          <UserReviewCard
+            key={index}
+            comment={feedback.comments}
+            rating={feedback.stars}
+            created_at={feedback.createdAt}
+            user={mockUsers[0]}
+          />
+        ))}
+        <UserReviewInput />
+        <Modal
+          isOpen={showAllReviews}
+          onClose={() => setShowAllReviews(false)}
+          size='full'
+          className='justify-end'
+        >
+          <ModalBackdrop />
+          <ModalContent className={'h-3/4'}>
+            <ModalHeader>
+              <VStack className='items-center w-full'>
+                <View style={styles.handle} />
+                <Heading size='lg' className='text-typography-900 text-lg'>
+                  Tất cả bình luận
+                </Heading>
+              </VStack>
+            </ModalHeader>
+            <ModalBody>
+              <ScrollView>
+                {mockLandmarkFeedbacks.map((feedback, index) => (
+                  <UserReviewCard
+                    key={index}
+                    comment={feedback.comments}
+                    rating={feedback.stars}
+                    created_at={feedback.createdAt}
+                    user={mockUsers[0]}
+                  />
+                ))}
+              </ScrollView>
+            </ModalBody>
+            <ModalFooter>
+              <UserReviewInput />
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Area>
+    )
+  }
+  
   React.useEffect(() => {
     if (id) {
       fetchSpecialDish();
@@ -123,14 +187,21 @@ export default function SpecialDishDetailsScreen() {
           >
 
           </Area>
-          <Area
-            title="Đánh giá"
-          >
-
-          </Area>
+          <UserReviewArea />
 
         </Main>
       </ParallaxScrollView>
     </SpecialDishContext.Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  handle: {
+    width: 40,
+    height: 5,
+    backgroundColor: '#ccc',
+    borderRadius: 2.5,
+    alignSelf: 'center',
+    marginVertical: 8,
+  },
+});
