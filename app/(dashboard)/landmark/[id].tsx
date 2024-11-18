@@ -117,7 +117,6 @@ export default function LandmarkDetailsScreen() {
               <UserReviewInput />
             </ModalFooter>
           </ModalContent>
-
         </Modal>
       </Area>
     )
