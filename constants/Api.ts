@@ -7,4 +7,7 @@ export const Api = {
         key: process.env.EXPO_PUBLIC_AROUND_VIETNAM_API_KEY,
         url: process.env.EXPO_PUBLIC_AROUND_VIETNAM_API_URL
     },
+    wttrin: {
+        url: process.env.EXPO_PUBLIC_WTTRIN_API_URL
+    }
 }
