@@ -28,18 +28,77 @@ export const mockLandmarks: Landmark[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
     },
+    {
+        id: 2,
+        name: 'Chùa Một Cột',
+        description: 'Một trong những di tích lịch sử nổi tiếng của Hà Nội.',
+        image: 'https://vnd.vietnamdrive.com/wp-content/uploads/2021/06/one-pillar-pagoda-hanoi-1.jpg',
+        address: 'Hà Nội',
+        region: 'Miền Bắc',
+        rating: 4.5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 3,
+        name: 'Đà Nẵng',
+        description: 'Thành phố biển xinh đẹp.',
+        image: 'https://images.unsplash.com/photo-1579518030577-b4a62b368886?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        address: 'Đà Nẵng',
+        region: 'Miền Trung',
+        rating: 4.7,
+        createdAt: new Date(),
+        updatedAt: new Date
+    },
+    {
+        id: 4,
+        name: 'TP Hồ Chí Minh',
+        description: 'Thành phố sôi động và hiện đại.',
+        image: 'https://images.unsplash.com/photo-1591269469224-0479a5f956c6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        address: 'TP Hồ Chí Minh',
+        region: 'Miền Nam',
+        rating: 4.6,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }
     // ...other mock landmarks...
 ];
 
-export const mockLandmarkFeedback: LandmarkFeedback = {
-    id: 1,
-    userId: 1,
-    landmarkId: 1,
-    comments: 'Rất đẹp và hùng vĩ!',
-    stars: Math.floor(Math.random() * 5) + 1,
-    createdAt: new Date(),
-};
-export const mockLandmarkFeedbacks: LandmarkFeedback[] = Array(10).fill(mockLandmarkFeedback);
+export const mockLandmarkFeedbacks: LandmarkFeedback[] = [
+    {
+        id: 1,
+        userId: 1,
+        landmarkId: 1,
+        comments: 'Rất đẹp và hùng vĩ!',
+        stars: 5,
+        createdAt: new Date(),
+    },
+    {
+        id: 2,
+        userId: 1,
+        landmarkId: 2,
+        comments: 'Chùa rất linh thiêng và đẹp!',
+        stars: 5,
+        createdAt: new Date(),
+    },
+    {
+        id: 3,
+        userId: 1,
+        landmarkId: 3,
+        comments: 'Đà Nẵng rất đẹp và sạch sẽ!',
+        stars: 5,
+        createdAt: new Date(),
+    },
+    {
+        id: 4,
+        userId: 1,
+        landmarkId: 4,
+        comments: 'TP Hồ Chí Minh rất sôi động và hiện đại!',
+        stars: 5,
+        createdAt: new Date(),
+    }
+    // ...other mock landmark feedbacks...
+];
 
 export const mockFavouritePlaces: FavouritePlace[] = [
     {
