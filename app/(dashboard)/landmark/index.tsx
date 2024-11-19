@@ -1,7 +1,6 @@
 import { StyleSheet, Image, Platform } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { LandmarkViewCard } from '@/components/landmark';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 

@@ -20,7 +20,14 @@ import { UserReviewCard, UserReviewInput } from '@/components/user';
 import { mockLandmarkFeedbacks, mockLandmarks, mockSpecialDishes, mockUsers } from '@/mock';
 import { SpecialDishViewCard } from '@/components/special-dish';
 import { HStack } from '@/components/ui/hstack';
-import { ModalBody, ModalContent, ModalHeader, Modal, ModalBackdrop, ModalFooter } from '@/components/ui/modal';
+import {
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  Modal,
+  ModalBackdrop,
+  ModalFooter
+} from '@/components/ui/modal';
 import { Heading } from '@/components/ui/heading';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;

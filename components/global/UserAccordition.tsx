@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
 import { Menu, MenuItem, MenuItemLabel } from "@/components/ui/menu";
 import { Avatar, AvatarBadge, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar";
-import { VStack } from "../../../components/ui/vstack";
-import { Heading } from "../../../components/ui/heading";
-import { Text } from "../../../components/ui/text";
 import { useLocation } from "@/contexts/location";
+
+import { Heading } from "../ui/heading";
+import { VStack } from "../ui/vstack";
+import { Text } from "../ui/text";
 
 interface UserAccorditionProps extends ViewProps {
 }
