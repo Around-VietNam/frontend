@@ -24,6 +24,7 @@ export default function Layout() {
       screenOptions={{
         header: () => <CustomHeader />,
         headerTransparent: true,
+        animation: "simple_push",
       }}
     >
 
