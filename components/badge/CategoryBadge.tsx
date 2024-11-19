@@ -19,7 +19,7 @@ export function CategoryBadge({ category, ...props }: Props) {
         }
     }
     return (
-        <HStack {...props} className="bg-background-900 rounded-full px-3 py-1 items-center justify-center" space="sm">
+        <HStack {...props} className="bg-background-900 rounded-full px-3 py-1 items-center justify-center shadow-hard-2" space="sm">
             {getCategoryIcon()}
             <Text className="text-typography-0 text-base font-medium capitalize">
                 {category}
