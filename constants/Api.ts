@@ -9,5 +9,9 @@ export const Api = {
     },
     wttrin: {
         url: process.env.EXPO_PUBLIC_WTTRIN_API_URL
+    },
+    tomtom: {
+        key: process.env.EXPO_PUBLIC_TOMTOM_API_KEY,
+        url: process.env.EXPO_PUBLIC_TOMTOM_API_URL
     }
 }
