@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Platform } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { DashboardHeader } from '../(dashboard)/components/DashboardHeader';
-import { SearchInput } from '../(dashboard)/components/SearchInput';
 import { LandmarkViewCard } from '@/components/landmark';
 import { mockLandmarks } from '@/mock';
+import { DashboardHeader } from '@/components/global/DashboardHeader';
+import { SearchInput } from '@/components/global/SearchInput';
 
 export default function HomeScreen() {
   return (

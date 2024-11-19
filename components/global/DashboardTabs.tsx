@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { createStackNavigator } from '@react-navigation/stack';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export function MyTabBar({ state, descriptors, navigation }: any) {
   return (
