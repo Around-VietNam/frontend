@@ -70,7 +70,7 @@ export function SituationWidget({ ...props }: Props) {
         <HStack
             className={twMerge(
                 "w-full p-6 rounded-2xl bg-background-0 justify-between",
-                "shadow-soft-1"
+                "shadow-hard-2"
             )}
         >
             <VStack>
