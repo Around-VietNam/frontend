@@ -60,7 +60,7 @@ export function SituationWidget({ ...props }: Props) {
     if (!currentCondition) return (
         <Center
             className={twMerge(
-                "w-full p-4 rounded-2xl bg-background-0",
+                "w-full p-6 rounded-2xl bg-background-0",
             )}
         >
             <Text>Loading...</Text>
@@ -69,7 +69,7 @@ export function SituationWidget({ ...props }: Props) {
     return (
         <HStack
             className={twMerge(
-                "w-full p-4 rounded-2xl bg-background-0 justify-between",
+                "w-full p-6 rounded-2xl bg-background-0 justify-between",
                 "shadow-soft-1"
             )}
         >
