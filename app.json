@@ -7,11 +7,11 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#F8F0EC",
+    "backgroundColor": "#FEF8F5",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#F8F0EC"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true

@@ -19,14 +19,15 @@ export function SearchInput(props: Props) {
         >
             <Input
                 size="lg"
-                className="w-full rounded-full h-fit p-1"
+                variant="rounded"
+                className="w-full rounded-full h-fit p-1 shadow-hard-2 bg-background-0 border-0"
             >
                 <HStack
-                    className="px-4 py-2 items-center justify-center bg-background-50 rounded-full"
+                    className="px-4 py-4 items-center justify-center bg-background-900 rounded-full"
                 >
                     <Ionicons name="location" size={16} color="gray" />
                     <Text
-                        className="truncate"
+                        className="truncate text-typography-0 text-2xs"
                     >
                         {address ? address.city : 'Fetching location...'}
                     </Text>

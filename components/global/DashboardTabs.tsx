@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 32,
-    bottom: 32,
+    bottom: 16,
 
     padding: 4,
     borderRadius: 999,
