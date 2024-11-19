@@ -75,7 +75,7 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
     }
     return (
         <Center
-            className="relative w-full min-w-64 aspect-square rounded-3xl overflow-hidden shadow-hard-2"
+            className="relative w-full min-w-64 aspect-square rounded-3xl overflow-hidden shadow-hard-1"
             // navigation to the landmark detail page, use router
             onTouchEnd={() => router.push(`/landmark/${landmark.id}`)}
             {...props}
