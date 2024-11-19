@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { MyTabBar } from '@/components/global/DashboardTabs';
+import { MyTabBar } from '../../components/global/DashboardTabs';
 
 export default function DashboardRootLayout() {
   return (

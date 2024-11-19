@@ -6,12 +6,13 @@ import { ButtonText } from '@/components/ui/button';
 import { GoogleIcon } from '@/components/icons';
 import { Text } from '@/components/ui/text';
 import { useRouter } from 'expo-router';
+import { App } from '@/constants/App';
 
 export default function OpenScreen() {
     const router = useRouter();
-    
+
     const loginWithGoogle = async () => {
-        router.replace('/(dashboard)/home');
+        router.replace(App.routes.dashboard as any)
     }
 
     return (
