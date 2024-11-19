@@ -41,6 +41,7 @@ export default function RootLayout() {
               initialRouteName='/'
               screenOptions={{
                 headerShown: false,
+                animation: 'slide_from_right',
               }}
             >
               <Stack.Screen name="(open)" />
