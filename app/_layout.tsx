@@ -38,7 +38,6 @@ export default function RootLayout() {
         <ThemeProvider value={DefaultTheme}>
           <LocationProvider>
             <Stack
-              initialRouteName='/'
               screenOptions={{
                 headerShown: false,
                 animation: 'slide_from_right',

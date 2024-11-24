@@ -13,36 +13,42 @@ import { Text } from "../ui/text";
 import { View } from "../ui/view";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
+import { Platform } from "react-native";
 
 interface Props extends ViewProps {
     landmark: Landmark;
 }
 export function LandmarkViewCard({ landmark, ...props }: Props) {
-
+    // get platform
+    const platform = Platform.OS;
+    
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
             <HStack className="w-full p-4">
-                <BlurButton
-                    className="rounded-full p-4 bg-background-0/25"
-                    size="lg"
-                    variant="glass"
-                >
-                    <Ionicons name="heart-outline" size={24} color="white" />
-                </BlurButton>
-                {/* <View className="w-fit h-fit overflow-hidden rounded-full">
-                    <BlurView experimentalBlurMethod="dimezisBlurView" intensity={25} style={{
-                        borderRadius: 99,
-                    }} >
-                        <Button
-                            size="lg"
-                            className="rounded-full p-4 bg-background-0/25"
-                            variant="glass"
-                        >
-                            <Ionicons name="heart-outline" size={24} color="white" />
-                        </Button>
-                    </BlurView>
-                </View> */}
+                {platform === 'ios' ? (
+                    <View className="w-fit h-fit overflow-hidden rounded-full">
+                        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={25} style={{
+                            borderRadius: 99,
+                        }} >
+                            <Button
+                                size="lg"
+                                className="rounded-full p-4 bg-background-0/25"
+                                variant="glass"
+                            >
+                                <Ionicons name="heart-outline" size={24} color="white" />
+                            </Button>
+                        </BlurView>
+                    </View>
+                ) : (
+                    <BlurButton
+                        className="rounded-full p-4 bg-background-0/25"
+                        size="lg"
+                        variant="glass"
+                    >
+                        <Ionicons name="heart-outline" size={24} color="white" />
+                    </BlurButton>
+                )}
             </HStack>
         );
     }
