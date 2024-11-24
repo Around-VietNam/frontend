@@ -5,7 +5,7 @@ export interface IconProps {
 }
 export function GoogleIcon(props: IconProps) {
     const { size = 24 } = props;
-    
+
     return <Svg
         x="0px"
         y="0px"
@@ -28,5 +28,25 @@ export function FacebookIcon(props: IconProps) {
         viewBox="0 0 48 48"
     >
         <Path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></Path><Path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></Path>
+    </Svg>
+}
+
+export function Logo(props: IconProps) {
+    const { size = 24 } = props;
+
+    return <Svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <Path d="M4 17.6C4 15.0546 5.79086 13.6 8 13.6C10.2091 13.6 12 15.0546 12 17.6H4Z" stroke="#FB8B1E" strokeWidth="1.2" strokeLinejoin="round" />
+        <Path d="M10.4 17.6C10.4 18.9255 9.32548 20 8 20C6.67452 20 5.6 18.9255 5.6 17.6" stroke="#FB8B1E" strokeWidth="1.2" />
+        <Path d="M18.4 20C19.2837 20 20 19.2837 20 18.4C20 17.5163 19.2837 16.8 18.4 16.8C17.5163 16.8 16.8 17.5163 16.8 18.4C16.8 19.2837 17.5163 20 18.4 20Z" stroke="#FB8B1E" strokeWidth="1.2" />
+        <Path d="M15.2 11.2C16.2666 11.7101 18.4 13.7391 18.4 16.8M15.1919 8.8H15.6293C16.4171 8.8 17.1397 9.26342 17.5047 10.0027C17.7571 10.5141 17.5047 11.2 16.7879 11.2H15.1919M15.1919 8.8V11.2M15.1919 8.8H12.7555M15.1919 11.2C15.1919 12.7304 15.0221 17.6 12 17.6H16.5332" stroke="#FB8B1E" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <Path d="M6.8 9.88132C6.8 9.51416 6.8 9.3306 6.88136 9.17168C6.96268 9.01276 7.11436 8.90004 7.41768 8.67464L7.61768 8.526C8.08956 8.17532 8.32552 8 8.6 8C8.87448 8 9.11044 8.17532 9.58232 8.526L9.78232 8.67464C10.0856 8.90004 10.2373 9.01276 10.3186 9.17168C10.4 9.3306 10.4 9.51416 10.4 9.88132V10.4713C10.4 11.1919 10.4 11.5522 10.1657 11.7761C9.93136 12 9.55424 12 8.8 12H6.8V9.88132Z" stroke="white" strokeWidth="1.2" strokeLinejoin="round" />
+        <Path d="M8.8 8.00008V5.2C8.8 4.2072 8.5928 4 7.6 4H6C5.0072 4 4.8 4.2072 4.8 5.2V12" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <Path d="M6.39999 5.60001H7.19999M6.39999 6.80001H7.19999" stroke="white" strokeWidth="0.8" strokeLinecap="round" />
+        <Path d="M8.60001 12V11.2" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
     </Svg>
 }
