@@ -67,29 +67,35 @@ export function SituationWidget({ ...props }: Props) {
         </Center>
     )
     return (
-        <HStack
-            className={twMerge(
-                "w-full p-6 rounded-2xl bg-background-0 justify-between",
-                "shadow-hard-2"
-            )}
-        >
-            <VStack>
-                <Text className="text-4xl font-bold text-typography-900">
-                    {currentCondition?.temp_C}°C
-                </Text>
-                <Text>
-                    {address.city}
-                </Text>
-            </VStack>
-            <VStack>
-                <Text className="text-base font-medium text-typography-900">
-                    {currentCondition?.weatherDesc[0].value || 'Nắng'}
-                </Text>
-                <HStack space="sm">
-                    <Field label="Độ ẩm" icon={<Ionicons name="water-outline" size={14} />} value={currentCondition?.humidity} />
-                    <Field label="UV" icon={<Ionicons name="sunny-outline" size={14} />} value={currentCondition?.uvIndex} />
-                </HStack>
-            </VStack>
-        </HStack>
+        <VStack>
+            <HStack>
+                <Ionicons name="cloudy-night-sharp" size={16} />
+                <Text className="text-base font-semibold text-typography-0">Thời tiết</Text>
+            </HStack>
+            <HStack
+                className={twMerge(
+                    "w-full p-6 rounded-2xl bg-background-0 justify-between",
+                    "shadow-hard-2"
+                )}
+            >
+                <VStack>
+                    <Text className="text-4xl font-bold text-typography-900">
+                        {currentCondition?.temp_C}°C
+                    </Text>
+                    <Text>
+                        {address.city}
+                    </Text>
+                </VStack>
+                <VStack>
+                    <Text className="text-base font-medium text-typography-900">
+                        {currentCondition?.weatherDesc[0].value || 'Nắng'}
+                    </Text>
+                    <HStack space="sm">
+                        <Field label="Độ ẩm" icon={<Ionicons name="water-outline" size={14} />} value={currentCondition?.humidity} />
+                        <Field label="UV" icon={<Ionicons name="sunny-outline" size={14} />} value={currentCondition?.uvIndex} />
+                    </HStack>
+                </VStack>
+            </HStack>
+        </VStack>
     );
 }

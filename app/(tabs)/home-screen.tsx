@@ -4,14 +4,14 @@ import { mockLandmarks } from '@/mock';
 
 import { DashboardHeader } from '@/components/global/DashboardHeader';
 import { SearchInput } from '@/components/global/SearchInput';
-import { SituationWidget } from '@/components/widgets';
+import { OpenWidgets } from '@/components/widgets';
 
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
       header={<DashboardHeader />}
     >
-      <SituationWidget />
+      <OpenWidgets />
       <SearchInput />
       {
         mockLandmarks.map((landmark) => (
