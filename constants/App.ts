@@ -1,7 +1,8 @@
 export const App = {
     name: 'Arround Viet Nam',
     version: '0.0.1',
-    welcomeText: 'Khám phá Việt Nam cùng Around Vietnam! Tìm kiếm những điều thú vị, thưởng thức ẩm thực địa phương',
+    headline: 'Khám phá Việt Nam cùng Around Vietnam',
+    welcomeText: 'Tìm kiếm những điều thú vị, thưởng thức ẩm thực địa phương và hơn thế nữa!',
     defaultLanguage: 'vi',
     languages: ['vi', 'en'],
     routes: {
