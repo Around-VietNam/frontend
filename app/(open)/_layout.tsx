@@ -19,8 +19,6 @@ const coverImages = [
 ];
 
 export default function OpenLayout() {
-    const { width } = useWindowDimensions();
-    
     return (
         <VStack className='box-content w-full flex-1 p-4 justify-center' space='lg'>
             <VStack className='flex-grow-[12] w-full justify-between relative'>
