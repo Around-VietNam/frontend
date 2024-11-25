@@ -67,7 +67,7 @@ export function SituationWidget({ ...props }: Props) {
         </Center>
     )
     return (
-        <VStack className="w-full h-64 p-4 rounded-3xl bg-background-0">
+        <VStack className="w-full h-full p-4 rounded-3xl bg-background-0 justify-between">
             <HStack space="sm">
                 <Ionicons name="cloudy-night-sharp" size={16} />
                 <Text className="text-base font-semibold text-typography-900">Thời tiết</Text>
@@ -85,16 +85,16 @@ export function SituationWidget({ ...props }: Props) {
                         {address.city}
                     </Text>
                 </VStack>
-                <VStack>
-                    <Text className="text-base font-medium text-typography-900">
-                        {currentCondition?.weatherDesc[0].value || 'Nắng'}
-                    </Text>
-                    <HStack space="sm">
-                        <Field label="Độ ẩm" icon={<Ionicons name="water-outline" size={14} />} value={currentCondition?.humidity} />
-                        <Field label="UV" icon={<Ionicons name="sunny-outline" size={14} />} value={currentCondition?.uvIndex} />
-                    </HStack>
-                </VStack>
             </HStack>
+            <VStack>
+                    <Text className="text-base font-medium text-typography-500">
+                        {currentCondition?.lang_vi[0].value || 'Nắng'}
+                    </Text>
+                    <VStack space="sm">
+                        <Field label="Độ ẩm" icon={<Ionicons name="water" size={14} />} value={currentCondition?.humidity} />
+                        <Field label="UV" icon={<Ionicons name="sunny" size={14} />} value={currentCondition?.uvIndex} />
+                    </VStack    >
+                </VStack>
         </VStack>
     );
 }
