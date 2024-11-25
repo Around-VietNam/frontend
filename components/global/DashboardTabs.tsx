@@ -5,7 +5,9 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
 export function MyTabBar({ state, descriptors, navigation }: any) {
   return (
-    <View style={styles.tabBar}>
+    <View style={{
+      ...styles.tabBar,
+    }}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const label =
