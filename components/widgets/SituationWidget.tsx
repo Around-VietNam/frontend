@@ -88,12 +88,12 @@ export function SituationWidget({ ...props }: Props) {
             </HStack>
             <VStack>
                     <Text className="text-base font-medium text-typography-500">
-                        {currentCondition?.weatherDesc[0].value || 'Nắng'}
+                        {currentCondition?.lang_vi[0].value || 'Nắng'}
                     </Text>
-                    <HStack space="sm">
-                        <Field label="Độ ẩm" icon={<Ionicons name="water-outline" size={14} />} value={currentCondition?.humidity} />
-                        <Field label="UV" icon={<Ionicons name="sunny-outline" size={14} />} value={currentCondition?.uvIndex} />
-                    </HStack>
+                    <VStack space="sm">
+                        <Field label="Độ ẩm" icon={<Ionicons name="water" size={14} />} value={currentCondition?.humidity} />
+                        <Field label="UV" icon={<Ionicons name="sunny" size={14} />} value={currentCondition?.uvIndex} />
+                    </VStack    >
                 </VStack>
         </VStack>
     );
