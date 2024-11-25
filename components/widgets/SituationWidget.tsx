@@ -60,22 +60,21 @@ export function SituationWidget({ ...props }: Props) {
     if (!currentCondition) return (
         <Center
             className={twMerge(
-                "w-full p-6 rounded-2xl bg-background-0",
+                "w-full h-64 p-6 rounded-2xl bg-background-0",
             )}
         >
             <Text>Loading...</Text>
         </Center>
     )
     return (
-        <VStack>
-            <HStack>
+        <VStack className="w-full h-full p-4 rounded-3xl bg-background-0">
+            <HStack space="sm">
                 <Ionicons name="cloudy-night-sharp" size={16} />
-                <Text className="text-base font-semibold text-typography-0">Thời tiết</Text>
+                <Text className="text-base font-semibold text-typography-900">Thời tiết</Text>
             </HStack>
             <HStack
                 className={twMerge(
-                    "w-full p-6 rounded-2xl bg-background-0 justify-between",
-                    "shadow-hard-2"
+                    "w-full justify-between",
                 )}
             >
                 <VStack>
