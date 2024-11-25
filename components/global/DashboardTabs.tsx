@@ -48,6 +48,8 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
           iconName = isFocused ? 'fast-food' : 'fast-food-outline';
         } else if (route.name === 'favorite-screen') {
           iconName = isFocused ? 'heart' : 'heart-outline';
+        } else if (route.name === 'map-screen') {
+          iconName = isFocused ? 'locate' : 'locate-outline';
         }
 
         return (
