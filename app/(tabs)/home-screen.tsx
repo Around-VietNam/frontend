@@ -4,15 +4,36 @@ import { mockLandmarks } from '@/mock';
 
 import { DashboardHeader } from '@/components/global/DashboardHeader';
 import { SearchInput } from '@/components/global/SearchInput';
-import { OpenWidgets, TrafficWidget } from '@/components/widgets';
+import { OpenWidgets, SituationWidget } from '@/components/widgets';
+import { Box } from '@/components/ui/box';
+import React from 'react';
+import Animated, { useSharedValue, useAnimatedStyle, Easing, withSpring } from 'react-native-reanimated';
 
 export default function HomeScreen() {
+  const height = useSharedValue(0);
+
+  React.useEffect(() => {
+    height.value = withSpring(196, {
+      damping: 10,
+      stiffness: 100,
+    });
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      height: height.value,
+      width: '100%',
+    };
+  });
+
   return (
     <ParallaxScrollView
       header={<DashboardHeader />}
+      staticElements={
+        <Animated.View style={[animatedStyle]} className={'bg-secondary-500 rounded-b-3xl absolute'} />
+      }
     >
-      {/* <OpenWidgets /> */}
-      <TrafficWidget />
+      <OpenWidgets />
       <SearchInput />
       {
         mockLandmarks.map((landmark) => (

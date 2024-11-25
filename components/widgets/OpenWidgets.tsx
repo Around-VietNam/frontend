@@ -24,7 +24,7 @@ export function OpenWidgets({ ...props }: Props) {
     });
 
     return (
-        <VStack className="w-full h-64 justify-center items-center p-4 shadow-soft-1 overflow-visible">
+        <VStack className="w-full h-32 justify-center items-center p-4 shadow-soft-1 overflow-visible">
             <Animated.ScrollView
                 horizontal
                 pagingEnabled

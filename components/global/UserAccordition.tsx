@@ -20,7 +20,7 @@ export function UserAccordition(props: UserAccorditionProps) {
         <HStack {...props} space="md" className="flex-1">
             <Menu
                 placement="bottom left"
-                offset={16}
+                offset={4}
                 trigger={({ ...triggerProps }) => {
                     return (
                         <Button {...triggerProps} size="lg" variant="link" className="p-0">
@@ -47,8 +47,8 @@ export function UserAccordition(props: UserAccorditionProps) {
                 </MenuItem>
             </Menu>
             <VStack className="flex-1">
-                <Text size="md" className="text-typography-500 font-normal">Xin chào &#x1F44B; <Text className="text-typography-900 font-bold">BestBack</Text></Text>
-                <Text size="md" className="text-typography-500 font-normal">
+                <Text size="md" className="text-secondary-950 font-normal">Xin chào &#x1F44B; <Text className="text-secondary-950 font-bold">BestBack</Text></Text>
+                <Text size="md" className="text-secondary-950 font-normal">
                     {/* {address ? `${address.road}, ${address.suburb}, ${address.city}` : 'Fetching location...'}
                     <Ionicons name="location" size={12} color="#FF2929" /> */}
                     Hãy tận hưởng!

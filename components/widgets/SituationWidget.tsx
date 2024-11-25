@@ -67,7 +67,7 @@ export function SituationWidget({ ...props }: Props) {
         </Center>
     )
     return (
-        <VStack className="w-full h-full p-4 rounded-3xl bg-background-0">
+        <VStack className="w-full h-64 p-4 rounded-3xl bg-background-0">
             <HStack space="sm">
                 <Ionicons name="cloudy-night-sharp" size={16} />
                 <Text className="text-base font-semibold text-typography-900">Thời tiết</Text>
