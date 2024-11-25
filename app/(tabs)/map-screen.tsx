@@ -105,7 +105,7 @@ export default function MapScreen() {
                             }}
                             title={landmark.name}
                             description={landmark.address}
-                        >6
+                        >
                             <LandmarkReviewMap
                                 landmark={landmark}
                             />

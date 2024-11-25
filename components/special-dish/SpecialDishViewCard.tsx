@@ -53,7 +53,7 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
         <Pressable onPress={() => router.push(`/cursine/${specialDish.id}`)}>
         <Center
             className={twMerge(
-                "relative aspect-square rounded-2xl overflow-hidden",
+                "relative aspect-square rounded-2xl overflow-hidden shadow-hard-2",
                 size === 'sm' && "w-32",
                 size === 'md' && "w-48",
                 size === 'lg' && " w-64",
