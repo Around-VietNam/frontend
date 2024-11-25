@@ -82,7 +82,7 @@ export default function MapScreen() {
                 region={region}
                 onRegionChangeComplete={setRegion}
             >
-                <Marker
+                {/* <Marker
                     coordinate={{
                         latitude: location?.coords.latitude! + 0.01,
                         longitude: location?.coords.longitude!,
@@ -94,7 +94,24 @@ export default function MapScreen() {
                         landmark={mockLandmarks[0]}
                     />
 
-                </Marker>
+                </Marker> */}
+                {
+                    mockLandmarks.map((landmark, index) => (
+                        <Marker
+                            key={index}
+                            coordinate={{
+                                latitude: location?.coords.latitude! + Math.random() * 0.01,
+                                longitude: location?.coords.longitude! + Math.random() * 0.01,
+                            }}
+                            title={landmark.name}
+                            description={landmark.address}
+                        >6
+                            <LandmarkReviewMap
+                                landmark={landmark}
+                            />
+                        </Marker>
+                    ))
+                }
             </Map>
             <Toolbar />
         </ThemedView>
