@@ -47,10 +47,11 @@ export function UserAccordition(props: UserAccorditionProps) {
                 </MenuItem>
             </Menu>
             <VStack className="flex-1">
-                <Heading size="md" className="text-typography-900">BestBack</Heading>
-                <Text size="2xs" className="text-typography-500 w-64">
-                    {address ? `${address.road}, ${address.suburb}, ${address.city}` : 'Fetching location...'}
-                    <Ionicons name="location" size={12} color="#FF2929" />
+                <Text size="md" className="text-typography-500 font-normal">Xin chào &#x1F44B; <Text className="text-typography-900 font-bold">BestBack</Text></Text>
+                <Text size="md" className="text-typography-500 font-normal">
+                    {/* {address ? `${address.road}, ${address.suburb}, ${address.city}` : 'Fetching location...'}
+                    <Ionicons name="location" size={12} color="#FF2929" /> */}
+                    Hãy tận hưởng!
                 </Text>
             </VStack>
         </HStack>
