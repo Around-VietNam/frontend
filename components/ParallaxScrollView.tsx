@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginHorizontal: 16,
     marginTop: 32,
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
