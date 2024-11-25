@@ -14,12 +14,14 @@ import { VStack } from './ui/vstack';
 type Props = PropsWithChildren<{
   header?: ReactElement;
   footer?: ReactElement;
+  staticElements?: ReactElement;
 }>;
 
 export default function ParallaxScrollView({
   children,
   header,
   footer,
+  staticElements,
   ...props
 }: Props) {
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
@@ -28,6 +30,7 @@ export default function ParallaxScrollView({
 
   return (
     <ThemedView style={styles.container}>
+      {staticElements}
       <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
         <ThemedView style={styles.header}>{header}</ThemedView>
         <VStack style={styles.content} space='lg'>
@@ -42,17 +45,20 @@ export default function ParallaxScrollView({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F8F0EC',
   },
   header: {
     height: 'auto',
     overflow: 'hidden',
     marginHorizontal: 16,
     marginTop: 32,
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
     paddingBottom: 64,
     marginHorizontal: 16,
     overflow: 'hidden',
+    backgroundColor: 'transparent',
   },
 });

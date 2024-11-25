@@ -63,7 +63,7 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
             onLongPress={onLongPress}
             style={[styles.customButton, isFocused && styles.customButtonActive]}
           >
-            <TabBarIcon name={iconName as any} color={isFocused ? '#fff' : '#8C8C8C'} size={24} />
+            <TabBarIcon name={iconName as any} color={isFocused ? '#000' : '#8C8C8C'} size={24} />
           </TouchableOpacity>
         );
       })}
@@ -77,11 +77,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     alignContent: 'center',
+    gap: 16,
     justifyContent: 'space-between',
-    marginHorizontal: 32,
+    left: '50%',
+    transform: [{ translateX: '-50%' }],
     bottom: 16,
 
-    padding: 4,
+    padding: 8,
     borderRadius: 999,
     backgroundColor: '#181718',
     shadowColor: '#000',
@@ -91,14 +93,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   customButton: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 999,
-    marginHorizontal: 4,
-    height: 66,
+    height: 48,
+    width: 48,
   },
   customButtonActive: {
-    backgroundColor: '#292929',
+    backgroundColor: '#fff',
   },
 });
