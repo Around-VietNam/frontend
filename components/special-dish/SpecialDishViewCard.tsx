@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
 import { SpecialDish } from "@/types";
+import { Pressable } from "react-native";
 
 
 interface Props extends ViewProps {
@@ -49,6 +50,7 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
         )
     }
     return (
+        <Pressable onPress={() => router.push(`/cursine/${specialDish.id}`)}>
         <Center
             className={twMerge(
                 "relative aspect-square rounded-2xl overflow-hidden",
@@ -57,7 +59,6 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
                 size === 'lg' && " w-64",
                 size === 'full' && "w-full h-full",
             )}
-            onTouchEnd={() => router.push(`/cursine/${specialDish.id}`)}
             {...props}
         >
             <Image
@@ -85,5 +86,6 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
                 <Footer />
             </VStack>
         </Center>
+        </Pressable>
     );
 }
