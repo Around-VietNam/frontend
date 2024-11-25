@@ -19,6 +19,7 @@ export function MinimapV2({ }: Props) {
     return (
         <Center className='h-full aspect-square rounded-2xl shadow-soft-1'>
             <MapView
+                testID='minimap'
                 style={{
                     width: '100%',
                     height: '100%',

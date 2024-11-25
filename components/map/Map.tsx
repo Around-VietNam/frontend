@@ -22,8 +22,8 @@ export function Map({ children, ...props }: Props) {
             showsUserLocation={true}
             showsTraffic={true}
             showsScale={true}
-            toolbarEnabled={true}     
-            showsMyLocationButton={true}       
+            toolbarEnabled={true}
+            showsMyLocationButton={true}
             {...props}
         >
             {children}

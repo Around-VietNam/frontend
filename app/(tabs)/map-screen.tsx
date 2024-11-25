@@ -72,6 +72,7 @@ export default function MapScreen() {
         >
             <Header />
             <Map
+                testID='map'
                 style={{
                     position: 'absolute',
                     width: '100%',
@@ -82,7 +83,7 @@ export default function MapScreen() {
             >
                 <Marker
                     coordinate={{
-                        latitude: location?.coords.latitude! ,
+                        latitude: location?.coords.latitude!,
                         longitude: location?.coords.longitude!,
                     }}
                     title="Hanoi"
