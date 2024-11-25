@@ -13,11 +13,11 @@ export function DashboardHeader(props: DashboardHeaderProps) {
             <UserAccordition />
             <Menu
                 placement="bottom right"
-                offset={16}
+                offset={4}
                 trigger={({ ...triggerProps }) => {
                     return (
-                        <Button {...triggerProps} size="lg" className="items-center p-3">
-                            <Ionicons name="menu" size={24} color="white" />
+                        <Button {...triggerProps} size="lg" className="bg-secondary-950 items-center p-3">
+                            <Ionicons name="menu" size={24} color="black" />
                         </Button>
                     )
                 }}
