@@ -13,7 +13,7 @@ import { Text } from "../ui/text";
 import { View } from "../ui/view";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
-import { Platform } from "react-native";
+import { Platform, Pressable } from "react-native";
 
 interface Props extends ViewProps {
     landmark: Landmark;
@@ -21,7 +21,7 @@ interface Props extends ViewProps {
 export function LandmarkViewCard({ landmark, ...props }: Props) {
     // get platform
     const platform = Platform.OS;
-    
+
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
@@ -80,36 +80,37 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
         )
     }
     return (
-        <Center
-            className="relative w-full min-w-64 aspect-square rounded-3xl overflow-hidden shadow-hard-2"
-            // navigation to the landmark detail page, use router
-            onTouchEnd={() => router.push(`/landmark/${landmark.id}`)}
-            {...props}
-        >
-            <Image
-                alt={landmark.name}
-                source={{ uri: landmark.image }}
-                className={twMerge(
-                    "w-full h-full object-cover",
-                    "absolute top-0 left-0",
-                )}
-            />
-            <LinearGradient
-                // Background Linear Gradient
-                colors={['transparent', 'rgba(0,0,0,0.5)']}
-                style={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    height: '50%',
-                    zIndex: 0,
-                }}
-            />
-            <VStack className="justify-between items-center w-full h-full">
-                <Toolbar />
-                <Footer />
-            </VStack>
-        </Center>
+        <Pressable onPress={() => router.push(`/landmark/${landmark.id}`)}>
+            <Center
+                className="relative w-full min-w-64 aspect-square rounded-3xl overflow-hidden shadow-hard-2"
+                // navigation to the landmark detail page, use router
+                {...props}
+            >
+                <Image
+                    alt={landmark.name}
+                    source={{ uri: landmark.image }}
+                    className={twMerge(
+                        "w-full h-full object-cover",
+                        "absolute top-0 left-0",
+                    )}
+                />
+                <LinearGradient
+                    // Background Linear Gradient
+                    colors={['transparent', 'rgba(0,0,0,0.5)']}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        height: '50%',
+                        zIndex: 0,
+                    }}
+                />
+                <VStack className="justify-between items-center w-full h-full">
+                    <Toolbar />
+                    <Footer />
+                </VStack>
+            </Center>
+        </Pressable>
     );
 }
