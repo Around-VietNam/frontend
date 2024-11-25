@@ -11,10 +11,13 @@ export default function HomeScreen() {
   return (
     <ParallaxScrollView
       header={<DashboardHeader />}
+      staticElements={
+        <Box
+          className={'w-full h-48 bg-secondary-500 rounded-b-3xl absolute'}
+        />
+      }
     >
-      <Box
-        className={'w-full h-64 bg-secondary-500 absolute'}
-      />
+
       <SituationWidget />
       <SearchInput />
       {
