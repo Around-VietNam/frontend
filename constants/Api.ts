@@ -13,5 +13,10 @@ export const Api = {
     tomtom: {
         key: process.env.EXPO_PUBLIC_TOMTOM_API_KEY,
         url: process.env.EXPO_PUBLIC_TOMTOM_API_URL
+    },
+    google: {
+        ios: {
+            clientId: process.env.EXPO_PUBLIC_IOS_GOOGLE_CLIENT_ID
+        }
     }
 }

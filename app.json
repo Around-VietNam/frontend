@@ -24,8 +24,11 @@
       },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
-      ]
+      ],
+      "package": "com.example.aroundvietnam"
     },
     "web": {
       "bundler": "metro",
@@ -38,6 +41,12 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.193478781234-bpe40vk2f28h752lm07g91jpv923t0sv"
         }
       ],
       "expo-font"
