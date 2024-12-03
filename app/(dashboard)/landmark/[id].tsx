@@ -30,6 +30,10 @@ import {
 } from '@/components/ui/modal';
 import { Heading } from '@/components/ui/heading';
 import { useLocation } from '@/contexts/location';
+import { Skeleton, SkeletonText } from '@/components/ui/skeleton';
+import { MinimapV2 } from '@/components/map';
+import { Marker } from 'react-native-maps';
+import { LandmarkReviewMap } from '@/components/landmark';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -142,6 +146,50 @@ export default function LandmarkDetailsScreen() {
       </Area>
     )
   }
+  const LandmarkLocation = () => {
+    if (!landmark) return <Skeleton className='w-full h-auto aspect-[2/1] rounded-3xl' />
+
+    return (
+      <HStack className='w-full h-auto aspect-[2/1] p-4 bg-background-0 rounded-3xl shadow-soft-1 justify-between' space='md'>
+        <VStack className='items-center justify-start flex-1' space='md'>
+          <Heading size='lg' className='text-typography-900 flex-1 flex-wrap'>
+            # {landmark?.address}
+          </Heading>
+          <Field
+            icon={<MaterialCommunityIcons name="map-marker-distance" size={16} color="#808080" className="text-typography-500" />}
+            label={"Distance"}
+            value={
+              landmark ?
+                haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark?.latitude || 0, landmark?.longitude || 0).toFixed(2) + ' km'
+                :
+                <SkeletonText className='w-8 h-4 rounded-lg' />
+            }
+          />
+        </VStack>
+        <MinimapV2
+          region={{
+            latitude: landmark?.latitude || 0,
+            longitude: landmark?.longitude || 0,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.042
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: landmark?.latitude!,
+              longitude: landmark?.longitude!,
+            }}
+            title={landmark?.name}
+            description={landmark?.address}
+          >
+            <LandmarkReviewMap
+              landmark={landmark}
+            />
+          </Marker>
+        </MinimapV2>
+      </HStack>
+    )
+  }
   React.useEffect(() => {
     if (id) {
       fetchLandmark();
@@ -163,41 +211,47 @@ export default function LandmarkDetailsScreen() {
           </BottomToolbar>
         }
       >
-        <Image
-          source={{
-            uri: landmark?.image || 'https://via.placeholder.com/300',
-          }}
-          alt={landmark?.name || 'Landmark Image'}
-          className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
-        />
+        {
+          landmark?.image ?
+            <Image
+              source={{
+                uri: landmark?.image || 'https://via.placeholder.com/300',
+              }}
+              alt={landmark?.name || 'Landmark Image'}
+              className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
+            />
+            :
+            <Skeleton className='aspect-[1/1] h-auto w-full rounded-3xl' />
+        }
         <Header
-          title={landmark?.name || 'Đang tải ...'}
+          title={landmark?.name || <SkeletonText className='w-full h-8 rounded-2xl' />}
           badge='Du lịch'
           more={
             <VStack space="sm">
               <Field
                 icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
                 label="Address"
-                value={landmark?.address || 'Đang tải ...'}
+                value={landmark?.address || <SkeletonText _lines={1} className='w-8 h-4 rounded-2xl' />}
               />
-              <Field
-                icon={<MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />}
-                label="Distance"
-                value={haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark?.latitude || 0, landmark?.longitude || 0).toFixed(2) + ' km' || '0 km'}
-              />
+
               <Field
                 icon={<AntDesign name="star" size={16} color="#FFC53C" />}
                 label="Rating"
-                value={landmark?.rating || 4.5}
+                value={landmark?.rating || <SkeletonText className='w-8 h-4 rounded-2xl' />}
               />
-
             </VStack>
           }
         />
         <Main>
-          <Text className='text-typography-500 text-base'>
-            {landmark?.description}
-          </Text>
+          <LandmarkLocation />
+          {
+            landmark?.description ?
+              <Text className='text-typography-500'>
+                {landmark?.description}
+              </Text>
+              :
+              <SkeletonText className='w-full h-16 rounded-lg' />
+          }
           <Area
             title="Ẩm thực"
           >
@@ -220,7 +274,6 @@ export default function LandmarkDetailsScreen() {
           >
           </Area>
           <UserReviewArea />
-
         </Main>
       </ParallaxScrollView>
     </LandmarkContext.Provider>

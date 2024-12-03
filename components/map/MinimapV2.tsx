@@ -1,11 +1,12 @@
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, MapViewProps } from 'react-native-maps';
 import { useLocation } from '@/contexts/location';
 import React from 'react';
 import { Center } from '../ui/center';
 
-interface Props { }
+interface Props extends MapViewProps {
+}
 
-export function MinimapV2({ }: Props) {
+export function MinimapV2({ ...props }: Props) {
     const { location, address } = useLocation();
     const [mapLongitude, setMapLongitude] = React.useState<number>(location?.coords.longitude || 106.6881);
     const [mapLatitude, setMapLatitude] = React.useState<number>(location?.coords.latitude || 10.7629);
@@ -33,6 +34,7 @@ export function MinimapV2({ }: Props) {
                 followsUserLocation={true}
                 showsTraffic={true}
                 mapType='standard'
+                {...props}
             >
                 <Marker
                     coordinate={{
@@ -42,6 +44,7 @@ export function MinimapV2({ }: Props) {
                     title={`${address.suburb}, ${address.city}`}
                     description={address.road}
                 />
+                {props.children}
             </MapView>
         </Center>
     );
