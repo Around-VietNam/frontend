@@ -9,7 +9,7 @@ import { Toast, ToastDescription, ToastTitle, useToast } from '@/components/ui/t
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { Image } from '@/components/ui/image';
-import { SpecialDish } from '@/types';
+import { Dish } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Field from '@/components/ui/field';
@@ -17,8 +17,8 @@ import BottomToolbar from '@/components/screen/BottomToolbar';
 import { Button, ButtonText } from '@/components/ui/button';
 import { UserReviewCard, UserReviewInput } from '@/components/user';
 import { Heading } from '@/components/ui/heading';
-import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal} from '@/components/ui/modal';
-import { mockLandmarkFeedbacks, mockUsers } from '@/mock';
+import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal } from '@/components/ui/modal';
+import { mockDishes, mockLandmarkFeedbacks, mockUsers } from '@/mock';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -26,7 +26,7 @@ export default function SpecialDishDetailsScreen() {
   const { id } = useLocalSearchParams();
   const toast = useToast();
   const [toastId, setToastId] = React.useState(0)
-  const [specialDish, setSpecialDish] = React.useState<SpecialDish | null>(null);
+  const [specialDish, setSpecialDish] = React.useState<Dish | null>(null);
   const [showAllReviews, setShowAllReviews] = React.useState(false);
 
   const fetchSpecialDish = React.useCallback(async () => {
@@ -35,36 +35,25 @@ export default function SpecialDishDetailsScreen() {
       const data = await response.json();
       setSpecialDish(data);
     } catch (error) {
-      const newId = Math.random()
-      setToastId(newId)
-      toast.show({
-        id: newId.toString(),
-        placement: "top",
-        duration: 3000,
-        render: ({ id }) => {
-          const uniqueToastId = "toast-" + id
-          return (
-            <Toast nativeID={uniqueToastId} action="error" variant="solid">
-              <ToastTitle>Hello!</ToastTitle>
-              <ToastDescription>
-                Failed to fetch special dish
-              </ToastDescription>
-            </Toast>
-          )
-        }
-      });
-      setSpecialDish({
-        id: 1,
-        name: 'SpecialDish Name',
-        image: 'https://images.unsplash.com/photo-1547643857-081e66b3ea2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        description: 'Vietnam, officially',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        maxPrice: 100000,
-        minPrice: 50000,
-        specialty: 'Specialty',
-      });
-
+      // const newId = Math.random()
+      // setToastId(newId)
+      // toast.show({
+      //   id: newId.toString(),
+      //   placement: "top",
+      //   duration: 3000,
+      //   render: ({ id }) => {
+      //     const uniqueToastId = "toast-" + id
+      //     return (
+      //       <Toast nativeID={uniqueToastId} action="error" variant="solid">
+      //         <ToastTitle>Hello!</ToastTitle>
+      //         <ToastDescription>
+      //           Failed to fetch special dish
+      //         </ToastDescription>
+      //       </Toast>
+      //     )
+      //   }
+      // });
+      setSpecialDish(mockDishes[Number(id) - 1]);
     }
   }, [id]);
 
@@ -80,7 +69,7 @@ export default function SpecialDishDetailsScreen() {
           </Button>
         }
       >
-        {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
+        {/* {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
           <UserReviewCard
             key={index}
             comment={feedback.comments}
@@ -88,7 +77,7 @@ export default function SpecialDishDetailsScreen() {
             created_at={feedback.createdAt}
             user={mockUsers[0]}
           />
-        ))}
+        ))} */}
         <UserReviewInput />
         <Modal
           isOpen={showAllReviews}
@@ -108,7 +97,7 @@ export default function SpecialDishDetailsScreen() {
             </ModalHeader>
             <ModalBody>
               <ScrollView>
-                {mockLandmarkFeedbacks.map((feedback, index) => (
+                {/* {mockLandmarkFeedbacks.map((feedback, index) => (
                   <UserReviewCard
                     key={index}
                     comment={feedback.comments}
@@ -116,7 +105,7 @@ export default function SpecialDishDetailsScreen() {
                     created_at={feedback.createdAt}
                     user={mockUsers[0]}
                   />
-                ))}
+                ))} */}
               </ScrollView>
             </ModalBody>
             <ModalFooter>
@@ -127,7 +116,7 @@ export default function SpecialDishDetailsScreen() {
       </Area>
     )
   }
-  
+
   React.useEffect(() => {
     if (id) {
       fetchSpecialDish();
@@ -151,32 +140,32 @@ export default function SpecialDishDetailsScreen() {
       >
         <Image
           source={{
-            uri: 'https://images.unsplash.com/photo-1547643857-081e66b3ea2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            uri: specialDish?.image || 'https://via.placeholder.com/300',
           }}
-          alt={specialDish?.name || 'SpecialDish Image'}
+          alt={specialDish?.name || 'Dish Image'}
           className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
         />
         <Header
-          title={specialDish?.name || 'SpecialDish Name'}
+          title={specialDish?.name || 'Đang tải...'}
           badge='Ẩm thực'
           more={
             <VStack space="sm">
               <Field
                 icon={<MaterialCommunityIcons name="silverware-fork-knife" size={16} color="#FFC53C" />}
                 label="Specialty"
-                value={specialDish?.specialty || 'Specialty'}
+                value={specialDish?.special || 'Đang tải...'}
               />
               <Field
                 icon={<Ionicons name="pricetag-outline" size={16} color="#FFC53C" />}
                 label="Price"
-                value={`${specialDish?.minPrice || 50000} - ${specialDish?.maxPrice || 100000} VND`}
+                value={`${specialDish?.price || 0} VND`}
               />
             </VStack>
           }
         />
         <Main>
           <Text className='text-typography-500 text-base'>
-            {specialDish?.description} + {id}
+            {specialDish?.description}
           </Text>
           <Area
             title="Ẩm thực"

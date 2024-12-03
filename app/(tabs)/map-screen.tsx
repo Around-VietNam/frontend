@@ -96,12 +96,12 @@ export default function MapScreen() {
 
                 </Marker> */}
                 {
-                    mockLandmarks.map((landmark, index) => (
+                    mockLandmarks && mockLandmarks.map((landmark, index) => (
                         <Marker
                             key={index}
                             coordinate={{
-                                latitude: location?.coords.latitude! + Math.random() * 0.01,
-                                longitude: location?.coords.longitude! + Math.random() * 0.01,
+                                latitude: landmark.latitude!,
+                                longitude: landmark.longitude!,
                             }}
                             title={landmark.name}
                             description={landmark.address}

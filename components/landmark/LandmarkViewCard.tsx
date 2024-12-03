@@ -14,6 +14,8 @@ import { View } from "../ui/view";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Platform, Pressable } from "react-native";
+import { haversineDistance } from "@/utils";
+import { useLocation } from "@/contexts/location";
 
 interface Props extends ViewProps {
     landmark: Landmark;
@@ -21,6 +23,7 @@ interface Props extends ViewProps {
 export function LandmarkViewCard({ landmark, ...props }: Props) {
     // get platform
     const platform = Platform.OS;
+    const { location } = useLocation();
 
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
@@ -69,7 +72,7 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
                     </Text>
                     <Text className="text-white text-2xs flex flex-row items-center">
                         <MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />
-                        {landmark.region}
+                        {haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark.latitude!, landmark.longitude!).toFixed(2) + ' km' || '0 km'}
                     </Text>
                     <Text className="text-white text-2xs flex flex-row items-center">
                         <AntDesign name="star" size={16} color="#FFC53C" />
