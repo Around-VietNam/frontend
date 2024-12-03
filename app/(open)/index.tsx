@@ -1,5 +1,5 @@
 import { VStack } from '@/components/ui/vstack';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { ButtonText } from '@/components/ui/button';
@@ -11,13 +11,11 @@ import React from 'react';
 import { Api } from '@/constants/Api';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
+import Constants from 'expo-constants';
+import { useToast } from '@/components/ui/toast';
 
 WebBrowser.maybeCompleteAuthSession({
     skipRedirectCheck: true,
-});
-
-const redirectUri = AuthSession.makeRedirectUri({
-    scheme: 'aroundvietnam',
 });
 const discovery = {
     authorizationEndpoint: 'https://github.com/login/oauth/authorize',
@@ -27,6 +25,9 @@ const discovery = {
 
 export default function OpenScreen() {
     const router = useRouter();
+    const useProxy = Constants.appOwnership === 'expo' && Platform.OS !== 'web';
+    const SCHEME = Constants.manifest2.scheme;
+    const toast = useToast();
 
     const [tokenResponse, setTokenResponse] = React.useState<AuthSession.TokenResponse | null>(null);
     const [decodedIdToken, setDecodedIdToken] = React.useState<any | null>(null);
@@ -36,13 +37,27 @@ export default function OpenScreen() {
             clientId: 'Ov23liJU5zY9Kh6GgBBJ',
             clientSecret: 'f5b49e1bd5fc46f24591ce757fb940785bed2dc4',
             scopes: ['identity'],
-            redirectUri
+            redirectUri: AuthSession.makeRedirectUri({
+                native: `${SCHEME}://redirect`,
+            }),
         },
         discovery,
     );
 
     const loginWithGoogle = async () => {
-        const result = await promptAsync();
+        try {
+            await promptAsync();
+            router.push("/(dashboard)/home");
+        } catch (error) {
+            toast.show({
+                render: () => (
+                    <Text>
+                        Đăng nhập thất bại
+                    </Text>
+                ),
+                placement: 'top',
+            });
+        }
     }
 
     React.useEffect(() => {
