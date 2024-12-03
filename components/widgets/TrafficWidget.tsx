@@ -26,13 +26,9 @@ export function TrafficWidget({ ...props }: Props) {
 
     return (
         <VStack className="bg-background-0 p-4 rounded-3xl w-full h-full" space="md">
-            <HStack space="sm">
-                <Ionicons name="car-sport" size={16} color={"hsl(var(--color-typography-500))"} />
-                <Text className="text-base font-semibold text-typography-900"> Tình trạng giao thông</Text>
-            </HStack>
-            <HStack className="flex-1 w-full" space="md">
-                <MinimapV2 />
-                <VStack className="h-full justify-between" space="md">
+            <VStack className="flex-1 w-full" space="md">
+                <MinimapV2 className="flex-1"/>
+                <VStack className="flex-[2] justify-between" space="md">
                     <Field
                         icon={<Ionicons name="location-sharp" size={14} />}
                         label="Địa điểm"
@@ -48,13 +44,8 @@ export function TrafficWidget({ ...props }: Props) {
                         label="Tình trạng"
                         value="Đang chạy"
                     />
-                    <Button size="sm" className="w-full">
-                        <ButtonText>
-                            Mở map
-                        </ButtonText>
-                    </Button>
                 </VStack>
-            </HStack>
+            </VStack>
         </VStack>
     )
 }
