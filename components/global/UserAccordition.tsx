@@ -10,7 +10,7 @@ import { useLocation } from "@/contexts/location";
 import { Heading } from "../ui/heading";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
-import { useAuth } from "@/hook/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 
 interface UserAccorditionProps extends ViewProps {
 }

@@ -44,14 +44,10 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
         let iconName;
         if (route.name === 'home-screen') {
           iconName = isFocused ? 'home' : 'home-outline';
-        } else if (route.name === 'landmark-screen') {
-          iconName = isFocused ? 'map' : 'map-outline';
-        } else if (route.name === 'cursine-screen') {
-          iconName = isFocused ? 'fast-food' : 'fast-food-outline';
         } else if (route.name === 'favorite-screen') {
           iconName = isFocused ? 'heart' : 'heart-outline';
         } else if (route.name === 'map-screen') {
-          iconName = isFocused ? 'locate' : 'locate-outline';
+          iconName = isFocused ? 'map' : 'map-outline';
         }
 
         return (
