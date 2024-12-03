@@ -1,181 +1,368 @@
-import { User, Landmark, LandmarkFeedback, FavouritePlace, Restaurant, RestaurantFeedback, FavouriteDish, SpecialDish, SpecialDishFeedback, RestaurantDish } from '../types';
+import { User, Landmark, LandmarkFeedback, Restaurant, RestaurantFeedback, Dish, DishFeedback } from '../types';
 
 export const mockUsers: User[] = [
     {
         id: 1,
         name: 'Nguyễn Văn A',
+        username: 'nguyenvana',
         email: 'nguyenvana@example.com',
         gender: 'male',
         dateOfBirth: new Date('1990-01-01'),
         location: 'Hà Nội',
-        avatar: 'https://source.unsplash.com/random/100x100?person',
+        avatar: 'https://images.unsplash.com/photo-1732493669483-d36c907d0a3d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxN3x8fGVufDB8fHx8fA%3D%3D',
         hashPassword: 'hashedpassword123',
         createdAt: new Date(),
         updatedAt: new Date(),
     },
-    // ...other mock users...
-];
-
-export const mockLandmarks: Landmark[] = [
-    {
-        id: 1,
-        name: 'Vịnh Hạ Long',
-        description: 'Một trong những kỳ quan thiên nhiên của thế giới.',
-        image: 'https://images.unsplash.com/photo-1547643857-081e66b3ea2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        address: 'Quảng Ninh',
-        region: 'Miền Bắc',
-        rating: 4.8,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    },
     {
         id: 2,
-        name: 'Chùa Một Cột',
-        description: 'Một trong những di tích lịch sử nổi tiếng của Hà Nội.',
-        image: 'https://vnd.vietnamdrive.com/wp-content/uploads/2021/06/one-pillar-pagoda-hanoi-1.jpg',
-        address: 'Hà Nội',
-        region: 'Miền Bắc',
-        rating: 4.5,
+        name: 'Trần Thị B',
+        username: 'tranthib',
+        email: 'tranthib@example.com',
+        gender: 'female',
+        dateOfBirth: new Date('1992-05-10'),
+        location: 'Hồ Chí Minh',
+        avatar: 'https://images.unsplash.com/photo-1731796603747-409787efd360?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D',
+        hashPassword: 'hashedpassword234',
         createdAt: new Date(),
         updatedAt: new Date(),
     },
-    {
-        id: 3,
-        name: 'Đà Nẵng',
-        description: 'Thành phố biển xinh đẹp.',
-        image: 'https://images.unsplash.com/photo-1579518030577-b4a62b368886?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        address: 'Đà Nẵng',
-        region: 'Miền Trung',
-        rating: 4.7,
-        createdAt: new Date(),
-        updatedAt: new Date
-    },
-    {
-        id: 4,
-        name: 'TP Hồ Chí Minh',
-        description: 'Thành phố sôi động và hiện đại.',
-        image: 'https://images.unsplash.com/photo-1591269469224-0479a5f956c6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        address: 'TP Hồ Chí Minh',
-        region: 'Miền Nam',
-        rating: 4.6,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    }
-    // ...other mock landmarks...
-];
-
-export const mockLandmarkFeedbacks: LandmarkFeedback[] = [
-    {
-        id: 1,
-        userId: 1,
-        landmarkId: 1,
-        comments: 'Rất đẹp và hùng vĩ!',
-        stars: 5,
-        createdAt: new Date(),
-    },
-    {
-        id: 2,
-        userId: 1,
-        landmarkId: 2,
-        comments: 'Chùa rất linh thiêng và đẹp!',
-        stars: 5,
-        createdAt: new Date(),
-    },
-    {
-        id: 3,
-        userId: 1,
-        landmarkId: 3,
-        comments: 'Đà Nẵng rất đẹp và sạch sẽ!',
-        stars: 5,
-        createdAt: new Date(),
-    },
-    {
-        id: 4,
-        userId: 1,
-        landmarkId: 4,
-        comments: 'TP Hồ Chí Minh rất sôi động và hiện đại!',
-        stars: 5,
-        createdAt: new Date(),
-    }
-    // ...other mock landmark feedbacks...
-];
-
-export const mockFavouritePlaces: FavouritePlace[] = [
-    {
-        id: 1,
-        userId: 1,
-        landmarkId: 1,
-        createdAt: new Date(),
-    },
-    // ...other mock favourite places...
 ];
 
 export const mockRestaurants: Restaurant[] = [
     {
         id: 1,
-        name: 'Nhà hàng Hải Sản',
-        description: 'Chuyên các món hải sản tươi sống.',
-        image: 'https://source.unsplash.com/random/200x200?restaurant',
-        address: 'Đà Nẵng',
-        phone: '0123456789',
-        website: 'http://nhahanghaisan.com',
-        rating: 4.5,
+        name: 'Nhà Hàng Hải Sản Biển Xanh',
+        description: 'Nhà hàng phục vụ các món ăn hải sản Việt Nam.',
+        image: 'https://lh3.googleusercontent.com/p/AF1QipNmGqCU7p7CdgQS4tffnttIpewxrQtgG4mbljrq=s1360-w1360-h1020',
+        address: 'LK06 P. Vũ Trọng Khánh, P. Mộ Lao, Hà Đông, Hà Nội',
+        latitude: 20.984746,
+        longitude: 105.781006,
+        rating: 4.7,
+        phone: '0904 985 888',
         createdAt: new Date(),
         updatedAt: new Date(),
     },
-    // ...other mock restaurants...
+    {
+        id: 2,
+        name: 'Chicken 36 Ha Dong',
+        description: 'Nhà hàng phục vụ các món ăn hải sản Việt Nam.',
+        image: 'https://lh5.googleusercontent.com/p/AF1QipNX84xGydRiOZhleciMwdjuQX81IxCPYAfBipgw=w585-h393-n-k-no',
+        address: 'Số 18 ngõ 23 Nguyễn Văn Lộc Dãy 16A4, Làng Việt kiều Châu Âu, Hà Đông, Hà Nội',
+        latitude: 20.984730,
+        longitude: 105.787452,
+        website: "https://www.ga36.vn/",
+        rating: 4.0,
+        phone: '024 3354 7198',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
 ];
 
+// Mock Landmark Feedbacks
+export const mockLandmarkFeedbacks: LandmarkFeedback[] = [
+    {
+        id: 1,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 2,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 3,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 4,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 5,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 6,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 6,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 7,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 7,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 8,
+        comment: 'Nơi này rất đẹp!',
+        image: 'https://source.unsplash.com/random/300x200?landmark1',
+        rating: 4.8,
+        userId: 1,
+        landmarkId: 8,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+];
+
+// Mock Dishes
+export const mockDishes: Dish[] = [
+    {
+        id: 1,
+        name: 'Phở bò',
+        description: 'Món ăn truyền thống Việt Nam với nước dùng đậm đà.',
+        image: 'https://plus.unsplash.com/premium_photo-1695411123705-3a2157d517ad?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        price: 40000,
+        special: true,
+        restaurantId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 2,
+        name: 'Bánh mì',
+        description: 'Bánh mì Việt Nam nổi tiếng thế giới.',
+        image: 'https://images.unsplash.com/photo-1600454309261-3dc9b7597637?q=80&w=2247&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        price: 15000,
+        special: false,
+        restaurantId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 3,
+        name: 'Gỏi cuốn',
+        description: 'Gỏi cuốn hấp dẫn',
+        image: 'https://images.unsplash.com/photo-1656945843375-207bb6e47750?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        price: 35000,
+        special: false,
+        restaurantId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 4,
+        name: 'Bánh đậu xanh',
+        description: 'Bánh đậu xanh ngon tuyệt',
+        image: 'https://images.unsplash.com/photo-1656945843375-207bb6e47750?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        price: 25000,
+        special: true,
+        restaurantId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+];
+
+// Mock Dish Feedbacks
+export const mockDishFeedbacks: DishFeedback[] = [
+    {
+        id: 1,
+        comment: 'Món này rất ngon!',
+        userId: 1,
+        dishId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 2,
+        comment: 'Món này tuyệt quá!',
+        userId: 1,
+        dishId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 3,
+        comment: 'Quá là tuyệt vời',
+        userId: 1,
+        dishId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 4,
+        comment: 'Không thể nào chê',
+        userId: 1,
+        dishId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+];
+
+// Mock Restaurant Feedbacks
 export const mockRestaurantFeedbacks: RestaurantFeedback[] = [
     {
         id: 1,
+        comment: 'Dịch vụ tốt và món ăn ngon. 10 điểm',
+        rating: 4.9,
         userId: 1,
         restaurantId: 1,
-        comments: 'Món ăn rất ngon và phục vụ chu đáo.',
-        stars: 5,
         createdAt: new Date(),
+        updatedAt: new Date(),
     },
-    // ...other mock restaurant feedbacks...
+    {
+        id: 2,
+        comment: 'Dịch vụ tốt và món ăn ngon. 10 điểm',
+        rating: 4.9,
+        userId: 1,
+        restaurantId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
 ];
 
-export const mockFavouriteDishes: FavouriteDish[] = [
+// Mock Landmarks
+export const mockLandmarks: Landmark[] = [
     {
         id: 1,
-        userId: 1,
-        dishId: 1,
+        name: 'Vịnh Hạ Long',
+        description: 'Kỳ quan thiên nhiên thế giới tại Việt Nam.',
+        image: 'https://images.unsplash.com/photo-1625396836163-80c0d3d7eb86?q=80&w=2748&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        address: 'Quảng Ninh, Việt Nam',
+        latitude: 20.910051,
+        longitude: 107.183902,
+        rating: 4.9,
+        phone: '0123456790',
+        website: 'https://halongbay.com.vn/',
         createdAt: new Date(),
+        updatedAt: new Date(),
     },
-    // ...other mock favourite dishes...
-];
-
-export const mockSpecialDishe: SpecialDish = {
-    id: 1,
-    name: 'Phở Bò',
-    description: 'Món ăn truyền thống của Việt Nam.',
-    image: 'https://media.istockphoto.com/id/910864612/fr/photo/vietnamienne-soupe-pho-bo.webp?a=1&b=1&s=612x612&w=0&k=20&c=AVjMBkWR6ezEyesSVahF90JG6q_2c7LVQQg8HiYuWMQ=',
-    minPrice: 30000,
-    maxPrice: 50000,
-    specialty: 'Phở',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-};
-export const mockSpecialDishes: SpecialDish[] = Array(10).fill(mockSpecialDishe);
-
-export const mockSpecialDishFeedbacks: SpecialDishFeedback[] = [
     {
-        id: 1,
-        userId: 1,
-        specialDishId: 1,
-        comments: 'Phở rất ngon và đậm đà.',
+        id: 2,
+        name: 'Nhà thờ Đức Bà',
+        description: 'Là một trong những biểu tượng lớn của Sài Gòn',
+        image: 'https://plus.unsplash.com/premium_photo-1664300792059-863ccfe55932?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        address: 'Số 01 Công xã Paris, phường Bến Nghé, quận 1, TP Hồ Chí Minh',
+        latitude: 20.963889,
+        longitude: 105.8325,
+        rating: 4.9,
+        phone: '0123456790',
+        website: 'http://halongbay.com',
         createdAt: new Date(),
+        updatedAt: new Date(),
     },
-    // ...other mock special dish feedbacks...
-];
-
-export const mockRestaurantDishes: RestaurantDish[] = [
     {
-        restaurantId: 1,
-        dishId: 1,
+        id: 3,
+        name: 'Chùa Một Cột',
+        description: 'Là "Ngôi chùa có kiến trúc độc đáo nhất Châu Á", chùa được xây dựng theo hình tượng của một đóa hoa sen nở trên mặt nước, tượng trưng cho sự tinh khiết và cao quý của Phật pháp',
+        image: 'https://plus.unsplash.com/premium_photo-1691960159059-04976913256a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        address: 'Phố Chùa Một Cột, Đội Cấn, Ba Đình, Hà Nội',
+        latitude: 20.94416,
+        longitude: 105.79916,
+        rating: 4.7,
+        phone: '0123456790',
+        website: 'http://halongbay.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
     },
-    // ...other mock restaurant dishes...
+    {
+        id: 4,
+        name: 'Hoàng thành Thăng Long',
+        description: 'Hoàng thành Thăng Long là quần thể di tích gắn với lịch sử kinh thành Thăng Long – Hà Nội. Công trình kiến trúc đồ sộ này được các triều vua xây dựng trong nhiều giai đoạn lịch sử và trở thành di tích quan trọng bậc nhất trong hệ thống các di tích Việt Nam',
+        image: 'https://i2.ex-cdn.com/crystalbay.com/files/content/2024/09/13/hoang-thanh-thang-long-1-1047.jpg',
+        address: '19c Hoàng Diệu, Điện Biên, Ba Đình, Hà Nội',
+        latitude: 20.955555,
+        longitude: 105.808334,
+        rating: 4.4,
+        phone: '0123456790',
+        website: 'www.hoangthanhthanglong.vn',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    }, {
+        id: 5,
+        name: 'Nhà hát lớn',
+        description: 'Nhà hát Lớn là nơi khai sinh và tôn vinh kịch nghệ cùng sân khấu Việt Nam, cũng như các loại hình nghệ thuật giao hưởng, hợp xướng, nhạc kịch, vũ kịch.',
+        image: 'https://images.unsplash.com/photo-1731896831964-4271a6c53ad4?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        address: 'Số 1 Tràng Tiền, Phan Chu Trinh, Hoàn Kiếm, Hà Nội',
+        latitude: 20.9694444,
+        longitude: 105.793334,
+        rating: 4.9,
+        phone: '024 3933 0113',
+        website: 'https://hanoioperahouse.org.vn',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 6,
+        name: 'Nhà tù Hoả Lò',
+        description: 'Nhà tù Hỏa Lò hay nhà pha Hỏa Lò là một nhà tù do thực dân Pháp xây dựng trên khu đất xưa thuộc làng Hỏa Lò, từng là nơi giam giữ rất nhiều nhà cách mạng lớn của Việt Nam.',
+        image: 'https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2023/4/19/1182123/B39baaeb3aa5e5fbbcb4.jpg',
+        address: 'Số 1 P. Hoả Lò, Trần Hưng Đạo, Hoàn Kiếm, Hà Nội',
+        latitude: 20.983611,
+        longitude: 105.783055,
+        rating: 4.9,
+        phone: '0825 112 668',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 7,
+        name: 'Văn Miếu - Quốc Tử Giám',
+        description: 'Văn Miếu – Quốc Tử Giám là quần thể di tích đa dạng, phong phú hàng đầu của thành phố Hà Nội, nằm ở phía Nam kinh thành Thăng Long',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/3/39/Hanoi_Temple_of_Literature_%28cropped%29.jpg',
+        address: 'Số 58 P. Quốc Tử Giám, Văn Miếu, Đống Đa, Hà Nội',
+        latitude: 20.973333,
+        longitude: 105.7825,
+        rating: 4.9,
+        phone: '024 3845 2917',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 8,
+        name: 'Nhà thờ Lớn Hà Nội',
+        description: 'Nhà thờ Lớn là nhà thờ chính tòa của Tổng giáo phận Hà Nội, nơi có ngai tòa của Tổng giám mục..',
+        image: 'https://ik.imagekit.io/tvlk/blog/2022/08/nha-tho-lon-ha-noi-1.jpg?tr=dpr-2,w-675',
+        address: 'số 40 Nhà Chung, Hoàn Kiếm, Hà Nội',
+        latitude: 20.955,
+        longitude: 105.791111,
+        rating: 4.9,
+        phone: '0825 112 668',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 9,
+        name: 'Bảo tàng Lịch sử Quân sự Việt Nam',
+        description: 'Bảo tàng Lịch sử Quân sự Việt Nam là một trong các bảo tàng quốc gia và đứng đầu trong hệ thống Bảo tàng Quân đội, hiện đang lưu giữ, trưng bày hơn 15 vạn tài liệu, hiện vật, trong đó có nhiều sưu tập độc đáo và 4 Bảo vật Quốc gia.',
+        image: 'https://xdcs.cdnchinhphu.vn/446259493575335936/2024/10/4/btlsqsvn4-1728040409964-1728040410891290518548.jpg',
+        address: 'Km6+500, CT03, Tây Mỗ, Nam Từ Liêm, Hà Nội',
+        latitude: 20.960779,
+        longitude: 107.183902,
+        rating: 4.9,
+        phone: '024 6253 1367',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
 ];

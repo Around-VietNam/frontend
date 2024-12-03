@@ -30,7 +30,7 @@ export default function HomeScreen() {
     <ParallaxScrollView
       header={<DashboardHeader />}
       staticElements={
-        <Animated.View style={[animatedStyle]} className={'bg-secondary-500 rounded-b-3xl absolute -z-10'} />
+        <Animated.View style={[animatedStyle]} className={'bg-secondary-500 absolute'} />
       }
     >
       <OpenWidgets />
