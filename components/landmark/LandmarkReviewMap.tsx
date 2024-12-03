@@ -17,6 +17,8 @@ import { Platform, PanResponder, Animated, Pressable } from "react-native";
 import { Modal, ModalBackdrop, ModalBody, ModalContent, ModalFooter, ModalHeader } from "../ui/modal";
 import React, { useRef } from "react";
 import { Dash } from "../ui/dash";
+import { useLocation } from "@/contexts/location";
+import { haversineDistance } from "@/utils";
 
 interface Props extends ViewProps {
     landmark: Landmark;
@@ -24,6 +26,7 @@ interface Props extends ViewProps {
 export function LandmarkReviewMap({ landmark, ...props }: Props) {
     const [showModal, setShowModal] = React.useState(false);
     const pan = useRef(new Animated.ValueXY()).current;
+    const { location } = useLocation();
 
     const panResponder = useRef(
         PanResponder.create({
@@ -108,7 +111,7 @@ export function LandmarkReviewMap({ landmark, ...props }: Props) {
                             </Text>
                             <Text className="text-typography-900  text-2xs flex flex-row items-center gap-1">
                                 <MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />
-                                {landmark.region}
+                                {haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark.latitude!, landmark.longitude!).toFixed(2) + ' km' || '0 km'}
                             </Text>
                             <Text className="text-typography-900  text-2xs flex flex-row items-center gap-1">
                                 <AntDesign name="star" size={16} color="#FFC53C" />
