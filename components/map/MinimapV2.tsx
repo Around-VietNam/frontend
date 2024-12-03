@@ -2,22 +2,21 @@ import MapView, { Marker } from 'react-native-maps';
 import { useLocation } from '@/contexts/location';
 import React from 'react';
 import { Center } from '../ui/center';
+import { ViewProps } from 'react-native/Libraries/Components/View/ViewPropTypes';
+import { twMerge } from 'tailwind-merge';
 
-interface Props { }
+interface Props extends ViewProps { }
 
-export function MinimapV2({ }: Props) {
+export function MinimapV2({ className, ...props }: Props) {
     const { location, address } = useLocation();
     const [mapLongitude, setMapLongitude] = React.useState<number>(location?.coords.longitude || 106.6881);
     const [mapLatitude, setMapLatitude] = React.useState<number>(location?.coords.latitude || 10.7629);
 
-    const getMapTemplate = React.useCallback(() => {
-        return `
-           <iframe width="256" height="256" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=256&amp;height=256&amp;hl=en&amp;q=%20Ha%20Noi+(Map)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> <a href='https://www.versicherungen.at/unfallversicherung-rechner/'>Unfallversicherung Vergleich</a> <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=d2a54cff957bcf81d0d88d627e1e53c8425833b1'></script>
-           `
-    }, []);
-
     return (
-        <Center className='h-full aspect-square rounded-2xl shadow-soft-1'>
+        <Center className={twMerge(
+            'w-full h-full rounded-2xl shadow-soft-1',
+            className
+        )} {...props}>
             <MapView
                 style={{
                     width: '100%',

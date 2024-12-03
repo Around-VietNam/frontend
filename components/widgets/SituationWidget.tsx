@@ -9,6 +9,8 @@ import { VStack } from "../ui/vstack";
 import { Center } from "../ui/center";
 import Field from "../ui/field";
 import { Ionicons } from "@expo/vector-icons";
+import { Image } from "../ui/image";
+import { ImageBackground } from "../ui/image-background";
 
 interface WeatherDescription {
     value: string;
@@ -60,41 +62,54 @@ export function SituationWidget({ ...props }: Props) {
     if (!currentCondition) return (
         <Center
             className={twMerge(
-                "w-full h-64 p-6 rounded-2xl bg-background-0",
+                "w-full h-full p-6 rounded-2xl bg-background-0",
             )}
         >
             <Text>Loading...</Text>
         </Center>
     )
     return (
-        <VStack className="w-full h-full p-4 rounded-3xl bg-background-0 justify-between">
-            <HStack space="sm">
-                <Ionicons name="cloudy-night-sharp" size={16} />
-                <Text className="text-base font-semibold text-typography-900">Thời tiết</Text>
-            </HStack>
+        <VStack className="relative w-full h-full p-4 rounded-3xl justify-between overflow-hidden" >
+            <ImageBackground
+                source={{
+                    uri: "https://images.unsplash.com/photo-1566010503302-2564ae0d47b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                }}
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    transform: [{
+                        scale: 1.5
+                    }],
+                    position: "absolute",
+                }}
+            />
             <HStack
                 className={twMerge(
-                    "w-full justify-between",
+                    "w-full justify-between p-4",
                 )}
             >
                 <VStack>
-                    <Text className="text-4xl font-bold text-typography-900">
+                    <Text className="text-6xl font-bold text-white">
                         {currentCondition?.temp_C}°C
                     </Text>
-                    <Text>
-                        {address.city}
+                    <Text className="text-white font-medium">
+                        Feel like {currentCondition?.FeelsLikeC}°C
                     </Text>
                 </VStack>
+                <Text className="text-lg text-white">
+                    {currentCondition?.weatherDesc[0].value || "N/A"}
+                </Text>
             </HStack>
-            <VStack>
-                    <Text className="text-base font-medium text-typography-500">
-                        {currentCondition?.weatherDesc[0].value || "N/A"}
-                    </Text>
-                    <VStack space="sm">
-                        <Field label="Độ ẩm" icon={<Ionicons name="water" size={14} />} value={currentCondition?.humidity} />
-                        <Field label="UV" icon={<Ionicons name="sunny" size={14} />} value={currentCondition?.uvIndex} />
-                    </VStack    >
+            <VStack className="p-4">
+                <VStack space="sm">
+                    <Field label="Độ ẩm" icon={<Ionicons name="water" size={14} color={"white"} />} value={currentCondition?.humidity} classNames={{
+                        value: "text-white"
+                    }} />
+                    <Field label="UV" icon={<Ionicons name="sunny" size={14} color={"white"} />} value={currentCondition?.uvIndex} classNames={{
+                        value: "text-white"
+                    }} />
                 </VStack>
+            </VStack>
         </VStack>
     );
 }
