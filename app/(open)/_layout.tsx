@@ -26,12 +26,12 @@ export default function OpenLayout() {
                     <Logo size={32} />
                     <Text size='2xl' className='text-white font-semibold capitalize'>{App.name}</Text>
                 </HStack>
-                <VStack className='absolute w-full h-full -z-50'>
+                <VStack className='absolute -z-50 h-full w-full' >
                     <Carousel
                         style={{
                             width: '100%',
                             height: '100%',
-                            borderRadius: 24,
+                            borderRadius: 32,
                             shadowColor: '#000',
                             shadowOffset: {
                                 width: 0,
@@ -69,7 +69,7 @@ export default function OpenLayout() {
                         size='sm'
                         className='font-light text-center border border-white rounded-lg px-2 p-1 text-white w-fit '
                     >
-                       Version {App.version}
+                        Version {App.version}
                     </Text>
                 </VStack>
             </VStack>

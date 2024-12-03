@@ -18,5 +18,9 @@ export const Api = {
         ios: {
             clientId: process.env.EXPO_PUBLIC_IOS_GOOGLE_CLIENT_ID
         }
+    },
+    github: {
+        clientId: process.env.EXPO_PUBLIC_GITHUB_CLIENT_ID as string,
+        clientSecret: process.env.EXPO_PUBLIC_GITHUB_CLIENT_SECRET
     }
 }

@@ -12,48 +12,76 @@ import { Api } from '@/constants/Api';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
-import { useToast } from '@/components/ui/toast';
+import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 WebBrowser.maybeCompleteAuthSession({
-    skipRedirectCheck: true,
+
 });
 const discovery = {
     authorizationEndpoint: 'https://github.com/login/oauth/authorize',
     tokenEndpoint: 'https://github.com/login/oauth/access_token',
-    revocationEndpoint: 'https://github.com/settings/connections/applications/Ov23liJU5zY9Kh6GgBBJ',
+    revocationEndpoint: 'https://github.com/settings/connections/applications/' + Api.github.clientId,
 };
 
 export default function OpenScreen() {
     const router = useRouter();
-    const useProxy = Constants.appOwnership === 'expo' && Platform.OS !== 'web';
     const SCHEME = Constants.manifest2.scheme;
     const toast = useToast();
 
-    const [tokenResponse, setTokenResponse] = React.useState<AuthSession.TokenResponse | null>(null);
-    const [decodedIdToken, setDecodedIdToken] = React.useState<any | null>(null);
-
+    // get account info
     const [request, response, promptAsync] = AuthSession.useAuthRequest(
         {
-            clientId: 'Ov23liJU5zY9Kh6GgBBJ',
-            clientSecret: 'f5b49e1bd5fc46f24591ce757fb940785bed2dc4',
+            clientId: Api.github.clientId,
+            clientSecret: Api.github.clientSecret,
             scopes: ['identity'],
-            redirectUri: AuthSession.makeRedirectUri({
-                native: `${SCHEME}://redirect`,
-            }),
+            redirectUri: "exp://192.168.1.6:8081/home-screen",
         },
         discovery,
     );
 
-    const loginWithGoogle = async () => {
+    const login = async () => {
         try {
-            await promptAsync();
-            router.push("/(dashboard)/home");
+            const result = await promptAsync();
+            if (result.type === 'success') {
+                const { code } = result.params;
+                // Exchange the code for an access token
+                const response = await fetch(discovery.tokenEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        client_id: Api.github.clientId,
+                        client_secret: Api.github.clientSecret,
+                        code,
+                    }),
+                });
+                const data = await response.json();
+                const { access_token } = data;
+                await AsyncStorage.setItem('accessToken', access_token);
+                toast.show({
+                    render: () => (
+                        <Toast>
+                            <ToastTitle>
+                                Đăng nhập thành công
+                            </ToastTitle>
+                        </Toast>
+                    ),
+                    placement: 'top',
+                    duration: 2000,
+                });
+                router.push(App.routes.dashboard as any);
+            }
         } catch (error) {
             toast.show({
                 render: () => (
-                    <Text>
-                        Đăng nhập thất bại
-                    </Text>
+                    <Toast>
+                        <ToastTitle>
+                            Đăng nhập thất bại
+                        </ToastTitle>
+                    </Toast>
                 ),
                 placement: 'top',
             });
@@ -78,10 +106,9 @@ export default function OpenScreen() {
                     action='primary'
                     className='w-full'
                     disabled={!request}
-                    onPress={loginWithGoogle}
+                    onPress={login}
                 >
 
-                    <GoogleIcon />
                     <ButtonText >
                         Bắt đầu
                     </ButtonText>
