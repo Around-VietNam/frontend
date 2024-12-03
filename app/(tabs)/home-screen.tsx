@@ -29,12 +29,8 @@ export default function HomeScreen() {
   return (
     <ParallaxScrollView
       header={<DashboardHeader />}
-      staticElements={
-        <Animated.View style={[animatedStyle]} className={'bg-secondary-500 absolute'} />
-      }
     >
       <OpenWidgets />
-      <SearchInput />
       {
         mockLandmarks.map((landmark) => (
           <LandmarkViewCard

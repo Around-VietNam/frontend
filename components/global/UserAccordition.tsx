@@ -10,11 +10,13 @@ import { useLocation } from "@/contexts/location";
 import { Heading } from "../ui/heading";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
+import { useAuth } from "@/hook/useAuth";
 
 interface UserAccorditionProps extends ViewProps {
 }
 export function UserAccordition(props: UserAccorditionProps) {
     const { address } = useLocation();
+    const { account } = useAuth();
 
     return (
         <HStack {...props} space="md" className="flex-1">
@@ -30,7 +32,7 @@ export function UserAccordition(props: UserAccorditionProps) {
                                 <AvatarFallbackText>Jane Doe</AvatarFallbackText>
                                 <AvatarImage
                                     source={{
-                                        uri: "https://media1.thehungryjpeg.com/thumbs2/ori_4282224_op7jqj6mjumuo4g1trk6qs8yee175dln0i1f80px_cute-baby-duck-logo-vector-design-template.jpg",
+                                        uri: account?.avatar_url || "https://media1.thehungryjpeg.com/thumbs2/ori_4282224_op7jqj6mjumuo4g1trk6qs8yee175dln0i1f80px_cute-baby-duck-logo-vector-design-template.jpg",
                                     }}
                                 />
                                 <AvatarBadge />
@@ -39,16 +41,13 @@ export function UserAccordition(props: UserAccorditionProps) {
                     )
                 }}
             >
-                <MenuItem key="Add account" textValue="Add account">
-                    <MenuItemLabel size="sm">Add account</MenuItemLabel>
-                </MenuItem>
                 <MenuItem key="Log out" textValue="Log out">
                     <MenuItemLabel size="sm">Log out</MenuItemLabel>
                 </MenuItem>
             </Menu>
             <VStack className="flex-1">
-                <Text size="md" className="text-secondary-950 font-normal">Xin chào &#x1F44B; <Text className="text-secondary-950 font-bold">BestBack</Text></Text>
-                <Text size="md" className="text-secondary-950 font-normal">
+                <Text size="md" className="text-typography-500 font-normal">Xin chào &#x1F44B; <Text className="text-typography-900 font-bold">{account?.name}</Text></Text>
+                <Text size="md" className="text-typography-500  font-normal">
                     {/* {address ? `${address.road}, ${address.suburb}, ${address.city}` : 'Fetching location...'}
                     <Ionicons name="location" size={12} color="#FF2929" /> */}
                     Hãy tận hưởng!
