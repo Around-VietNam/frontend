@@ -16,25 +16,27 @@ WebBrowser.maybeCompleteAuthSession({
     skipRedirectCheck: true,
 });
 
-const redirectUri = AuthSession.makeRedirectUri();
-// const discovery = {
-//     authorizationEndpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
-//     tokenEndpoint: 'https://oauth2.googleapis.com/token',
-//     revocationEndpoint: 'https://oauth2.googleapis.com/revoke',
-// };
+const redirectUri = AuthSession.makeRedirectUri({
+    scheme: 'aroundvietnam',
+});
+const discovery = {
+    authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+    tokenEndpoint: 'https://github.com/login/oauth/access_token',
+    revocationEndpoint: 'https://github.com/settings/connections/applications/Ov23liJU5zY9Kh6GgBBJ',
+};
 
 export default function OpenScreen() {
     const router = useRouter();
 
-    const discovery = AuthSession.useAutoDiscovery('https://accounts.google.com');
     const [tokenResponse, setTokenResponse] = React.useState<AuthSession.TokenResponse | null>(null);
     const [decodedIdToken, setDecodedIdToken] = React.useState<any | null>(null);
 
     const [request, response, promptAsync] = AuthSession.useAuthRequest(
         {
-            clientId: Api.google.ios.clientId as string,
-            scopes: ['openid', 'profile'],
-            redirectUri,
+            clientId: 'Ov23liJU5zY9Kh6GgBBJ',
+            clientSecret: 'f5b49e1bd5fc46f24591ce757fb940785bed2dc4',
+            scopes: ['identity'],
+            redirectUri
         },
         discovery,
     );
@@ -44,7 +46,7 @@ export default function OpenScreen() {
     }
 
     React.useEffect(() => {
-        if(response?.type === 'success') {
+        if (response?.type === 'success') {
             const { code } = response.params;
         }
     }, [response]);
@@ -60,12 +62,13 @@ export default function OpenScreen() {
                     variant='solid'
                     action='primary'
                     className='w-full'
+                    disabled={!request}
                     onPress={loginWithGoogle}
                 >
 
                     <GoogleIcon />
                     <ButtonText >
-                        Đăng nhập với Google
+                        Bắt đầu
                     </ButtonText>
                 </Button>
                 <Text

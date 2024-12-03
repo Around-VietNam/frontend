@@ -11,13 +11,13 @@ import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { Image } from '@/components/ui/image';
 import { ScrollView } from '@/components/ui/scroll-view';
-import { Landmark, SpecialDish } from '@/types';
+import { Landmark, Dish } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
 import { Button, ButtonText } from '@/components/ui/button';
 import { UserReviewCard, UserReviewInput } from '@/components/user';
-import { mockLandmarkFeedbacks, mockLandmarks, mockSpecialDishes, mockUsers } from '@/mock';
+import { mockLandmarkFeedbacks, mockLandmarks, mockDishes, mockUsers } from '@/mock';
 import { SpecialDishViewCard } from '@/components/special-dish';
 import { HStack } from '@/components/ui/hstack';
 import {
@@ -29,15 +29,29 @@ import {
   ModalFooter
 } from '@/components/ui/modal';
 import { Heading } from '@/components/ui/heading';
+import { useLocation } from '@/contexts/location';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
+const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;  // deg2rad below
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    0.5 - Math.cos(dLat) / 2 +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    (1 - Math.cos(dLon)) / 2;
+
+  return R * 2 * Math.asin(Math.sqrt(a));
+}
+
 export default function LandmarkDetailsScreen() {
   const { id } = useLocalSearchParams();
+  const { location } = useLocation();
   const toast = useToast();
   const [toastId, setToastId] = React.useState(0)
   const [landmark, setLandmark] = React.useState<Landmark | null>(null);
-  const [specialDishes, setSpecialDishes] = React.useState<SpecialDish[]>([]);
+  const [specialDishes, setSpecialDishes] = React.useState<Dish[]>([]);
   const [showAllReviews, setShowAllReviews] = React.useState(false);
 
   const fetchLandmark = React.useCallback(async () => {
@@ -48,24 +62,24 @@ export default function LandmarkDetailsScreen() {
     } catch (error) {
       const newId = Math.random()
       setToastId(newId)
-      toast.show({
-        id: newId.toString(),
-        placement: "top",
-        duration: 3000,
-        render: ({ id }) => {
-          const uniqueToastId = "toast-" + id
-          return (
-            <Toast nativeID={uniqueToastId} action="error" variant="solid">
-              <ToastTitle>Hello!</ToastTitle>
-              <ToastDescription>
-                Failed to fetch landmark
-              </ToastDescription>
-            </Toast>
-          )
-        }
-      });
-      setLandmark(mockLandmarks[0]);
-      setSpecialDishes(mockSpecialDishes);
+      // toast.show({
+      //   id: newId.toString(),
+      //   placement: "top",
+      //   duration: 3000,
+      //   render: ({ id }) => {
+      //     const uniqueToastId = "toast-" + id
+      //     return (
+      //       <Toast nativeID={uniqueToastId} action="error" variant="solid">
+      //         <ToastTitle>Hello!</ToastTitle>
+      //         <ToastDescription>
+      //           Failed to fetch landmark
+      //         </ToastDescription>
+      //       </Toast>
+      //     )
+      //   }
+      // });
+      setLandmark(mockLandmarks[(Number(id) - 1) % mockLandmarks.length]);
+      setSpecialDishes(mockDishes);
     }
   }, [id]);
 
@@ -81,15 +95,15 @@ export default function LandmarkDetailsScreen() {
           </Button>
         }
       >
-        {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
+        {/* {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
           <UserReviewCard
             key={index}
-            comment={feedback.comments}
-            rating={feedback.stars}
+            comment={feedback.comment}
+            rating={feedback.rating || 0}
             created_at={feedback.createdAt}
             user={mockUsers[0]}
           />
-        ))}
+        ))} */}
         <UserReviewInput />
         <Modal
           isOpen={showAllReviews}
@@ -112,8 +126,8 @@ export default function LandmarkDetailsScreen() {
                 {mockLandmarkFeedbacks.map((feedback, index) => (
                   <UserReviewCard
                     key={index}
-                    comment={feedback.comments}
-                    rating={feedback.stars}
+                    comment={feedback.comment}
+                    rating={feedback.rating || 0}
                     created_at={feedback.createdAt}
                     user={mockUsers[0]}
                   />
@@ -151,25 +165,25 @@ export default function LandmarkDetailsScreen() {
       >
         <Image
           source={{
-            uri: 'https://images.unsplash.com/photo-1547643857-081e66b3ea2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            uri: landmark?.image || 'https://via.placeholder.com/300',
           }}
           alt={landmark?.name || 'Landmark Image'}
           className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
         />
         <Header
-          title={landmark?.name || 'Landmark Name'}
+          title={landmark?.name || 'Đang tải ...'}
           badge='Du lịch'
           more={
             <VStack space="sm">
               <Field
                 icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
                 label="Address"
-                value={landmark?.address || '123 Landmark St.'}
+                value={landmark?.address || 'Đang tải ...'}
               />
               <Field
                 icon={<MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />}
-                label="Region"
-                value={landmark?.region || 'Region'}
+                label="Distance"
+                value={haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark?.latitude || 0, landmark?.longitude || 0).toFixed(2) + ' km' || '0 km'}
               />
               <Field
                 icon={<AntDesign name="star" size={16} color="#FFC53C" />}
@@ -182,7 +196,7 @@ export default function LandmarkDetailsScreen() {
         />
         <Main>
           <Text className='text-typography-500 text-base'>
-            {landmark?.description} + {id}
+            {landmark?.description}
           </Text>
           <Area
             title="Ẩm thực"
