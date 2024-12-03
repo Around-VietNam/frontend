@@ -16,15 +16,12 @@ export function DashboardHeader(props: DashboardHeaderProps) {
                 offset={4}
                 trigger={({ ...triggerProps }) => {
                     return (
-                        <Button {...triggerProps} size="lg" className="bg-secondary-950 items-center p-3">
-                            <Ionicons name="menu" size={24} color="black" />
+                        <Button {...triggerProps} size="lg" className="items-center p-3">
+                            <Ionicons name="menu" size={24} color="white" />
                         </Button>
                     )
                 }}
             >
-                <MenuItem key="Add account" textValue="Add account">
-                    <MenuItemLabel size="sm">Add account</MenuItemLabel>
-                </MenuItem>
                 <MenuItem key="Community" textValue="Community">
                     <MenuItemLabel size="sm">Community</MenuItemLabel>
                 </MenuItem>
