@@ -7,6 +7,7 @@ import { VStack } from "../ui/vstack";
 import { HStack } from "../ui/hstack";
 import { Text } from "../ui/text";
 import { Avatar, AvatarFallbackText, AvatarImage, } from "../ui/avatar";
+import Field from "../ui/field";
 
 interface Props extends ViewProps {
     comment: string;
@@ -44,15 +45,14 @@ export function UserReviewCard(props: Props) {
                             {review.user.name}
                         </Text>
                         {
-                            review?.vote && (
-                                <HStack>
-                                    {
-                                        Array(review.vote).fill(0).map((_, index) => (
-                                            <AntDesign name="star" size={16} color="#FFC53C" key={index} />
-                                        ))
-                                    }
-                                </HStack>
-                            )
+
+                            <HStack>
+                                {
+                                    Array(Math.floor(review.vote) % 6).fill(0).map((_, index) => (
+                                        <AntDesign name="star" size={16} color="#FFC53C" key={index} />
+                                    ))
+                                }
+                            </HStack>
                         }
                     </VStack>
                 </HStack>
