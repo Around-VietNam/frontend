@@ -31,17 +31,14 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
             <HStack className="w-full p-4">
                 {platform === 'ios' ? (
                     <View className="w-fit h-fit overflow-hidden rounded-full">
-                        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={25} style={{
-                            borderRadius: 99,
-                        }} >
-                            <Button
-                                size="lg"
-                                className="rounded-full p-4 bg-background-0/25"
-                                variant="glass"
-                            >
-                                <Ionicons name="heart-outline" size={24} color="white" />
-                            </Button>
-                        </BlurView>
+
+                        <Button
+                            size="lg"
+                            className="rounded-full p-4 bg-white"
+                            variant="glass"
+                        >
+                            <Ionicons name="heart-outline" size={24} color="black" />
+                        </Button>
                     </View>
                 ) : (
                     <BlurButton
