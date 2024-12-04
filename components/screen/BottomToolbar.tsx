@@ -6,7 +6,7 @@ interface BottomToolbarProps extends ViewProps {
 }
 const BottomToolbar = ({ children, ...props }: BottomToolbarProps) => {
     return (
-        <View className='absolute bottom-0 w-full p-4 z-10' >
+        <View className='absolute bottom-1 w-full p-4 z-10' >
             {children}
         </View>
     );

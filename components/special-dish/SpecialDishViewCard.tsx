@@ -10,12 +10,12 @@ import { BlurButton, Button } from "../ui/button";
 import { Ionicons } from "@expo/vector-icons";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
-import { SpecialDish } from "@/types";
+import { Dish } from "@/types";
 import { Pressable } from "react-native";
 
 
 interface Props extends ViewProps {
-    specialDish: SpecialDish;
+    specialDish: Dish;
     size?: 'sm' | 'md' | 'lg' | 'full';
 }
 export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Props) {
@@ -36,7 +36,7 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
                 <HStack>
                     <Text
                         className={twMerge(
-                            "text-typography-0 font-semibold",
+                            "text-typography-900 font-semibold",
                             size === 'sm' && "text-2xs",
                             size === 'md' && "text-base",
                             size === 'lg' && "text-lg",
@@ -51,41 +51,26 @@ export function SpecialDishViewCard({ specialDish, size = 'md', ...props }: Prop
     }
     return (
         <Pressable onPress={() => router.push(`/cursine/${specialDish.id}`)}>
-        <Center
-            className={twMerge(
-                "relative aspect-square rounded-2xl overflow-hidden shadow-hard-2",
-                size === 'sm' && "w-32",
-                size === 'md' && "w-48",
-                size === 'lg' && " w-64",
-                size === 'full' && "w-full h-full",
-            )}
-            {...props}
-        >
-            <Image
-                alt={specialDish.name}
-                source={{ uri: specialDish.image }}
+            <HStack
                 className={twMerge(
-                    "w-full h-full object-cover",
-                    "absolute top-0 left-0",
+                    "rounded-2xl overflow-visible shadow-hard-2 p-2 w-full h-20 bg-background-0",
                 )}
-            />
-            <LinearGradient
-                // Background Linear Gradient
-                colors={['transparent', 'rgba(0,0,0,0.5)']}
-                style={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    height: '50%',
-                    zIndex: 0,
-                }}
-            />
-            <VStack className="justify-between items-center w-full h-full">
+                {...props}
+            >
+                <Image
+                    alt={specialDish.name}
+                    source={{ uri: specialDish.image }}
+                    className={twMerge(
+                        "w-auto h-full aspect-square rounded-2xl object-cover",
+                    )}
+                />
+
+                <VStack className="justify-between items-center w-full h-full">
+                    <Footer />
+                </VStack>
+
                 <Toolbar />
-                <Footer />
-            </VStack>
-        </Center>
+            </HStack>
         </Pressable>
     );
 }
