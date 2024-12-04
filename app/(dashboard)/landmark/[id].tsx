@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
 import React from 'react';
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams } from "expo-router";
@@ -30,6 +30,11 @@ import {
 } from '@/components/ui/modal';
 import { Heading } from '@/components/ui/heading';
 import { useLocation } from '@/contexts/location';
+import { Skeleton, SkeletonText } from '@/components/ui/skeleton';
+import { MinimapV2 } from '@/components/map';
+import { Marker } from 'react-native-maps';
+import { LandmarkReviewMap } from '@/components/landmark';
+import { Center } from '@/components/ui/center';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -104,7 +109,6 @@ export default function LandmarkDetailsScreen() {
             user={mockUsers[0]}
           />
         ))} */}
-        <UserReviewInput />
         <Modal
           isOpen={showAllReviews}
           onClose={() => setShowAllReviews(false)}
@@ -142,6 +146,52 @@ export default function LandmarkDetailsScreen() {
       </Area>
     )
   }
+  const LandmarkLocation = () => {
+    if (!landmark) return <Skeleton className='w-full h-auto aspect-[2/1] rounded-3xl' />
+
+    return (
+      <HStack className='w-full h-auto aspect-[2/1] p-4 bg-background-0 rounded-3xl shadow-soft-1 justify-between' space='md'>
+        <VStack className='items-center justify-start flex-1' space='md'>
+          <Heading size='lg' className='text-typography-900 flex-1 flex-wrap'>
+            # {landmark?.address}
+          </Heading>
+          <Field
+            icon={<MaterialCommunityIcons name="map-marker-distance" size={16} color="#808080" className="text-typography-500" />}
+            label={"Distance"}
+            value={
+              landmark ?
+                haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark?.latitude || 0, landmark?.longitude || 0).toFixed(2) + ' km'
+                :
+                <SkeletonText className='w-8 h-4 rounded-lg' />
+            }
+          />
+        </VStack>
+        <MinimapV2
+          className='h-full w-auto aspect-square rounded-3xl'
+          region={{
+            latitude: landmark?.latitude || 0,
+            longitude: landmark?.longitude || 0,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.042
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: landmark?.latitude!,
+              longitude: landmark?.longitude!,
+            }}
+            title={landmark?.name}
+            description={landmark?.address}
+          >
+            <LandmarkReviewMap
+              landmark={landmark}
+              showCard={false}
+            />
+          </Marker>
+        </MinimapV2>
+      </HStack>
+    )
+  }
   React.useEffect(() => {
     if (id) {
       fetchLandmark();
@@ -152,77 +202,81 @@ export default function LandmarkDetailsScreen() {
     <LandmarkContext.Provider value={{
       landmark: landmark,
     }}>
-      <ParallaxScrollView
-        footer={
-          <BottomToolbar>
-            <Button size='lg' className='w-full'>
-              <ButtonText>
-                Tìm đường đi
-              </ButtonText>
-            </Button>
-          </BottomToolbar>
-        }
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
       >
-        <Image
-          source={{
-            uri: landmark?.image || 'https://via.placeholder.com/300',
-          }}
-          alt={landmark?.name || 'Landmark Image'}
-          className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
-        />
-        <Header
-          title={landmark?.name || 'Đang tải ...'}
-          badge='Du lịch'
-          more={
-            <VStack space="sm">
-              <Field
-                icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
-                label="Address"
-                value={landmark?.address || 'Đang tải ...'}
-              />
-              <Field
-                icon={<MaterialCommunityIcons name="scooter" size={16} color="#808080" className="text-typography-500" />}
-                label="Distance"
-                value={haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark?.latitude || 0, landmark?.longitude || 0).toFixed(2) + ' km' || '0 km'}
-              />
-              <Field
-                icon={<AntDesign name="star" size={16} color="#FFC53C" />}
-                label="Rating"
-                value={landmark?.rating || 4.5}
-              />
-
-            </VStack>
+        <ParallaxScrollView
+          footer={
+            <BottomToolbar>
+              <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
+                <UserReviewInput />
+              </Center>
+            </BottomToolbar>
           }
-        />
-        <Main>
-          <Text className='text-typography-500 text-base'>
-            {landmark?.description}
-          </Text>
-          <Area
-            title="Ẩm thực"
-          >
-            <ScrollView horizontal>
-              <HStack space='sm'>
-                {
-                  specialDishes.map((dish, index) => (
-                    <SpecialDishViewCard
-                      key={index}
-                      specialDish={dish}
-                    />
-                  ))
-                }
-              </HStack>
-            </ScrollView>
+        >
+          {
+            landmark?.image ?
+              <Image
+                source={{
+                  uri: landmark?.image || 'https://via.placeholder.com/300',
+                }}
+                alt={landmark?.name || 'Landmark Image'}
+                className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
+              />
+              :
+              <Skeleton className='aspect-[1/1] h-auto w-full rounded-3xl' />
+          }
+          <Header
+            title={landmark?.name || <SkeletonText className='w-full h-8 rounded-2xl' />}
+            badge='Du lịch'
+            more={
+              <VStack space="sm">
+                <Field
+                  icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
+                  label="Address"
+                  value={landmark?.address || <SkeletonText _lines={1} className='w-8 h-4 rounded-2xl' />}
+                />
 
-          </Area>
-          <Area
-            title="Vị trí"
-          >
-          </Area>
-          <UserReviewArea />
+                <Field
+                  icon={<AntDesign name="star" size={16} color="#FFC53C" />}
+                  label="Rating"
+                  value={landmark?.rating || <SkeletonText className='w-8 h-4 rounded-2xl' />}
+                />
+              </VStack>
+            }
+          />
+          <Main>
+            <LandmarkLocation />
+            {
+              landmark?.description ?
+                <Text className='text-typography-500'>
+                  {landmark?.description}
+                </Text>
+                :
+                <SkeletonText className='w-full h-16 rounded-lg' />
+            }
+            <Area
+              title="Ẩm thực"
+            >
+              <ScrollView className='overflow-visible'>
+                <VStack space='sm'>
+                  {
+                    specialDishes.map((dish, index) => (
+                      <SpecialDishViewCard
+                        key={index}
+                        specialDish={dish}
+                      />
+                    ))
+                  }
+                </VStack>
+              </ScrollView>
 
-        </Main>
-      </ParallaxScrollView>
+            </Area>
+            <UserReviewArea />
+          </Main>
+        </ParallaxScrollView>
+      </KeyboardAvoidingView>
     </LandmarkContext.Provider>
   );
 }
