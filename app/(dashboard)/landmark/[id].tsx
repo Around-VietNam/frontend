@@ -100,7 +100,7 @@ export default function LandmarkDetailsScreen() {
           </Button>
         }
       >
-        {/* {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
+        {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
           <UserReviewCard
             key={index}
             comment={feedback.comment}
@@ -108,7 +108,7 @@ export default function LandmarkDetailsScreen() {
             created_at={feedback.createdAt}
             user={mockUsers[0]}
           />
-        ))} */}
+        ))}
         <Modal
           isOpen={showAllReviews}
           onClose={() => setShowAllReviews(false)}
@@ -246,7 +246,9 @@ export default function LandmarkDetailsScreen() {
               </VStack>
             }
           />
-          <Main>
+          <Main
+            className='flex-1'
+          >
             <LandmarkLocation />
             {
               landmark?.description ?
@@ -259,7 +261,7 @@ export default function LandmarkDetailsScreen() {
             <Area
               title="Ẩm thực"
             >
-              <ScrollView className='overflow-visible'>
+              <ScrollView className='overflow-hidden'>
                 <VStack space='sm'>
                   {
                     specialDishes.map((dish, index) => (
@@ -271,7 +273,6 @@ export default function LandmarkDetailsScreen() {
                   }
                 </VStack>
               </ScrollView>
-
             </Area>
             <UserReviewArea />
           </Main>
