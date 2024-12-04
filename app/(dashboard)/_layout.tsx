@@ -9,7 +9,7 @@ function CustomHeader() {
   const navigation = useNavigation();
   return (
     <View className='flex-row justify-between items-center w-full bg-transparent h-36 z-50 px-8'>
-      <TouchableOpacity onPress={() => navigation.goBack()} className='flex justify-center items-center bg-white/75 rounded-full p-2'>
+      <TouchableOpacity onPress={() => navigation.goBack()} className='flex justify-center items-center bg-white rounded-full p-2'>
         <Ionicons name="chevron-back-outline" size={24} color="black" />
       </TouchableOpacity>
     </View>
