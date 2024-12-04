@@ -19,6 +19,7 @@ export function MinimapV2({ className, ...props }: Props) {
             className
         )} {...props}>
             <MapView
+                testID='minimap'
                 style={{
                     width: '100%',
                     height: '100%',

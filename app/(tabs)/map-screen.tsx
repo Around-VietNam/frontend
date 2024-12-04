@@ -11,8 +11,6 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useLocation } from '@/contexts/location';
 import React from 'react';
 import { Marker, Region } from 'react-native-maps';
-import { LandmarkReviewMap } from '@/components/landmark';
-import { mockLandmarks } from '@/mock';
 
 export default function MapScreen() {
     const navigation = useNavigation();
@@ -74,6 +72,7 @@ export default function MapScreen() {
         >
             <Header />
             <Map
+                testID='map'
                 style={{
                     position: 'absolute',
                     width: '100%',
@@ -82,36 +81,20 @@ export default function MapScreen() {
                 region={region}
                 onRegionChangeComplete={setRegion}
             >
-                {/* <Marker
+                <Marker
                     coordinate={{
-                        latitude: location?.coords.latitude! + 0.01,
+                        latitude: location?.coords.latitude!,
                         longitude: location?.coords.longitude!,
                     }}
                     title="Hanoi"
                     description="Vietnam"
                 >
-                    <LandmarkReviewMap
-                        landmark={mockLandmarks[0]}
-                    />
-
-                </Marker> */}
-                {
-                    mockLandmarks && mockLandmarks.map((landmark, index) => (
-                        <Marker
-                            key={index}
-                            coordinate={{
-                                latitude: landmark.latitude!,
-                                longitude: landmark.longitude!,
-                            }}
-                            title={landmark.name}
-                            description={landmark.address}
-                        >
-                            <LandmarkReviewMap
-                                landmark={landmark}
-                            />
-                        </Marker>
-                    ))
-                }
+                    <Button>
+                        <ButtonText>
+                            Haha
+                        </ButtonText>
+                    </Button>
+                </Marker>
             </Map>
             <Toolbar />
         </ThemedView>
