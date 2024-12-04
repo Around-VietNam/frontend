@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
 
 import { useLocalSearchParams } from "expo-router";
@@ -19,6 +19,8 @@ import { UserReviewCard, UserReviewInput } from '@/components/user';
 import { Heading } from '@/components/ui/heading';
 import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal } from '@/components/ui/modal';
 import { mockDishes, mockLandmarkFeedbacks, mockUsers } from '@/mock';
+import { Center } from '@/components/ui/center';
+import { Skeleton, SkeletonText } from '@/components/ui/skeleton';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -69,16 +71,15 @@ export default function SpecialDishDetailsScreen() {
           </Button>
         }
       >
-        {/* {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
+        {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
           <UserReviewCard
             key={index}
-            comment={feedback.comments}
-            rating={feedback.stars}
+            comment={feedback.comment}
+            rating={feedback.rating!}
             created_at={feedback.createdAt}
             user={mockUsers[0]}
           />
-        ))} */}
-        <UserReviewInput />
+        ))}
         <Modal
           isOpen={showAllReviews}
           onClose={() => setShowAllReviews(false)}
@@ -97,15 +98,15 @@ export default function SpecialDishDetailsScreen() {
             </ModalHeader>
             <ModalBody>
               <ScrollView>
-                {/* {mockLandmarkFeedbacks.map((feedback, index) => (
+                {mockLandmarkFeedbacks.map((feedback, index) => (
                   <UserReviewCard
                     key={index}
-                    comment={feedback.comments}
-                    rating={feedback.stars}
+                    comment={feedback.comment}
+                    rating={feedback.rating!}
                     created_at={feedback.createdAt}
                     user={mockUsers[0]}
                   />
-                ))} */}
+                ))}
               </ScrollView>
             </ModalBody>
             <ModalFooter>
@@ -127,59 +128,68 @@ export default function SpecialDishDetailsScreen() {
     <SpecialDishContext.Provider value={{
       specialDish: specialDish,
     }}>
-      <ParallaxScrollView
-        footer={
-          <BottomToolbar>
-            <Button size='lg' className='w-full'>
-              <ButtonText>
-                Tìm nhà hàng gần nhất
-              </ButtonText>
-            </Button>
-          </BottomToolbar>
-        }
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
       >
-        <Image
-          source={{
-            uri: specialDish?.image || 'https://via.placeholder.com/300',
-          }}
-          alt={specialDish?.name || 'Dish Image'}
-          className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
-        />
-        <Header
-          title={specialDish?.name || 'Đang tải...'}
-          badge='Ẩm thực'
-          more={
-            <VStack space="sm">
-              <Field
-                icon={<MaterialCommunityIcons name="silverware-fork-knife" size={16} color="#FFC53C" />}
-                label="Specialty"
-                value={specialDish?.special || 'Đang tải...'}
-              />
-              <Field
-                icon={<Ionicons name="pricetag-outline" size={16} color="#FFC53C" />}
-                label="Price"
-                value={`${specialDish?.price || 0} VND`}
-              />
-            </VStack>
+
+        <ParallaxScrollView
+          footer={
+            <BottomToolbar>
+              <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
+                <UserReviewInput />
+              </Center>
+            </BottomToolbar>
           }
-        />
-        <Main>
-          <Text className='text-typography-500 text-base'>
-            {specialDish?.description}
-          </Text>
-          <Area
-            title="Ẩm thực"
-          >
-          </Area>
-          <Area
-            title="Nhà hàng "
-          >
+        >
+          {
+            specialDish?.image ?
+              <Image
+                source={{
+                  uri: specialDish?.image || 'https://via.placeholder.com/300',
+                }}
+                alt={specialDish?.name || 'Dish Image'}
+                className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
+              />
+              :
+              <Skeleton className='w-full h-auto aspect-[1/1] rounded-3xl' />
+          }
+          <Header
+            title={specialDish?.name || <SkeletonText className='h-8 w-full rounded-3xl' />}
+            badge='Ẩm thực'
+            more={
+              <VStack space="sm">
+                <Field
+                  icon={<MaterialCommunityIcons name="silverware-fork-knife" size={16} color="#FFC53C" />}
+                  label="Specialty"
+                  value={specialDish?.special || <SkeletonText className='h-4 w-16 rounded-3xl' />}
+                />
+                <Field
+                  icon={<Ionicons name="pricetag-outline" size={16} color="#FFC53C" />}
+                  label="Price"
+                  value={specialDish?.price ? `${specialDish?.price || 0} VND` : <SkeletonText className='h-4 w-16 rounded-3xl' />}
+                />
+              </VStack>
+            }
+          />
+          <Main>
+            {
+              specialDish?.description ?
+                <Text className='text-typography-500 text-base'>
+                  {specialDish?.description}
+                </Text>
+                :
+                <SkeletonText className='h-8 w-full rounded-3xl' />
+            }
+            <Area
+              title="Nhà hàng "
+            >
 
-          </Area>
-          <UserReviewArea />
-
-        </Main>
-      </ParallaxScrollView>
+            </Area>
+            <UserReviewArea />
+          </Main>
+        </ParallaxScrollView>
+      </KeyboardAvoidingView>
     </SpecialDishContext.Provider>
   );
 }
