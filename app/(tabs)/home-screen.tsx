@@ -3,7 +3,6 @@ import { LandmarkViewCard } from '@/components/landmark';
 import { mockLandmarks } from '@/mock';
 
 import { DashboardHeader } from '@/components/global/DashboardHeader';
-import { SearchInput } from '@/components/global/SearchInput';
 import { OpenWidgets, SituationWidget } from '@/components/widgets';
 import { Box } from '@/components/ui/box';
 import React from 'react';
