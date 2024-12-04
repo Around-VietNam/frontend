@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge';
 interface Props extends MapViewProps {
 }
 
-export function MinimapV2({ ...props }: Props) {
+export function MinimapV2({ className, ...props }: Props) {
     const { location, address } = useLocation();
     const [mapLongitude, setMapLongitude] = React.useState<number>(location?.coords.longitude || 106.6881);
     const [mapLatitude, setMapLatitude] = React.useState<number>(location?.coords.latitude || 10.7629);
