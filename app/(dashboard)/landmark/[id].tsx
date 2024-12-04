@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
 import React from 'react';
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams } from "expo-router";
@@ -34,6 +34,7 @@ import { Skeleton, SkeletonText } from '@/components/ui/skeleton';
 import { MinimapV2 } from '@/components/map';
 import { Marker } from 'react-native-maps';
 import { LandmarkReviewMap } from '@/components/landmark';
+import { Center } from '@/components/ui/center';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -108,7 +109,6 @@ export default function LandmarkDetailsScreen() {
             user={mockUsers[0]}
           />
         ))} */}
-        <UserReviewInput />
         <Modal
           isOpen={showAllReviews}
           onClose={() => setShowAllReviews(false)}
@@ -167,6 +167,7 @@ export default function LandmarkDetailsScreen() {
           />
         </VStack>
         <MinimapV2
+          className='h-full w-auto aspect-square rounded-3xl'
           region={{
             latitude: landmark?.latitude || 0,
             longitude: landmark?.longitude || 0,
@@ -184,6 +185,7 @@ export default function LandmarkDetailsScreen() {
           >
             <LandmarkReviewMap
               landmark={landmark}
+              showCard={false}
             />
           </Marker>
         </MinimapV2>
@@ -200,82 +202,81 @@ export default function LandmarkDetailsScreen() {
     <LandmarkContext.Provider value={{
       landmark: landmark,
     }}>
-      <ParallaxScrollView
-        footer={
-          <BottomToolbar>
-            <Button size='lg' className='w-full'>
-              <ButtonText>
-                Tìm đường đi
-              </ButtonText>
-            </Button>
-          </BottomToolbar>
-        }
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
       >
-        {
-          landmark?.image ?
-            <Image
-              source={{
-                uri: landmark?.image || 'https://via.placeholder.com/300',
-              }}
-              alt={landmark?.name || 'Landmark Image'}
-              className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
-            />
-            :
-            <Skeleton className='aspect-[1/1] h-auto w-full rounded-3xl' />
-        }
-        <Header
-          title={landmark?.name || <SkeletonText className='w-full h-8 rounded-2xl' />}
-          badge='Du lịch'
-          more={
-            <VStack space="sm">
-              <Field
-                icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
-                label="Address"
-                value={landmark?.address || <SkeletonText _lines={1} className='w-8 h-4 rounded-2xl' />}
-              />
-
-              <Field
-                icon={<AntDesign name="star" size={16} color="#FFC53C" />}
-                label="Rating"
-                value={landmark?.rating || <SkeletonText className='w-8 h-4 rounded-2xl' />}
-              />
-            </VStack>
+        <ParallaxScrollView
+          footer={
+            <BottomToolbar>
+              <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
+                <UserReviewInput />
+              </Center>
+            </BottomToolbar>
           }
-        />
-        <Main>
-          <LandmarkLocation />
+        >
           {
-            landmark?.description ?
-              <Text className='text-typography-500'>
-                {landmark?.description}
-              </Text>
+            landmark?.image ?
+              <Image
+                source={{
+                  uri: landmark?.image || 'https://via.placeholder.com/300',
+                }}
+                alt={landmark?.name || 'Landmark Image'}
+                className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
+              />
               :
-              <SkeletonText className='w-full h-16 rounded-lg' />
+              <Skeleton className='aspect-[1/1] h-auto w-full rounded-3xl' />
           }
-          <Area
-            title="Ẩm thực"
-          >
-            <ScrollView horizontal>
-              <HStack space='sm'>
-                {
-                  specialDishes.map((dish, index) => (
-                    <SpecialDishViewCard
-                      key={index}
-                      specialDish={dish}
-                    />
-                  ))
-                }
-              </HStack>
-            </ScrollView>
+          <Header
+            title={landmark?.name || <SkeletonText className='w-full h-8 rounded-2xl' />}
+            badge='Du lịch'
+            more={
+              <VStack space="sm">
+                <Field
+                  icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
+                  label="Address"
+                  value={landmark?.address || <SkeletonText _lines={1} className='w-8 h-4 rounded-2xl' />}
+                />
 
-          </Area>
-          <Area
-            title="Vị trí"
-          >
-          </Area>
-          <UserReviewArea />
-        </Main>
-      </ParallaxScrollView>
+                <Field
+                  icon={<AntDesign name="star" size={16} color="#FFC53C" />}
+                  label="Rating"
+                  value={landmark?.rating || <SkeletonText className='w-8 h-4 rounded-2xl' />}
+                />
+              </VStack>
+            }
+          />
+          <Main>
+            <LandmarkLocation />
+            {
+              landmark?.description ?
+                <Text className='text-typography-500'>
+                  {landmark?.description}
+                </Text>
+                :
+                <SkeletonText className='w-full h-16 rounded-lg' />
+            }
+            <Area
+              title="Ẩm thực"
+            >
+              <ScrollView className='overflow-visible'>
+                <VStack space='sm'>
+                  {
+                    specialDishes.map((dish, index) => (
+                      <SpecialDishViewCard
+                        key={index}
+                        specialDish={dish}
+                      />
+                    ))
+                  }
+                </VStack>
+              </ScrollView>
+
+            </Area>
+            <UserReviewArea />
+          </Main>
+        </ParallaxScrollView>
+      </KeyboardAvoidingView>
     </LandmarkContext.Provider>
   );
 }

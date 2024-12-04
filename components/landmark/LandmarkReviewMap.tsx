@@ -22,8 +22,9 @@ import { haversineDistance } from "@/utils";
 
 interface Props extends ViewProps {
     landmark: Landmark;
+    showCard?: boolean;
 }
-export function LandmarkReviewMap({ landmark, ...props }: Props) {
+export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props) {
     const [showModal, setShowModal] = React.useState(false);
     const pan = useRef(new Animated.ValueXY()).current;
     const { location } = useLocation();
@@ -78,7 +79,7 @@ export function LandmarkReviewMap({ landmark, ...props }: Props) {
                 </HStack>
             </Pressable>
             <Modal
-                isOpen={showModal}
+                isOpen={showModal && showCard}
                 closeOnOverlayClick={true}
                 onClose={() => setShowModal(false)}
                 className='justify-end'
