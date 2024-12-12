@@ -19,7 +19,6 @@ function CustomHeader() {
 
 export default function Layout() {
   return (
-
     <Stack
       screenOptions={{
         header: () => <CustomHeader />,

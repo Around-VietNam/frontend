@@ -31,23 +31,21 @@ export default function RootLayout() {
   }
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <GluestackUIProvider mode={'light'}>
-        <ThemeProvider value={DefaultTheme}>
-          <LocationProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: 'flip',
-              }}
-            >
-              <Stack.Screen name="(open)" />
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </LocationProvider>
-        </ThemeProvider>
-      </GluestackUIProvider>
-    </I18nextProvider>
+    <GluestackUIProvider mode={'dark'}>
+      <ThemeProvider value={DefaultTheme}>
+        <LocationProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              animation: 'flip',
+            }}
+          >
+            <Stack.Screen name="(open)" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </LocationProvider>
+      </ThemeProvider>
+    </GluestackUIProvider>
   );
 }
