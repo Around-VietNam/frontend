@@ -1,5 +1,3 @@
-import { I18nextProvider } from 'react-i18next';
-import i18n from '@/assets/i18n/config';
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
@@ -17,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    Montserrat: require('../assets/fonts/Montserrat-Regular.ttf'),
+    Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
   });
 
   useEffect(() => {

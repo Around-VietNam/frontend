@@ -1,9 +1,8 @@
 import { VStack } from '@/components/ui/vstack';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { ButtonText } from '@/components/ui/button';
-import { GoogleIcon } from '@/components/icons';
 import { Text } from '@/components/ui/text';
 import { useRouter } from 'expo-router';
 import { App } from '@/constants/App';
@@ -14,6 +13,8 @@ import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
 import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 
 WebBrowser.maybeCompleteAuthSession({
 
@@ -100,22 +101,45 @@ export default function OpenScreen() {
                 space='md'
                 className='justify-center items-center w-full'
             >
-                <Button
-                    size='lg'
-                    variant='solid'
-                    action='primary'
-                    className='w-full'
-                    disabled={!request}
-                    onPress={login}
+                <LinearGradient
+                    colors={['rgba(210, 210, 210, 1)', 'rgba(144, 144, 144, 0)', 'rgba(210, 210, 210, 0.5)']}
+                    style={{
+                        borderRadius: 9999,
+                        width: "100%",
+                        height: 64,
+                        padding: 2,
+                    }}
                 >
-
-                    <ButtonText >
-                        Bắt đầu
-                    </ButtonText>
-                </Button>
+                    <BlurView
+                        experimentalBlurMethod='dimezisBlurView'
+                        intensity={50}
+                        style={{
+                            borderRadius: 9999,
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Button
+                            size='xl'
+                            variant='solid'
+                            action='primary'
+                            className='w-full h-full rounded-full overflow-hidden bg-background-100/75'
+                            disabled={!request}
+                            onPress={login}
+                        >
+                            <ButtonText
+                                className='text-white text-2xl font-semibold'
+                            >
+                                Bắt đầu
+                            </ButtonText>
+                        </Button>
+                    </BlurView>
+                </LinearGradient>
                 <Text
                     size='sm'
-                    className='font-light text-center w-full'
+                    className='font-light text-center w-full text-gray-400'
                 >
                     Với việc đăng nhập bạn đã đồng ý với các
                     <Text className='font-semibold'> Điều khoản </Text>

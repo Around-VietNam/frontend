@@ -1,7 +1,7 @@
 export const App = {
     name: 'Arround Viet Nam',
     version: '0.0.1',
-    headline: 'Khám phá Việt Nam cùng Around Vietnam',
+    headline: 'Khám phá du lịch Việt Nam',
     welcomeText: 'Tìm kiếm những điều thú vị, thưởng thức ẩm thực địa phương và hơn thế nữa!',
     defaultLanguage: 'vi',
     languages: ['vi', 'en'],

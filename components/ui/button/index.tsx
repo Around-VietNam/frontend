@@ -514,7 +514,7 @@ const BlurButton = React.forwardRef<
           variant="glass"
           {...props}
         >
-          <Ionicons name="heart-outline" size={24} color="white" />
+          {props.children}
         </Button>
       </BlurView>
     </View>

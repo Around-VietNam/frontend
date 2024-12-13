@@ -25,11 +25,14 @@ const Field: React.FC<Props> = ({ ...props }) => {
     return (
         <View
             className={twMerge(
-                "flex gap-1 w-full",
+                "flex flex-1 gap-1 w-fit",
                 direction === "row" ? "flex-row" : "flex-col",
-                "items-center",
+                "items-center self-start",
                 classNames?.wrapper
             )}
+            style={{
+                alignSelf: "flex-start",
+            }}
         >
             {icon}
             <Text className={twMerge(
