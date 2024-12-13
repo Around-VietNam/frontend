@@ -16,9 +16,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Platform, Pressable } from "react-native";
 import { haversineDistance } from "@/utils";
 import { useLocation } from "@/contexts/location";
+import Field from "../ui/field";
 
 interface Props extends ViewProps {
     landmark: Landmark;
+    onClick?: () => void;
 }
 export function LandmarkViewCard({ landmark, ...props }: Props) {
     // get platform
@@ -28,41 +30,29 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
     const Toolbar = () => {
         // like (heart icon) button and (share icon) button
         return (
-            <HStack className="w-full p-4">
-                {platform === 'ios' ? (
-                    <View className="w-fit h-fit overflow-hidden rounded-full">
-
-                        <Button
-                            size="lg"
-                            className="rounded-full p-4 bg-white"
-                            variant="glass"
-                        >
-                            <Ionicons name="heart-outline" size={24} color="black" />
-                        </Button>
-                    </View>
-                ) : (
-                    <BlurButton
-                        className="rounded-full p-4 bg-background-0/25"
-                        size="lg"
-                        variant="glass"
-                    >
-                        <Ionicons name="heart-outline" size={24} color="white" />
-                    </BlurButton>
-                )}
-            </HStack>
+            <HStack className="w-full h-fit py-4 justify-between items-center">
+                <Field
+                    icon={<Ionicons name="analytics-outline" size={24} color="white" />}
+                    label="Khoảng cách"
+                    value={haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark.latitude!, landmark.longitude!).toFixed(2) + ' km' || '0 km'}
+                />
+                <Button
+                    size="md"
+                    variant="solid"
+                    className="rounded-full h-fit p-4"
+                    onPress={() => router.push(`/landmark/${landmark.id}`)}
+                >
+                    <Ionicons name="heart-outline" size={24} color="black" />
+                </Button>
+            </HStack >
         );
     }
     const Footer = () => {
         return (
             <VStack className="w-full p-4">
                 <HStack>
-                    <Text
-                        className="text-typography-0 text-2xl font-semibold"
-                    >
-                        {landmark.name}
-                    </Text>
                 </HStack>
-                <VStack space="sm" className="h-fit w-full">
+                {/* <VStack space="sm" className="h-fit w-full">
                     <Text className="text-white text-2xs flex flex-row items-center">
                         <Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />
                         {landmark.address}
@@ -75,42 +65,35 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
                         <AntDesign name="star" size={16} color="#FFC53C" />
                         {landmark.rating}
                     </Text>
-                </VStack>
+                </VStack> */}
             </VStack>
         )
     }
     return (
-        <Pressable onPress={() => router.push(`/landmark/${landmark.id}`)}>
-            <Center
-                className="relative w-full min-w-64 aspect-square rounded-3xl overflow-hidden shadow-hard-2"
+        <Pressable
+            //  onPress={() => router.push(`/landmark/${landmark.id}`)}
+            onPress={props.onClick}
+        >
+            <VStack
+                className="relative w-full h-fit p-4 rounded-[32] bg-background-0"
+                space="md"
                 // navigation to the landmark detail page, use router
                 {...props}
             >
+                <Toolbar />
+                <Text
+                    className="text-typography-900 text-center text-3xl font-semibold"
+                >
+                    {landmark.name}
+                </Text>
                 <Image
                     alt={landmark.name}
                     source={{ uri: landmark.image }}
                     className={twMerge(
-                        "w-full h-full object-cover",
-                        "absolute top-0 left-0",
+                        "w-full h-auto aspect-square object-cover rounded-[32]",
                     )}
                 />
-                <LinearGradient
-                    // Background Linear Gradient
-                    colors={['transparent', 'rgba(0,0,0,0.5)']}
-                    style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        height: '50%',
-                        zIndex: 0,
-                    }}
-                />
-                <VStack className="justify-between items-center w-full h-full">
-                    <Toolbar />
-                    <Footer />
-                </VStack>
-            </Center>
+            </VStack>
         </Pressable>
     );
 }

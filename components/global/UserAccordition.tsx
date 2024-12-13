@@ -45,12 +45,12 @@ export function UserAccordition(props: UserAccorditionProps) {
                     <MenuItemLabel size="sm">Log out</MenuItemLabel>
                 </MenuItem>
             </Menu>
-            <VStack className="flex-1">
-                <Text size="md" className="text-typography-500 font-normal">Xin chào &#x1F44B; <Text className="text-typography-900 font-bold">{account?.name}</Text></Text>
-                <Text size="md" className="text-typography-500  font-normal">
-                    {/* {address ? `${address.road}, ${address.suburb}, ${address.city}` : 'Fetching location...'}
-                    <Ionicons name="location" size={12} color="#FF2929" /> */}
+            <VStack className="flex-1 justify-center items-center">
+                <Text size="md" className="text-typography-0 font-normal">
                     Hãy tận hưởng!
+                </Text>
+                <Text size="lg" className="text-typography-0 font-bold">
+                    &#x1F44B; {account?.name}
                 </Text>
             </VStack>
         </HStack>

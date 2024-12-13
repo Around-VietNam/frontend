@@ -107,6 +107,6 @@ const styles = StyleSheet.create({
     width: 48,
   },
   customButtonActive: {
-    backgroundColor: 'rgba(83, 82, 82, 0.5)'
+    backgroundColor: 'rgba(130, 130, 130, 0.5)'
   }
 });

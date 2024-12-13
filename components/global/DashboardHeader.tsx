@@ -16,7 +16,7 @@ export function DashboardHeader(props: DashboardHeaderProps) {
                 offset={4}
                 trigger={({ ...triggerProps }) => {
                     return (
-                        <Button {...triggerProps} size="lg" className="items-center p-3">
+                        <Button {...triggerProps} size="lg" className="items-center p-3 bg-background-900/25">
                             <Ionicons name="menu" size={24} color="white" />
                         </Button>
                     )

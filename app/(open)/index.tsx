@@ -101,7 +101,21 @@ export default function OpenScreen() {
                 space='md'
                 className='justify-center items-center w-full'
             >
-                <LinearGradient
+                <Button
+                    size='lg'
+                    variant='solid'
+                    action='primary'
+                    className='w-full h-fit p-4 rounded-full overflow-hidden'
+                    disabled={!request}
+                    onPress={login}
+                >
+                    <ButtonText
+                        className='text-2xl font-semibold'
+                    >
+                        Bắt đầu
+                    </ButtonText>
+                </Button>
+                {/* <LinearGradient
                     colors={['rgba(210, 210, 210, 1)', 'rgba(144, 144, 144, 0)', 'rgba(210, 210, 210, 0.5)']}
                     style={{
                         borderRadius: 9999,
@@ -136,7 +150,7 @@ export default function OpenScreen() {
                             </ButtonText>
                         </Button>
                     </BlurView>
-                </LinearGradient>
+                </LinearGradient> */}
                 <Text
                     size='sm'
                     className='font-light text-center w-full text-gray-400'

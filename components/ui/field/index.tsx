@@ -25,7 +25,7 @@ const Field: React.FC<Props> = ({ ...props }) => {
     return (
         <View
             className={twMerge(
-                "flex flex-1 gap-1 w-fit",
+                "flex flex-1 gap-1 w-fit h-fit",
                 direction === "row" ? "flex-row" : "flex-col",
                 "items-center self-start",
                 classNames?.wrapper
