@@ -1,15 +1,14 @@
-import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Platform, Image, Dimensions } from 'react-native';
 import React from 'react';
-import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams } from "expo-router";
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { Area, Header, Main } from '@/components/screen';
 import { LandmarkContext } from '@/contexts/LandmarkContext';
-import { Toast, ToastDescription, ToastTitle, useToast } from '@/components/ui/toast';
+import {useToast } from '@/components/ui/toast';
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
-import { Image } from '@/components/ui/image';
 import { ScrollView } from '@/components/ui/scroll-view';
 import { Landmark, Dish } from '@/types';
 import { VStack } from '@/components/ui/vstack';
@@ -192,6 +191,77 @@ export default function LandmarkDetailsScreen() {
       </HStack>
     )
   }
+
+  const CoverAndHeader = () => {
+    return (
+      <View className='relative'>
+        {
+          landmark?.image ?
+            <Image
+              source={{
+                uri: landmark?.image || 'https://via.placeholder.com/300',
+              }}
+              alt={landmark?.name || 'Landmark Image'}
+              style={{
+                width: '100%',
+                height: Dimensions.get('window').height * 0.95,
+                resizeMode: 'cover',
+                borderTopLeftRadius: 32,
+                borderTopRightRadius: 32,
+              }}
+            />
+            :
+            <Skeleton className='aspect-[1/1] h-auto w-full rounded-3xl' />
+        }
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            zIndex: 999,
+            backgroundColor: "#000",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: -64,
+              height: -64,
+            },
+            width: '200%',
+            height: Dimensions.get('window').height * 0.15,
+            shadowOpacity: 1,
+            shadowRadius: 32,
+            elevation: 5,
+            overflow: 'visible'
+          }}
+        />
+        <Header
+          style={{
+            position: 'absolute',
+            bottom: 32,
+            zIndex: 999,
+            width: '100%',
+            paddingHorizontal: 16,
+            overflow: 'visible'
+          }}
+          title={
+            <VStack>
+              <Heading size='4xl' className='text-typography-900 capitalize'>
+                {landmark?.name || 'Landmark Name'}
+              </Heading>
+              {
+                landmark?.description ?
+                  <Text className='text-typography-500 z-50'>
+                    {landmark?.description}
+                  </Text>
+                  :
+                  <SkeletonText className='w-full h-16 rounded-lg' />
+              }
+            </VStack>
+          }
+          hiddenBadge
+        />
+      </View>
+    )
+  }
+
   React.useEffect(() => {
     if (id) {
       fetchLandmark();
@@ -215,47 +285,12 @@ export default function LandmarkDetailsScreen() {
             </BottomToolbar>
           }
         >
-          {
-            landmark?.image ?
-              <Image
-                source={{
-                  uri: landmark?.image || 'https://via.placeholder.com/300',
-                }}
-                alt={landmark?.name || 'Landmark Image'}
-                className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
-              />
-              :
-              <Skeleton className='aspect-[1/1] h-auto w-full rounded-3xl' />
-          }
-          <Header
-            title={landmark?.name || <SkeletonText className='w-full h-8 rounded-2xl' />}
-            badge='Du lịch'
-            more={
-              <VStack space="sm">
-                <Field
-                  icon={<Ionicons name="location-outline" size={16} color="#808080" className="text-typography-500" />}
-                  label="Address"
-                  value={landmark?.address || <SkeletonText _lines={1} className='w-8 h-4 rounded-2xl' />}
-                />
-
-                <Field
-                  icon={<AntDesign name="star" size={16} color="#FFC53C" />}
-                  label="Rating"
-                  value={landmark?.rating || <SkeletonText className='w-8 h-4 rounded-2xl' />}
-                />
-              </VStack>
-            }
-          />
-          <Main>
+          <CoverAndHeader />
+          <Main style={{
+            flex: 1,
+            height: '100%',
+          }}>
             <LandmarkLocation />
-            {
-              landmark?.description ?
-                <Text className='text-typography-500'>
-                  {landmark?.description}
-                </Text>
-                :
-                <SkeletonText className='w-full h-16 rounded-lg' />
-            }
             <Area
               title="Ẩm thực"
             >
@@ -271,7 +306,6 @@ export default function LandmarkDetailsScreen() {
                   }
                 </VStack>
               </ScrollView>
-
             </Area>
             <UserReviewArea />
           </Main>

@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
+import { StyleSheet, useColorScheme, ViewStyle } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -15,6 +15,9 @@ type Props = PropsWithChildren<{
   header?: ReactElement;
   footer?: ReactElement;
   staticElements?: ReactElement;
+  containerStyle?: AnimatedProps<ViewStyle>;
+  contentContainerStyle?: AnimatedProps<ViewStyle>;
+  headerContainerStyle?: AnimatedProps<ViewStyle>;
 }>;
 
 export default function ParallaxScrollView({
@@ -22,6 +25,9 @@ export default function ParallaxScrollView({
   header,
   footer,
   staticElements,
+  containerStyle,
+  contentContainerStyle,
+  headerContainerStyle,
   ...props
 }: Props) {
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
@@ -29,11 +35,11 @@ export default function ParallaxScrollView({
 
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView style={[styles.container, containerStyle as any]} {...props}>
       {staticElements}
-      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-        <ThemedView style={styles.header}>{header}</ThemedView>
-        <VStack style={styles.content} space='lg'>
+      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16} >
+        <ThemedView style={[styles.header, headerContainerStyle as any]}>{header}</ThemedView>
+        <VStack style={[styles.content, contentContainerStyle as any]} space='lg'>
           {children}
         </VStack>
       </Animated.ScrollView>
@@ -44,21 +50,17 @@ export default function ParallaxScrollView({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'transparent',
+    flex: 1
   },
   header: {
     height: 'auto',
     overflow: 'hidden',
     marginHorizontal: 16,
-    marginTop: 32,
-    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
     paddingBottom: 64,
-    marginHorizontal: 16,
-    overflow: 'hidden',
-    backgroundColor: 'transparent',
+    overflowX: 'hidden',
+    overflowY: 'auto',
   },
 });

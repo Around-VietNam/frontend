@@ -12,6 +12,7 @@ interface Props extends ViewProps {
     more?: ReactNode;
     title: ReactNode;
     badge?: BadgeType;
+    hiddenBadge?: boolean;
 }
 export function Header({ more, title, badge = "Khác", ...props }: Props) {
     const getBadgeIcon = (type: BadgeType) => {
@@ -30,14 +31,16 @@ export function Header({ more, title, badge = "Khác", ...props }: Props) {
 
     return (
         <VStack {...props} space="md">
-            <HStack className="px-2 py-1 rounded-full bg-background-900 text-typography-0 items-center justify-center w-32" space="sm">
-                <Text className="text-md font-medium text-typography-0">
-                    {getBadgeIcon(badge)}
-                </Text>
-                <Text className="text-md font-medium text-typography-0">
-                    {badge}
-                </Text>
-            </HStack>
+            {!props.hiddenBadge && (
+                <HStack className="px-2 py-1 rounded-full bg-background-900 text-typography-0 items-center justify-center w-32" space="sm">
+                    <Text className="text-md font-medium text-typography-0">
+                        {getBadgeIcon(badge)}
+                    </Text>
+                    <Text className="text-md font-medium text-typography-0">
+                        {badge}
+                    </Text>
+                </HStack>
+            )}
             <View>
                 <Text className="text-2xl font-semibold text-typography-900">
                     {title}

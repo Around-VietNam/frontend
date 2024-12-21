@@ -9,7 +9,7 @@ interface DashboardHeaderProps extends ViewProps {
 }
 export function DashboardHeader(props: DashboardHeaderProps) {
     return (
-        <HStack {...props} className='items-center justify-between py-4 h-fit'>
+        <HStack {...props} className='items-center justify-between top-8 m-4 h-fit z-50 p-4'>
             <UserAccordition />
             <Menu
                 placement="bottom right"

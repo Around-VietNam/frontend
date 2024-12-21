@@ -82,14 +82,13 @@ const styles = StyleSheet.create({
     gap: 16,
     left: '50%',
     transform: [{ translateX: '-50%' }],
-    bottom: 16,
+    bottom: 32,
     overflow: 'hidden',
 
     borderRadius: 999,
     backgroundColor: 'rgba(39, 38, 37, 0.25)',
     borderColor: 'rgba(38, 38, 37, 0.05)',
-    borderWidth: 2,
-    elevation: 5,
+
   },
   tabBar: {
     flexDirection: 'row',

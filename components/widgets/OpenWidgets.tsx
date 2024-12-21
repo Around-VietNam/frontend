@@ -27,7 +27,7 @@ export function OpenWidget({ ...props }: Props) {
     };
 
     return (
-        <VStack className="bg-background-0 p-2 rounded-3xl w-3/4 h-fit" space="md">
+        <VStack className="bg-background-0 p-3 rounded-3xl w-3/4 h-fit" space="md">
             <HStack className="flex-1 w-full" space="md">
                 <MinimapV2
                     style={{

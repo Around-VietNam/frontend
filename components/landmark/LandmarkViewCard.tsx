@@ -42,7 +42,7 @@ export function LandmarkViewCard({ landmark, ...props }: Props) {
                     className="rounded-full h-fit p-4"
                     onPress={() => router.push(`/landmark/${landmark.id}`)}
                 >
-                    <Ionicons name="heart-outline" size={24} color="black" />
+                    <AntDesign name="arrowright" size={24} color="black" />
                 </Button>
             </HStack >
         );

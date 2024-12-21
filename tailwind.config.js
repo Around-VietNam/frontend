@@ -170,9 +170,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: undefined,
-        body: undefined,
-        mono: undefined,
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
+        mono: ['Poppins', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
       },
       fontWeight: {

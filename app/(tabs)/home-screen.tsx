@@ -58,17 +58,6 @@ export default function HomeScreen() {
       >
 
         {queueLandmarks.map((item, index) => renderItem(item, index))}
-        {/* <TouchableOpacity
-          onPress={handleNext}
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#00000000',
-            position: 'absolute',
-            bottom: 0,
-            zIndex: 999,
-          }}
-        /> */}
       </View>
     );
   };
@@ -85,9 +74,18 @@ export default function HomeScreen() {
       colors={['#B8BD75', '#1A1A1A', '#1A1A1A']}
       style={{
         flex: 1,
+        zIndex: 500,
       }}
     >
-      <ParallaxScrollView header={<DashboardHeader />}>
+      <ParallaxScrollView
+       staticElements={<DashboardHeader />} 
+       containerStyle={{
+        backgroundColor: 'transparent',
+      }}
+      contentContainerStyle={{
+        marginHorizontal: 16,
+      }}
+      >
         <Center className="w-full h-fit">
           <OpenWidget />
         </Center>

@@ -36,6 +36,9 @@ const Text = React.forwardRef<React.ElementRef<typeof RNText>, ITextProps>(
           highlight,
           class: className,
         })}
+        style={{
+          fontFamily: 'Poppins',
+        }}
         {...props}
         ref={ref}
       />
