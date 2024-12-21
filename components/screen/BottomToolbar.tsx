@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, ViewProps } from 'react-native';
+import { ViewProps } from 'react-native';
+
+import { View } from '@/components/ui/view';
 
 interface BottomToolbarProps extends ViewProps {
     children?: React.ReactNode;
 }
 const BottomToolbar = ({ children, ...props }: BottomToolbarProps) => {
     return (
-        <View className='absolute bottom-1 w-full p-4 z-10' >
+        <View className={'absolute bottom-0 w-full h-fit z-10' + props.className}>
             {children}
         </View>
     );

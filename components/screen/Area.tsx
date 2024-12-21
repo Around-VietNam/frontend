@@ -15,7 +15,7 @@ export function Area({ ...props }: Props) {
         <VStack {...props} space="md">
             <HStack className="w-full justify-between items-center">
                 {typeof props.title === 'string' ? (
-                    <Text className="text-typography-900 font-semibold text-lg">
+                    <Text className="text-typography-900 font-bold text-lg">
                         {props.title}
                     </Text>
                 ) : props.title

@@ -4,7 +4,7 @@ import { StyleSheet, Image, Platform, TouchableOpacity, Pressable, View, useWind
 import { ThemedView } from '@/components/ThemedView';
 import { Map } from '@/components/map/Map';
 import { VStack } from '@/components/ui/vstack';
-import { useNavigation } from 'expo-router';
+import { useGlobalSearchParams, useNavigation, useRouter } from 'expo-router';
 import { Button, ButtonText } from '@/components/ui/button';
 import { HStack } from '@/components/ui/hstack';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -16,12 +16,15 @@ import { mockLandmarks } from '@/mock';
 
 export default function MapScreen() {
     const navigation = useNavigation();
+    const params = useGlobalSearchParams<any>();
     const { width, height } = useWindowDimensions();
     const { location } = useLocation();
 
+    const { lat, long } = params;
+
     const [region, setRegion] = React.useState<Region>({
-        latitude: location?.coords.latitude || 21.028511,
-        longitude: location?.coords.longitude || 105.804817,
+        latitude: lat || location?.coords.latitude,
+        longitude: long || location?.coords.longitude,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     });

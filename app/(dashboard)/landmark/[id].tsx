@@ -1,12 +1,12 @@
 import { StyleSheet, View, KeyboardAvoidingView, Platform, Image, Dimensions } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { Area, Header, Main } from '@/components/screen';
 import { LandmarkContext } from '@/contexts/LandmarkContext';
-import {useToast } from '@/components/ui/toast';
+import { useToast } from '@/components/ui/toast';
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { ScrollView } from '@/components/ui/scroll-view';
@@ -57,7 +57,7 @@ export default function LandmarkDetailsScreen() {
   const [landmark, setLandmark] = React.useState<Landmark | null>(null);
   const [specialDishes, setSpecialDishes] = React.useState<Dish[]>([]);
   const [showAllReviews, setShowAllReviews] = React.useState(false);
-
+  const router = useRouter();
   const fetchLandmark = React.useCallback(async () => {
     try {
       const response = await fetch(`${AROUND_VIETNAM_API}/landmarks/${id}`);
@@ -279,9 +279,16 @@ export default function LandmarkDetailsScreen() {
         <ParallaxScrollView
           footer={
             <BottomToolbar>
-              <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
+              <HStack className='w-full p-6 justify-between bg-black'>
+                <Button className='w-32' onPress={() => router.push(`/(tabs)/map-screen?lat=${landmark?.latitude}&long=${landmark?.longitude}`)}>
+                  <ButtonText>
+                    Mở bản đồ
+                  </ButtonText>
+                </Button>
+              </HStack>
+              {/* <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
                 <UserReviewInput />
-              </Center>
+              </Center> */}
             </BottomToolbar>
           }
         >
