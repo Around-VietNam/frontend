@@ -6,7 +6,7 @@ interface Props extends ViewProps {
 }
 export function Main({ ...props }: Props) {
     return (
-        <VStack {...props} space="lg" className="w-full h-full">
+        <VStack {...props} space="lg" className="w-full h-full p-4">
             {props.children}
         </VStack>
     );

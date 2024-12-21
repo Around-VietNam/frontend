@@ -38,7 +38,7 @@ export function UserReviewInput(props: Props) {
                 <InputField placeholder="Viết đánh giá ..." className="w-full" />
             </Input>
             <Button onPress={() => { /* handle send action */ }} className="p-2 h-fit w-fit" size="lg">
-                <Ionicons name="send" size={16} color="white" />
+                <Ionicons name="send" size={14}  />
             </Button>
         </HStack>
     );

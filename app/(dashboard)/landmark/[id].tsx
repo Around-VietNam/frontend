@@ -1,6 +1,6 @@
 import { StyleSheet, View, KeyboardAvoidingView, Platform, Image, Dimensions } from 'react-native';
 import React from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from "expo-router";
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -89,33 +89,17 @@ export default function LandmarkDetailsScreen() {
 
   const UserReviewArea = () => {
     return (
-      <Area
-        title="Đánh giá"
-        more={
-          <Button variant='link' onPress={() => setShowAllReviews(true)}>
-            <ButtonText className='text-typography-500'>
-              Tất cả bình luận
-            </ButtonText>
-          </Button>
-        }
+      <Modal
+        isOpen={showAllReviews}
+        onClose={() => setShowAllReviews(false)}
+        size='full'
+        className='justify-end'
       >
-        {/* {mockLandmarkFeedbacks.slice(0, 5).map((feedback, index) => (
-          <UserReviewCard
-            key={index}
-            comment={feedback.comment}
-            rating={feedback.rating || 0}
-            created_at={feedback.createdAt}
-            user={mockUsers[0]}
-          />
-        ))} */}
-        <Modal
-          isOpen={showAllReviews}
-          onClose={() => setShowAllReviews(false)}
-          size='full'
-          className='justify-end'
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ModalBackdrop />
-          <ModalContent className={'h-3/4'}>
+          <ModalContent className={'h-3/4 rounded-[24]'}>
             <ModalHeader>
               <VStack className='items-center w-full'>
                 <View style={styles.handle} />
@@ -126,23 +110,25 @@ export default function LandmarkDetailsScreen() {
             </ModalHeader>
             <ModalBody>
               <ScrollView>
-                {mockLandmarkFeedbacks.map((feedback, index) => (
-                  <UserReviewCard
-                    key={index}
-                    comment={feedback.comment}
-                    rating={feedback.rating || 0}
-                    created_at={feedback.createdAt}
-                    user={mockUsers[0]}
-                  />
-                ))}
+                <VStack space='md'>
+                  {mockLandmarkFeedbacks.map((feedback, index) => (
+                    <UserReviewCard
+                      key={index}
+                      comment={feedback.comment}
+                      rating={feedback.rating || 0}
+                      created_at={feedback.createdAt}
+                      user={mockUsers[0]}
+                    />
+                  ))}
+                </VStack>
               </ScrollView>
             </ModalBody>
             <ModalFooter>
               <UserReviewInput />
             </ModalFooter>
           </ModalContent>
-        </Modal>
-      </Area>
+        </KeyboardAvoidingView>
+      </Modal>
     )
   }
   const LandmarkLocation = () => {
@@ -256,7 +242,7 @@ export default function LandmarkDetailsScreen() {
               }
             </VStack>
           }
-          hiddenBadge
+          badge="Du lịch"
         />
       </View>
     )
@@ -281,9 +267,12 @@ export default function LandmarkDetailsScreen() {
             <BottomToolbar>
               <HStack className='w-full p-6 justify-between bg-black'>
                 <Button className='w-32' onPress={() => router.push(`/(tabs)/map-screen?lat=${landmark?.latitude}&long=${landmark?.longitude}`)}>
-                  <ButtonText>
+                  <ButtonText className='flex-1'>
                     Mở bản đồ
                   </ButtonText>
+                </Button>
+                <Button className='bg-background-500 p-3 w-fit h-fit' onPress={() => setShowAllReviews(true)}>
+                  <FontAwesome name='comment' size={16} color='#fff' />
                 </Button>
               </HStack>
               {/* <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>

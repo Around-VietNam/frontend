@@ -19,6 +19,7 @@ import { UserReviewCard, UserReviewInput } from '@/components/user';
 import { Heading } from '@/components/ui/heading';
 import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal } from '@/components/ui/modal';
 import { mockDishes, mockLandmarkFeedbacks, mockUsers } from '@/mock';
+import { HStack } from '@/components/ui/hstack';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -97,7 +98,7 @@ export default function SpecialDishDetailsScreen() {
             </ModalHeader>
             <ModalBody>
               <ScrollView>
-                {/* {mockLandmarkFeedbacks.map((feedback, index) => (
+                {mockLandmarkFeedbacks.map((feedback, index) => (
                   <UserReviewCard
                     key={index}
                     comment={feedback.comments}
@@ -105,7 +106,7 @@ export default function SpecialDishDetailsScreen() {
                     created_at={feedback.createdAt}
                     user={mockUsers[0]}
                   />
-                ))} */}
+                ))}
               </ScrollView>
             </ModalBody>
             <ModalFooter>
@@ -130,11 +131,16 @@ export default function SpecialDishDetailsScreen() {
       <ParallaxScrollView
         footer={
           <BottomToolbar>
-            <Button size='lg' className='w-full'>
-              <ButtonText>
-                Tìm nhà hàng gần nhất
-              </ButtonText>
-            </Button>
+            <HStack className='w-full p-6 justify-between bg-black'>
+              <Button className='w-36'>
+                <ButtonText>
+                  Tìm nhà hàng 
+                </ButtonText>
+              </Button>
+            </HStack>
+            {/* <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
+            <UserReviewInput />
+          </Center> */}
           </BottomToolbar>
         }
       >
@@ -143,7 +149,7 @@ export default function SpecialDishDetailsScreen() {
             uri: specialDish?.image || 'https://via.placeholder.com/300',
           }}
           alt={specialDish?.name || 'Dish Image'}
-          className='rounded-3xl w-full h-auto aspect-[1/1] object-cover'
+          className='rounded-[24] w-full h-auto aspect-[1/1] object-cover'
         />
         <Header
           title={specialDish?.name || 'Đang tải...'}
@@ -162,6 +168,7 @@ export default function SpecialDishDetailsScreen() {
               />
             </VStack>
           }
+          className='p-4'
         />
         <Main>
           <Text className='text-typography-500 text-base'>

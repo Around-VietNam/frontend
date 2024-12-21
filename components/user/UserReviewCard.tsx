@@ -49,7 +49,7 @@ export function UserReviewCard(props: Props) {
                             <HStack>
                                 {
                                     Array(Math.floor(review.vote) % 6).fill(0).map((_, index) => (
-                                        <AntDesign name="star" size={16} color="#FFC53C" key={index} />
+                                        <AntDesign name="star" size={14} color="#FFC53C" key={index} />
                                     ))
                                 }
                             </HStack>
