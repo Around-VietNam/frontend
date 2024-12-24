@@ -2,21 +2,11 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Restaurant } from '../types';
 
 interface RestaurantContextProps {
-    restaurants: Restaurant[];
-    setRestaurants: React.Dispatch<React.SetStateAction<Restaurant[]>>;
+    restaurant: Restaurant | null;
+    setRestaurant?: React.Dispatch<React.SetStateAction<Restaurant | null>>;
 }
 
-const RestaurantContext = createContext<RestaurantContextProps | undefined>(undefined);
-
-export const RestaurantProvider = ({ children }: { children: ReactNode }) => {
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
-    return (
-        <RestaurantContext.Provider value={{ restaurants, setRestaurants }}>
-            {children}
-        </RestaurantContext.Provider>
-    );
-};
+export const RestaurantContext = createContext<RestaurantContextProps | undefined>(undefined);
 
 export const useRestaurant = (): RestaurantContextProps => {
     const context = useContext(RestaurantContext);

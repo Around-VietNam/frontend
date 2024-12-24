@@ -107,7 +107,8 @@ export default function OpenScreen() {
                     action='primary'
                     className='w-full h-fit p-4 rounded-full overflow-hidden'
                     disabled={!request}
-                    onPress={login}
+                    // onPress={login}
+                    onPress={() => router.push(App.routes.dashboard as any)}
                 >
                     <ButtonText
                         className='text-2xl font-semibold'

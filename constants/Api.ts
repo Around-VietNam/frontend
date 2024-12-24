@@ -22,5 +22,8 @@ export const Api = {
     github: {
         clientId: process.env.EXPO_PUBLIC_GITHUB_CLIENT_ID as string,
         clientSecret: process.env.EXPO_PUBLIC_GITHUB_CLIENT_SECRET
+    },
+    openai: {
+        key: "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"
     }
 }

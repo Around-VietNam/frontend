@@ -12,7 +12,8 @@ import { useLocation } from '@/contexts/location';
 import React from 'react';
 import { Marker, Region } from 'react-native-maps';
 import { LandmarkReviewMap } from '@/components/landmark';
-import { mockLandmarks } from '@/mock';
+import { mockLandmarks, mockRestaurantFeedbacks, mockRestaurants } from '@/mock';
+import { RestaurantReviewMap } from '@/components/restaurant/RestaurantReviewMap';
 
 export default function MapScreen() {
     const navigation = useNavigation();
@@ -111,6 +112,23 @@ export default function MapScreen() {
                         >
                             <LandmarkReviewMap
                                 landmark={landmark}
+                            />
+                        </Marker>
+                    ))
+                }
+                {
+                    mockRestaurants && mockRestaurants.map((restaurant, index) => (
+                        <Marker
+                            key={index}
+                            coordinate={{
+                                latitude: restaurant.latitude!,
+                                longitude: restaurant.longitude!,
+                            }}
+                            title={restaurant.name}
+                            description={restaurant.address}
+                        >
+                            <RestaurantReviewMap
+                                restaurant={restaurant}
                             />
                         </Marker>
                     ))

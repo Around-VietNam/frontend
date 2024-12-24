@@ -12,18 +12,15 @@ import Field from "../ui/field";
 interface Props extends ViewProps {
     comment: string;
     rating: number;
-    created_at: Date;
-    user: User;
+    create_at: string;
+    username: string;
 }
 export function UserReviewCard(props: Props) {
     const review = {
         comment: props.comment,
         vote: props.rating,
-        created_at: props.created_at,
-        user: {
-            name: props.user.name,
-            avatar: props.user.avatar,
-        }
+        create_at: props.create_at,
+        username: props.username,
     }
 
     return (
@@ -32,17 +29,17 @@ export function UserReviewCard(props: Props) {
                 <HStack space="md">
                     <Avatar size="sm">
                         <AvatarFallbackText>
-                            {review.user.name}
+                            {review.username}
                         </AvatarFallbackText>
                         <AvatarImage
                             source={{
-                                uri: review.user.avatar,
+                                uri: review.username,
                             }}
                         />
                     </Avatar>
                     <VStack className="justify-center">
                         <Text className="text-base font-semibold text-typography-900">
-                            {review.user.name}
+                            {review.username}
                         </Text>
                         {
 
@@ -57,7 +54,7 @@ export function UserReviewCard(props: Props) {
                     </VStack>
                 </HStack>
                 <Text className="text-2xs text-typography-500">
-                    {review.created_at.toLocaleDateString('vi-VN')}
+                    {new Date(review.create_at).toLocaleDateString()}
                 </Text>
             </HStack>
             <VStack>

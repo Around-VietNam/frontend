@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/toast';
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { ScrollView } from '@/components/ui/scroll-view';
-import { Landmark, Dish, LandmarkFeedback } from '@/types';
+import { Restaurant, Dish, RestaurantFeedback } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
@@ -34,11 +34,12 @@ import { useLocation } from '@/contexts/location';
 import { Skeleton, SkeletonText } from '@/components/ui/skeleton';
 import { MinimapV2 } from '@/components/map';
 import { Marker } from 'react-native-maps';
-import { LandmarkReviewMap } from '@/components/landmark';
 import { Center } from '@/components/ui/center';
 import { useAuth } from '@/hooks/useAuth';
 import { AssistantChat } from '@/components/chat/AssistantChat';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { RestaurantContext } from '@/contexts/RestaurantContext';
+import { LandmarkReviewMap } from '@/components/landmark';
 
 const AROUND_VIETNAM_API = Api.aroundvietnam.url;
 
@@ -54,18 +55,18 @@ const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   return R * 2 * Math.asin(Math.sqrt(a));
 }
 
-export default function LandmarkDetailsScreen() {
+export default function RestaurantDetailsScreen() {
   const { id } = useLocalSearchParams();
   const { location } = useLocation();
   const toast = useToast();
   const { account } = useAuth()
   const [toastId, setToastId] = React.useState(0)
 
-  const { data: landmark } = useQuery<Landmark>({
-    queryKey: ['landmark', id],
+  const { data: restaurant } = useQuery<Restaurant>({
+    queryKey: ['restaurant', id],
     queryFn: async () => {
-      console.log(`${AROUND_VIETNAM_API}/landmarks/${id}`)
-      const response = await fetch(`${AROUND_VIETNAM_API}/landmarks/${id}`);
+      console.log(`${AROUND_VIETNAM_API}/restaurants/${id}`)
+      const response = await fetch(`${AROUND_VIETNAM_API}/restaurants/${id}`);
       const data = await response.json();
 
       return data;
@@ -86,7 +87,7 @@ export default function LandmarkDetailsScreen() {
     mutate: postFeedback,
   } = useMutation({
     mutationFn: async (data: any) => {
-      const response = await fetch(`${AROUND_VIETNAM_API}/landmarks/${id}/feedbacks`, {
+      const response = await fetch(`${AROUND_VIETNAM_API}/restaurants/${id}/feedbacks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -112,16 +113,16 @@ export default function LandmarkDetailsScreen() {
     isError: isFeedbacksError,
     error: feedbacksError,
     isSuccess: isFeedbacksSuccess,
-  } = useQuery<LandmarkFeedback[]>({
-    queryKey: ['landmark-feedbacks', id],
+  } = useQuery<RestaurantFeedback[]>({
+    queryKey: ['restaurant-feedbacks', id],
     queryFn: async () => {
-      const response = await fetch(`${AROUND_VIETNAM_API}/landmarks/${id}/feedbacks`);
+      const response = await fetch(`${AROUND_VIETNAM_API}/restaurants/${id}/feedbacks`);
       const data = await response.json();
       console.log(data)
 
       return data.data || [];
     },
-    enabled: !!landmark,
+    enabled: !!restaurant,
   })
 
   const UserReviewArea = () => {
@@ -189,20 +190,20 @@ export default function LandmarkDetailsScreen() {
   }
 
   const LandmarkLocation = () => {
-    if (!landmark) return <Skeleton className='w-full h-auto aspect-[2/1] rounded-3xl' />
+    if (!restaurant) return <Skeleton className='w-full h-auto aspect-[2/1] rounded-3xl' />
 
     return (
       <HStack className='w-full h-auto aspect-[2/1] p-4 bg-background-0 rounded-3xl shadow-soft-1 justify-between' space='md'>
         <VStack className='items-center justify-start flex-1' space='md'>
           <Heading size='lg' className='text-typography-900 flex-1 flex-wrap'>
-            # {landmark?.address}
+            # {restaurant?.address}
           </Heading>
           <Field
             icon={<MaterialCommunityIcons name="map-marker-distance" size={16} color="#808080" className="text-typography-500" />}
             label={"Distance"}
             value={
-              landmark ?
-                haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark?.latitude || 0, landmark?.longitude || 0).toFixed(2) + ' km'
+              restaurant ?
+                haversineDistance(location?.coords.latitude!, location?.coords.longitude!, restaurant?.latitude || 0, restaurant?.longitude || 0).toFixed(2) + ' km'
                 :
                 <SkeletonText className='w-8 h-4 rounded-lg' />
             }
@@ -211,25 +212,25 @@ export default function LandmarkDetailsScreen() {
         <MinimapV2
           className='h-full w-auto aspect-square rounded-3xl'
           region={{
-            latitude: landmark?.latitude || 0,
-            longitude: landmark?.longitude || 0,
+            latitude: restaurant?.latitude || 0,
+            longitude: restaurant?.longitude || 0,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.042
           }}
         >
-          <Marker
+          {/* <Marker
             coordinate={{
-              latitude: landmark?.latitude!,
-              longitude: landmark?.longitude!,
+              latitude: restaurant?.latitude!,
+              longitude: restaurant?.longitude!,
             }}
-            title={landmark?.name}
-            description={landmark?.address}
+            title={restaurant?.name}
+            description={restaurant?.address}
           >
-            <LandmarkReviewMap
-              landmark={landmark}
+            <RestaReviewMap
+              restaurant={restaurant}
               showCard={false}
             />
-          </Marker>
+          </Marker> */}
         </MinimapV2>
       </HStack>
     )
@@ -239,12 +240,12 @@ export default function LandmarkDetailsScreen() {
     return (
       <View className='relative'>
         {
-          landmark?.image ?
+          restaurant?.image ?
             <Image
               source={{
-                uri: landmark?.image || 'https://via.placeholder.com/300',
+                uri: restaurant?.image || 'https://via.placeholder.com/300',
               }}
-              alt={landmark?.name || 'Landmark Image'}
+              alt={restaurant?.name || 'Restaurant Image'}
               style={{
                 width: '100%',
                 height: Dimensions.get('window').height * 0.95,
@@ -287,12 +288,12 @@ export default function LandmarkDetailsScreen() {
           title={
             <VStack>
               <Heading size='4xl' className='text-typography-900 capitalize'>
-                {landmark?.name || 'Landmark Name'}
+                {restaurant?.name || 'Restaurant Name'}
               </Heading>
               {
-                landmark?.description ?
+                restaurant?.description ?
                   <Text className='text-typography-500 z-50'>
-                    {landmark?.description}
+                    {restaurant?.description}
                   </Text>
                   :
                   <SkeletonText className='w-full h-16 rounded-lg' />
@@ -305,15 +306,15 @@ export default function LandmarkDetailsScreen() {
     )
   }
 
-  if (!landmark) {
+  if (!restaurant) {
     return (
       <Skeleton className='w-full h-full' />
     )
   }
 
   return (
-    <LandmarkContext.Provider value={{
-      landmark: landmark,
+    <RestaurantContext.Provider value={{
+      restaurant: restaurant,
     }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -323,7 +324,7 @@ export default function LandmarkDetailsScreen() {
           footer={
             <BottomToolbar>
               <HStack className='w-full p-6 justify-between bg-black'>
-                <Button className='w-32' onPress={() => router.push(`/(tabs)/map-screen?lat=${landmark?.latitude}&long=${landmark?.longitude}`)}>
+                <Button className='w-32' onPress={() => router.push(`/(tabs)/map-screen?lat=${restaurant?.latitude}&long=${restaurant?.longitude}`)}>
                   <ButtonText className='flex-1'>
                     Mở bản đồ
                   </ButtonText>
@@ -364,7 +365,7 @@ export default function LandmarkDetailsScreen() {
           </Main>
         </ParallaxScrollView>
       </KeyboardAvoidingView>
-    </LandmarkContext.Provider>
+    </RestaurantContext.Provider>
   );
 }
 

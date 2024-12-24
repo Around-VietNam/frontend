@@ -1,4 +1,4 @@
-import { Landmark } from "@/types";
+import { Restaurant } from "@/types";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { router } from 'expo-router';
 
@@ -22,10 +22,10 @@ import { haversineDistance } from "@/utils";
 import Field from "../ui/field";
 
 interface Props extends ViewProps {
-    landmark: Landmark;
+    restaurant: Restaurant;
     showCard?: boolean;
 }
-export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props) {
+export function RestaurantReviewMap({ restaurant, showCard = true, ...props }: Props) {
     const [showModal, setShowModal] = React.useState(false);
     const pan = useRef(new Animated.ValueXY()).current;
     const { location } = useLocation();
@@ -37,7 +37,7 @@ export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props
                 <Field
                     icon={<Ionicons name="analytics-outline" size={24} color="white" />}
                     label="Khoảng cách"
-                    value={haversineDistance(location?.coords.latitude!, location?.coords.longitude!, landmark.latitude!, landmark.longitude!).toFixed(2) + ' km' || '0 km'}
+                    value={haversineDistance(location?.coords.latitude!, location?.coords.longitude!, restaurant.latitude!, restaurant.longitude!).toFixed(2) + ' km' || '0 km'}
                 />
                 <Button
                     size="md"
@@ -45,7 +45,7 @@ export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props
                     className="rounded-full h-fit p-4"
                     onPress={() => {
                         setShowModal(false)
-                        router.push(`/landmark/${landmark.id}`)
+                        router.push(`/restaurant/${restaurant.id}` as any)
                     }}
                 >
                     <AntDesign name="arrowright" size={24} color="black" />
@@ -59,8 +59,8 @@ export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props
             <Pressable onPress={() => setShowModal(!showModal)}>
                 <HStack className="rounded-full bg-background-0 h-fit p-1 w-fit" space="sm">
                     <Image
-                        alt={landmark.name}
-                        source={{ uri: landmark.image }}
+                        alt={restaurant.name}
+                        source={{ uri: restaurant.image }}
                         className={twMerge(
                             "w-8 h-8 object-cover rounded-full shadow-hard-2",
                         )}
@@ -85,17 +85,17 @@ export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props
                         <VStack
                             className="relative w-full h-fit bg-background-0"
                             space="md"
-                            // navigation to the landmark detail page, use router
+                            // navigation to the restaurant detail page, use router
                             {...props}
                         >
                             <Text
                                 className="text-typography-900 text-center text-3xl font-semibold"
                             >
-                                {landmark.name}
+                                {restaurant.name}
                             </Text>
                             <Image
-                                alt={landmark.name}
-                                source={{ uri: landmark.image }}
+                                alt={restaurant.name}
+                                source={{ uri: restaurant.image }}
                                 className={twMerge(
                                     "w-full h-auto aspect-square object-cover rounded-[32]",
                                 )}
@@ -104,7 +104,7 @@ export function LandmarkReviewMap({ landmark, showCard = true, ...props }: Props
                     </ModalBody>
                     <ModalFooter>
                         <Text className='text-md font-semibold'>
-                            Du lịch
+                            Nhà hàng
                         </Text>
                     </ModalFooter>
                 </ModalContent>

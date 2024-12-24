@@ -8,8 +8,11 @@ export interface User {
     location?: string;
     avatar?: string;
     hashPassword: string;
-    createdAt: Date;
-    updatedAt: Date;
+    create_at: Date;
+    update_at: Date;
+    favoriteLandmarks?: Landmark[];
+    favoriteRestaurants?: Restaurant[];
+    favoriteDishes?: Dish[];
 }
 
 export interface Restaurant {
@@ -24,8 +27,8 @@ export interface Restaurant {
     phone?: string;
     website?: string;
     ownerId?: number;
-    createdAt: Date;
-    updatedAt: Date;
+    create_at: Date;
+    update_at: Date;
 }
 
 export interface LandmarkFeedback {
@@ -33,10 +36,9 @@ export interface LandmarkFeedback {
     comment: string;
     image?: string;
     rating?: number;
-    userId: number;
-    landmarkId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    username: string;
+    create_at: Date;
+    update_at: Date;
 }
 
 export interface Dish {
@@ -47,18 +49,18 @@ export interface Dish {
     price: number;
     special: boolean;
     restaurantId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    create_at: Date;
+    update_at: Date;
 }
 
 export interface DishFeedback {
     id: number;
     comment: string;
     image?: string;
-    userId: number;
-    dishId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    rating?: number;
+    username: string;
+    create_at: Date;
+    update_at: Date;
 }
 
 export interface RestaurantFeedback {
@@ -66,10 +68,9 @@ export interface RestaurantFeedback {
     comment: string;
     image?: string;
     rating?: number;
-    userId: number;
-    restaurantId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    username: string;
+    create_at: Date;
+    update_at: Date;
 }
 
 export interface Landmark {
@@ -83,6 +84,6 @@ export interface Landmark {
     rating: number;
     phone?: string;
     website?: string;
-    createdAt: Date;
-    updatedAt: Date;
+    create_at: Date;
+    update_at: Date;
 }

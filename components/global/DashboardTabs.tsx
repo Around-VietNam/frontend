@@ -53,6 +53,8 @@ export function MyTabBar({ state, descriptors, navigation }: any) {
             iconName = isFocused ? 'heart' : 'heart-outline';
           } else if (route.name === 'map-screen') {
             iconName = isFocused ? 'map' : 'map-outline';
+          } else if (route.name === 'assistant-chat-screen') {
+            iconName = isFocused ? 'chatbubble' : 'chatbubble-outline';
           }
 
           return (

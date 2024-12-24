@@ -9,6 +9,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring, runOnJS } from 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Center } from '@/components/ui/center';
 import { Text } from '@/components/ui/text';
+import { useQuery } from 'react-query';
 
 export default function HomeScreen() {
   const height = useSharedValue(0);
@@ -42,7 +43,7 @@ export default function HomeScreen() {
 
       return (
         <Animated.View key={item.id} style={animatedStyle}>
-          <LandmarkViewCard landmark={item} onClick={handleNext} />
+          <LandmarkViewCard key={item.id} landmark={item} onClick={handleNext} />
         </Animated.View>
       );
     };
@@ -78,13 +79,13 @@ export default function HomeScreen() {
       }}
     >
       <ParallaxScrollView
-       staticElements={<DashboardHeader />} 
-       containerStyle={{
-        backgroundColor: 'transparent',
-      }}
-      contentContainerStyle={{
-        marginHorizontal: 16,
-      }}
+        staticElements={<DashboardHeader />}
+        containerStyle={{
+          backgroundColor: 'transparent',
+        }}
+        contentContainerStyle={{
+          marginHorizontal: 16,
+        }}
       >
         <Center className="w-full h-fit">
           <OpenWidget />

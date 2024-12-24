@@ -4,6 +4,8 @@ import { useNavigation } from 'expo-router';
 import { View } from '@/components/ui/view';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Stack } from 'expo-router';
+import { AssistantChat } from '@/components/chat/AssistantChat';
+import { Text } from '@/components/ui/text';
 
 function CustomHeader() {
   const navigation = useNavigation();
@@ -26,7 +28,6 @@ export default function Layout() {
         animation: "flip",
       }}
     >
-
     </Stack>
   );
 }
