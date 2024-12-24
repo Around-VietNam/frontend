@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/toast';
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { ScrollView } from '@/components/ui/scroll-view';
-import { Landmark, Dish, LandmarkFeedback } from '@/types';
+import { Landmark, Dish, LandmarkFeedback, User } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
@@ -61,7 +61,27 @@ export default function LandmarkDetailsScreen() {
   const { account } = useAuth()
   const [toastId, setToastId] = React.useState(0)
 
-  const { data: landmark } = useQuery<Landmark>({
+  const {
+    mutate: addFavoriteLandmark,
+    data: favoriteLandmark,
+    isSuccess: isFavoriteLandmarkSuccess,
+  } = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}/favorite-landmarks/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      return response.json();
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  })
+
+  const { data: landmark, refetch: refetchLandmark } = useQuery<Landmark>({
     queryKey: ['landmark', id],
     queryFn: async () => {
       console.log(`${AROUND_VIETNAM_API}/landmarks/${id}`)
@@ -74,6 +94,46 @@ export default function LandmarkDetailsScreen() {
       console.log(error)
     },
     enabled: !!id,
+  })
+
+  const {
+    data: user,
+    isLoading: isUserLoading,
+    isSuccess: isUserSuccess,
+  } = useQuery<User>({
+    queryKey: 'user',
+    queryFn: async () => {
+      const data = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}`, {
+        headers: {
+          Authorization: `Bearer ${Api.aroundvietnam.key}`,
+        },
+      });
+
+      return await data.json();
+    }
+  });
+
+
+
+  const {
+    mutate: removeFavoriteLandmark,
+  } = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}/favorite-landmarks/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          landmarkId: id,
+        }),
+      });
+
+      return response.json();
+    },
+    onError: (error) => {
+      console.log(error)
+    }
   })
 
   const [specialDishes, setSpecialDishes] = React.useState<Dish[]>(mockDishes);
@@ -117,7 +177,6 @@ export default function LandmarkDetailsScreen() {
     queryFn: async () => {
       const response = await fetch(`${AROUND_VIETNAM_API}/landmarks/${id}/feedbacks`);
       const data = await response.json();
-      console.log(data)
 
       return data.data || [];
     },
@@ -320,6 +379,7 @@ export default function LandmarkDetailsScreen() {
         style={{ flex: 1 }}
       >
         <ParallaxScrollView
+          onRefresh={() => refetchLandmark()}
           footer={
             <BottomToolbar>
               <HStack className='w-full p-6 justify-between bg-black'>
@@ -329,7 +389,22 @@ export default function LandmarkDetailsScreen() {
                   </ButtonText>
                 </Button>
                 <HStack space='md'>
-                  <AssistantChat />
+                  <Button
+                    className='bg-transparent p-3 w-fit h-fit'
+                    onPress={() => {
+                      if (user?.favoriteLandmarks?.some((favoriteLandmark) => favoriteLandmark.id === landmark?.id)) {
+                        removeFavoriteLandmark()
+                      } else {
+                        addFavoriteLandmark()
+                      }
+                    }}
+                  >
+                    <FontAwesome
+                      name={user?.favoriteLandmarks?.some((favoriteLandmark) => favoriteLandmark.id === landmark?.id) ? 'heart' : 'heart-o'}
+                      size={16}
+                      color={user?.favoriteLandmarks?.some((favoriteLandmark) => favoriteLandmark.id === landmark?.id) ? 'red' : '#fff'}
+                    />
+                  </Button>
                   <Button className='bg-background-500 p-3 w-fit h-fit' onPress={() => setShowAllReviews(true)}>
                     <FontAwesome name='comment' size={16} color='#fff' />
                   </Button>
@@ -363,8 +438,8 @@ export default function LandmarkDetailsScreen() {
             <UserReviewArea />
           </Main>
         </ParallaxScrollView>
-      </KeyboardAvoidingView>
-    </LandmarkContext.Provider>
+      </KeyboardAvoidingView >
+    </LandmarkContext.Provider >
   );
 }
 

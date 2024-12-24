@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/toast';
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { ScrollView } from '@/components/ui/scroll-view';
-import { Restaurant, Dish, RestaurantFeedback } from '@/types';
+import { Restaurant, Dish, RestaurantFeedback, User } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import Field from '@/components/ui/field';
 import BottomToolbar from '@/components/screen/BottomToolbar';
@@ -75,6 +75,63 @@ export default function RestaurantDetailsScreen() {
       console.log(error)
     },
     enabled: !!id,
+  })
+
+  const {
+    mutate: addFavoriteRestaurant,
+    data: favoriteRestaurant,
+    isSuccess: isFavoriteRestaurantSuccess,
+  } = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}/favorite-restaurants/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return response.json();
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  })
+
+  const {
+    data: user,
+    isLoading: isUserLoading,
+    isSuccess: isUserSuccess,
+  } = useQuery<User>({
+    queryKey: 'user',
+    queryFn: async () => {
+      const data = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}`, {
+        headers: {
+          Authorization: `Bearer ${Api.aroundvietnam.key}`,
+        },
+      });
+
+      return await data.json();
+    }
+  });
+
+
+
+  const {
+    mutate: removeFavoriteRestaurant,
+  } = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}/favorite-restaurants/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      return response.json();
+    },
+    onError: (error) => {
+      console.log(error)
+    }
   })
 
   const [specialDishes, setSpecialDishes] = React.useState<Dish[]>(mockDishes);
@@ -330,7 +387,22 @@ export default function RestaurantDetailsScreen() {
                   </ButtonText>
                 </Button>
                 <HStack space='md'>
-                  <AssistantChat />
+                  <Button
+                    className='bg-transparent p-3 w-fit h-fit'
+                    onPress={() => {
+                      if (user?.favoriteRestaurants?.some((favoriteRestaurant) => favoriteRestaurant.id === restaurant?.id)) {
+                        removeFavoriteRestaurant();
+                      } else {
+                        addFavoriteRestaurant();
+                      }
+                    }}
+                  >
+                    <FontAwesome
+                      name={user?.favoriteRestaurants?.some((favoriteRestaurant) => favoriteRestaurant.id === restaurant?.id) ? 'heart' : 'heart-o'}
+                      size={16}
+                      color={user?.favoriteRestaurants?.some((favoriteRestaurant) => favoriteRestaurant.id === restaurant?.id) ? 'red' : '#fff'}
+                    />
+                  </Button>
                   <Button className='bg-background-500 p-3 w-fit h-fit' onPress={() => setShowAllReviews(true)}>
                     <FontAwesome name='comment' size={16} color='#fff' />
                   </Button>

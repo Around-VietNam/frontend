@@ -9,7 +9,7 @@ import { Toast, ToastDescription, ToastTitle, useToast } from '@/components/ui/t
 import { Text } from '@/components/ui/text';
 import { Api } from '@/constants/Api';
 import { Image } from '@/components/ui/image';
-import { Dish, DishFeedback } from '@/types';
+import { Dish, DishFeedback, User } from '@/types';
 import { VStack } from '@/components/ui/vstack';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Field from '@/components/ui/field';
@@ -20,7 +20,7 @@ import { Heading } from '@/components/ui/heading';
 import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal } from '@/components/ui/modal';
 import { mockDishes, mockLandmarkFeedbacks, mockRestaurants, mockUsers } from '@/mock';
 import { HStack } from '@/components/ui/hstack';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RestaurantViewCard } from '@/components/restaurant/RestaurantViewCard';
 
@@ -33,6 +33,66 @@ export default function SpecialDishDetailsScreen() {
   const [showAllReviews, setShowAllReviews] = React.useState(false);
   const [nearestRestaurant, setNearestRestaurant] = React.useState(mockRestaurants[1]);
   const router = useRouter();
+
+  const {
+    mutate: addSpecialDishToFavorite,
+    data: specialDishFavorite,
+    isSuccess: isSpecialDishFavoriteSuccess,
+  } = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}/favorite-dishes/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      return response.json();
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  })
+
+  const {
+    data: user,
+    isLoading: isUserLoading,
+    isSuccess: isUserSuccess,
+  } = useQuery<User>({
+    queryKey: 'user',
+    queryFn: async () => {
+      const data = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}`, {
+        headers: {
+          Authorization: `Bearer ${Api.aroundvietnam.key}`,
+        },
+      });
+
+      return await data.json();
+    }
+  });
+
+
+
+  const {
+    mutate: removeSpecialDishFromFavorite,
+  } = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${AROUND_VIETNAM_API}/users/${'bestback'}/favorite-dishes/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          landmarkId: id,
+        }),
+      });
+
+      return response.json();
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  })
 
   const { data: specialDish,
     isLoading: isSpecialDishLoading,
@@ -179,9 +239,27 @@ export default function SpecialDishDetailsScreen() {
                   Mở bản đồ
                 </ButtonText>
               </Button>
-              <Button className='bg-background-500 p-3 w-fit h-fit' onPress={() => setShowAllReviews(true)}>
-                <FontAwesome name='comment' size={16} color='#fff' />
-              </Button>
+              <HStack space='md'>
+                <Button
+                  className='bg-transparent p-3 w-fit h-fit'
+                  onPress={() => {
+                    if (user?.favoriteDishes?.some((favoriteDish) => favoriteDish.id === specialDish?.id)) {
+                      removeSpecialDishFromFavorite()
+                    } else {
+                      addSpecialDishToFavorite()
+                    }
+                  }}
+                >
+                  <FontAwesome
+                    name={user?.favoriteDishes?.some((favoriteDish) => favoriteDish.id === specialDish?.id) ? 'heart' : 'heart-o'}
+                    size={16}
+                    color={user?.favoriteDishes?.some((favoriteDish) => favoriteDish.id === specialDish?.id) ? 'red' : '#fff'}
+                  />
+                </Button>
+                <Button className='bg-background-500 p-3 w-fit h-fit' onPress={() => setShowAllReviews(true)}>
+                  <FontAwesome name='comment' size={16} color='#fff' />
+                </Button>
+              </HStack>
             </HStack>
             {/* <Center className='w-full h-fit bg-background-0 shadow-soft-1 rounded-full'>
             <UserReviewInput />

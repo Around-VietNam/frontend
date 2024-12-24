@@ -1,5 +1,5 @@
-import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet, useColorScheme, ViewStyle } from 'react-native';
+import { useState, type PropsWithChildren, type ReactElement } from 'react';
+import { RefreshControl, StyleSheet, useColorScheme, ViewStyle } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -18,6 +18,7 @@ type Props = PropsWithChildren<{
   containerStyle?: AnimatedProps<ViewStyle>;
   contentContainerStyle?: AnimatedProps<ViewStyle>;
   headerContainerStyle?: AnimatedProps<ViewStyle>;
+  onRefresh?: () => void;
 }>;
 
 export default function ParallaxScrollView({
@@ -33,11 +34,25 @@ export default function ParallaxScrollView({
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
 
+  const [refreshing, setRefreshing] = useState(false);
 
   return (
     <ThemedView style={[styles.container, containerStyle as any]} {...props}>
       {staticElements}
-      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16} >
+      <Animated.ScrollView
+        ref={scrollRef}
+        scrollEventThrottle={16}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              props.onRefresh?.();
+              setRefreshing(false);
+            }}
+          />
+        }
+      >
         <ThemedView style={[styles.header, headerContainerStyle as any]}>{header}</ThemedView>
         <VStack style={[styles.content, contentContainerStyle as any]} space='lg'>
           {children}

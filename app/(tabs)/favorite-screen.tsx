@@ -30,6 +30,7 @@ export default function FavoriteScreen() {
     data: user,
     isLoading: isUserLoading,
     isSuccess: isUserSuccess,
+    refetch: refetchUser,
   } = useQuery<User>({
     queryKey: 'user',
     queryFn: async () => {
@@ -263,6 +264,7 @@ export default function FavoriteScreen() {
           marginHorizontal: 16,
           marginTop: 64,
         }}
+        onRefresh={() => refetchUser()}
       >
         <Header />
         <UserProfile />
