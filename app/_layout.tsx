@@ -1,5 +1,3 @@
-import { I18nextProvider } from 'react-i18next';
-import i18n from '@/assets/i18n/config';
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
@@ -31,23 +29,21 @@ export default function RootLayout() {
   }
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <GluestackUIProvider mode={'light'}>
-        <ThemeProvider value={DefaultTheme}>
-          <LocationProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: 'flip',
-              }}
-            >
-              <Stack.Screen name="(open)" />
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </LocationProvider>
-        </ThemeProvider>
-      </GluestackUIProvider>
-    </I18nextProvider>
+    <GluestackUIProvider mode={'light'}>
+      <ThemeProvider value={DefaultTheme}>
+        <LocationProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              animation: 'flip',
+            }}
+          >
+            <Stack.Screen name="(open)" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </LocationProvider>
+      </ThemeProvider>
+    </GluestackUIProvider>
   );
 }

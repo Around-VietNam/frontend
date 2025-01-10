@@ -27,8 +27,8 @@ export function TrafficWidget({ ...props }: Props) {
     return (
         <VStack className="bg-background-0 p-4 rounded-3xl w-full h-full" space="md">
             <VStack className="flex-1 w-full" space="md">
-                <MinimapV2 className="flex-1"/>
-                <VStack className="flex-[2] justify-between" space="md">
+                <MinimapV2 className="flex-[4]"/>
+                <VStack className="flex-[1] justify-between" space="md">
                     <Field
                         icon={<Ionicons name="location-sharp" size={14} />}
                         label="Địa điểm"

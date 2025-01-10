@@ -11,6 +11,8 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useLocation } from '@/contexts/location';
 import React from 'react';
 import { Marker, Region } from 'react-native-maps';
+import { mockLandmarks } from '@/mock';
+import { LandmarkReviewMap } from '@/components/landmark';
 
 export default function MapScreen() {
     const navigation = useNavigation();
@@ -81,20 +83,25 @@ export default function MapScreen() {
                 region={region}
                 onRegionChangeComplete={setRegion}
             >
-                <Marker
-                    coordinate={{
-                        latitude: location?.coords.latitude!,
-                        longitude: location?.coords.longitude!,
-                    }}
-                    title="Hanoi"
-                    description="Vietnam"
-                >
-                    <Button>
-                        <ButtonText>
-                            Haha
-                        </ButtonText>
-                    </Button>
-                </Marker>
+                {
+                    mockLandmarks.map((landmark, index) => (
+                        <Marker
+                            key={index}
+                            coordinate={{
+                                latitude: landmark.latitude!,
+                                longitude: landmark.longitude!,
+                            }}
+                            title="Hanoi"
+                            description="Vietnam"
+                        >
+
+                            <LandmarkReviewMap
+                                key={index}
+                                landmark={landmark}
+                            />
+                        </Marker>
+                    ))
+                }
             </Map>
             <Toolbar />
         </ThemedView>

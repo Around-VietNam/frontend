@@ -18,7 +18,7 @@ import { Button, ButtonText } from '@/components/ui/button';
 import { UserReviewCard, UserReviewInput } from '@/components/user';
 import { Heading } from '@/components/ui/heading';
 import { ModalBackdrop, ModalContent, ModalHeader, ModalBody, ModalFooter, Modal } from '@/components/ui/modal';
-import { mockDishes, mockLandmarkFeedbacks, mockUsers } from '@/mock';
+import { mockDishes, mockLandmarkFeedbacks, mockRestaurants, mockUsers } from '@/mock';
 import { Center } from '@/components/ui/center';
 import { Skeleton, SkeletonText } from '@/components/ui/skeleton';
 
@@ -184,7 +184,18 @@ export default function SpecialDishDetailsScreen() {
             <Area
               title="Nhà hàng "
             >
-
+              {
+                mockRestaurants.map((restaurant, index) => (
+                  <View key={index}>
+                    <Text className='text-typography-500 text-base'>
+                      {restaurant.name}
+                    </Text>
+                    <Text className='text-typography-500 text-sm'>
+                      {restaurant.address}
+                    </Text>
+                  </View>
+                ))
+              }
             </Area>
             <UserReviewArea />
           </Main>
